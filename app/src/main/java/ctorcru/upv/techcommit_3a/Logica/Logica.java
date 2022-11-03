@@ -1,5 +1,6 @@
 package ctorcru.upv.techcommit_3a.Logica;
 
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import ctorcru.upv.techcommit_3a.MainActivity;
@@ -8,6 +9,8 @@ import ctorcru.upv.techcommit_3a.Modelo.Usuario;
 public class Logica {
     private static final String ETIQUETA_LOG = "Logica_REST";
     private static final String restEndpoint = "http://192.168.137.1:8080";
+    private SharedPreferences preferencias;
+
     public Logica(){
     }
     public void buscarUsuario(Usuario usuario){
@@ -22,7 +25,7 @@ public class Logica {
                     public void callback(int codigo, String cuerpo) {
                         Log.d (ETIQUETA_LOG,"codigo respuesta: " + codigo + " <-> \n" + cuerpo);
                         if(codigo == 200 && !cuerpo.isEmpty()){
-                            MainActivity.getInstance().cambiarActivity();
+                            MainActivity.getInstance().cambiarActivity(cuerpo);
                         }
                     }
                 });

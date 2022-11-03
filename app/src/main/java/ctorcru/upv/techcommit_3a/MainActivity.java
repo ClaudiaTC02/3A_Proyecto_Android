@@ -2,6 +2,7 @@ package ctorcru.upv.techcommit_3a;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -18,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText correo;
     private static MainActivity myContext;
     private EditText contraseya;
+    private SharedPreferences preferencias;
     // ---------------------------------------------------------------------------------------------
     // Métodos para coger el contexto de esta actividad
     // ---------------------------------------------------------------------------------------------
@@ -43,11 +45,16 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        preferencias = getSharedPreferences("label", 0);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //Enlazamos los objetos con los elementos
         correo = findViewById(R.id.correo);
         contraseya = findViewById(R.id.contrasenya);
+        String usuarioIniciado = preferencias.getString("usuarioIniciado", "ninguno");
+        if(!usuarioIniciado.equals("ninguno")){
+            setContentView(R.layout.activity_home);
+        }
     }
 
     public void botonIniciarSesion(View v){
@@ -58,7 +65,9 @@ public class MainActivity extends AppCompatActivity {
             //new Logica().insertarUsuario(new Usuario("","Pepe","uwu@uwu.com","1234"));
         }
     }
-    public void cambiarActivity(){
+    public void cambiarActivity(String cuerpo){
+        SharedPreferences.Editor mEditor = preferencias.edit();
+        mEditor.putString("usuarioIniciado", cuerpo).commit();
         setContentView(R.layout.activity_home);
     }
 }
