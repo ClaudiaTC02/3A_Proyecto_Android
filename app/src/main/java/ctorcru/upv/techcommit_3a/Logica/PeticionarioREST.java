@@ -9,11 +9,13 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import android.os.AsyncTask;
 import android.util.Log;
-// ------------------------------------------------------------------
-//Nombre del fichero: MainActivity.java
-//Autor: Juan Ferrera Sala
-// ------------------------------------------------------------------
-
+// -----------------------------------------------------------------------------------------
+/**
+ * @brief Aquí se encuentra el código que realiza las peticiones al servidor
+ * Autora: Claudia Torres Cruz
+ * Archivo: PeticionarioREST.java
+ **/
+// -----------------------------------------------------------------------------------------
 public class PeticionarioREST extends AsyncTask<Void, Void, Boolean> {
 
     // --------------------------------------------------------------------

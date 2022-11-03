@@ -5,14 +5,33 @@ import android.util.Log;
 
 import ctorcru.upv.techcommit_3a.MainActivity;
 import ctorcru.upv.techcommit_3a.Modelo.Usuario;
-
+// -----------------------------------------------------------------------------------------
+/**
+ * @brief Aquí se encuentra el código que llama a las peticiones para realizar la consulta
+ * al servidor
+ * Autora: Claudia Torres Cruz
+ * Archivo: Logica.java
+ **/
+// -----------------------------------------------------------------------------------------
 public class Logica {
     private static final String ETIQUETA_LOG = "Logica_REST";
     private static final String restEndpoint = "http://192.168.137.1:8080";
-    private SharedPreferences preferencias;
-
+    // ---------------------------------------------------------------------------------------------
+    /**
+     * @brief Constructor de la clase para poder ser llamado desde otra de forma simple
+     * @return objeto Logica
+     * Diseño:  --> Logica() --> Logica
+     **/
+    // ---------------------------------------------------------------------------------------------
     public Logica(){
     }
+    // ---------------------------------------------------------------------------------------------
+    /**
+     * @brief Este método se encarga de comprobar si un usuario existe
+     * @param usuario
+     * Diseño: Usuario --> insertarMedida() -->
+     **/
+    // ---------------------------------------------------------------------------------------------
     public void buscarUsuario(Usuario usuario){
         PeticionarioREST elPeticionarioREST = new PeticionarioREST();
         String nuevoEndpoint = new String(restEndpoint+"/buscarUsuario?Correo="+usuario.getCorreo()+"&Contrasena="+usuario.getContrasena()).replaceAll(" ","%20");
@@ -30,6 +49,13 @@ public class Logica {
                     }
                 });
     }
+    // ---------------------------------------------------------------------------------------------
+    /**
+     * @brief Este método se encarga de insertar un usuario
+     * @param usuario
+     * Diseño: Usuario --> insertarMedida() -->
+     **/
+    // ---------------------------------------------------------------------------------------------
     public void insertarUsuario(Usuario usuario){
         PeticionarioREST elPeticionarioREST = new PeticionarioREST();
         // 192.168.1.114 ip portatil
