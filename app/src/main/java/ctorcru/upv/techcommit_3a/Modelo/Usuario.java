@@ -1,27 +1,28 @@
 package ctorcru.upv.techcommit_3a.Modelo;
 
 public class Usuario {
-    private int id;
+    private String Id;
     private String Nombre;
     private String Correo;
-    private String Contraseña;
+    private String Contrasena;
 
-    public Usuario(String nombre, String correo, String contraseña) {
+    public Usuario(String id_,String nombre, String correo, String contrasena) {
+        Id = id_;
         Nombre = nombre;
         Correo = correo;
-        Contraseña = contraseña;
+        Contrasena = contrasena;
     }
-    public Usuario(String correo, String contraseña) {
+    public Usuario(String correo, String contrasena) {
         Correo = correo;
-        Contraseña = contraseña;
+        Contrasena = contrasena;
     }
 
-    public int getId() {
-        return id;
+    public String getId() {
+        return Id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId(String id) {
+        this.Id = id;
     }
 
     public String getNombre() {
@@ -40,21 +41,30 @@ public class Usuario {
         Correo = correo;
     }
 
-    public String getContraseña() {
-        return Contraseña;
+    public String getContrasena() {
+        return Contrasena;
     }
 
-    public void setContraseña(String contraseña) {
-        Contraseña = contraseña;
+    public void setContrasena(String contrasena) {
+        Contrasena = contrasena;
     }
 
     @Override
     public String toString() {
         return "Usuario{" +
-                "id=" + id +
+                "Id=" + Id +
                 ", Nombre='" + Nombre + '\'' +
                 ", Correo='" + Correo + '\'' +
-                ", Contraseña='" + Contraseña + '\'' +
+                ", Contrasena='" + Contrasena + '\'' +
                 '}';
+    }
+    public String toJSON(){
+        String res = "{" +
+                "\"Id\":\""+""+"\", " +
+                "\"Nombre\":\""+this.getNombre()+"\", " +
+                "\"Contrasena\":\""+this.getContrasena()+"\", " +
+                "\"Correo\":\""+this.getCorreo()+"\"" +
+                "}";
+        return res;
     }
 }
