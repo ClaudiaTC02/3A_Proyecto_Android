@@ -28,8 +28,6 @@ public class MainActivity extends AppCompatActivity {
     private static MainActivity myContext;
     private EditText contraseya;
     private SharedPreferences preferencias;
-    Button botonBusqueda;
-    Button botonDetenerBusqueda;
     // ---------------------------------------------------------------------------------------------
     // Métodos para coger el contexto de esta actividad
     // ---------------------------------------------------------------------------------------------
@@ -66,25 +64,8 @@ public class MainActivity extends AppCompatActivity {
 
         //Si hay un usuario iniciado, se va a la pantalla de inicio
         if(!usuarioIniciado.equals("ninguno")){
-            setContentView(R.layout.activity_home);
-            botonBusqueda = findViewById(R.id.botonBusqueda);
-            botonDetenerBusqueda = findViewById(R.id.botonDetenerBusqueda);
-
-            botonBusqueda.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Toast.makeText(getApplicationContext(), "La búsqueda comenzará", Toast.LENGTH_SHORT).show();
-                    startService(new Intent(MainActivity.this, ServicioEscuchaBeacons.class));
-                }
-            });
-
-            botonDetenerBusqueda.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Toast.makeText(getApplicationContext(), "La búsqueda se detendrá", Toast.LENGTH_SHORT).show();
-                    stopService(new Intent(MainActivity.this, ServicioEscuchaBeacons.class));
-                }
-            });
+            Intent myIntent = new Intent(MainActivity.this, Home.class);
+            MainActivity.this.startActivity(myIntent);
         }
 
     }
@@ -115,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
     public void cambiarActivity(String cuerpo){
         SharedPreferences.Editor mEditor = preferencias.edit();
         mEditor.putString("usuarioIniciado", cuerpo).commit();
-        setContentView(R.layout.activity_home);
+        Intent myIntent = new Intent(MainActivity.this, Home.class);
+        MainActivity.this.startActivity(myIntent);
     }
 }

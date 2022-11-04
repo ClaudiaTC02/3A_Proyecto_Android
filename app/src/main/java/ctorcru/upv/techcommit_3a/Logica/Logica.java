@@ -16,7 +16,7 @@ import ctorcru.upv.techcommit_3a.Modelo.Usuario;
 // -----------------------------------------------------------------------------------------
 public class Logica {
     private static final String ETIQUETA_LOG = "Logica_REST";
-    private static final String restEndpoint = "http://192.168.68.102:8080";
+    private static final String restEndpoint = "http://192.168.137.1:8080";
     // ---------------------------------------------------------------------------------------------
     /**
      * @brief Constructor de la clase para poder ser llamado desde otra de forma simple
