@@ -2,10 +2,12 @@ package ctorcru.upv.techcommit_3a;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -26,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
     private static MainActivity myContext;
     private EditText contraseya;
     private SharedPreferences preferencias;
+    Button botonBusqueda;
+    Button botonDetenerBusqueda;
     // ---------------------------------------------------------------------------------------------
     // Métodos para coger el contexto de esta actividad
     // ---------------------------------------------------------------------------------------------
@@ -59,10 +63,32 @@ public class MainActivity extends AppCompatActivity {
         correo = findViewById(R.id.correo);
         contraseya = findViewById(R.id.contrasenya);
         String usuarioIniciado = preferencias.getString("usuarioIniciado", "ninguno");
+
+        //Si hay un usuario iniciado, se va a la pantalla de inicio
         if(!usuarioIniciado.equals("ninguno")){
             setContentView(R.layout.activity_home);
+            botonBusqueda = findViewById(R.id.botonBusqueda);
+            botonDetenerBusqueda = findViewById(R.id.botonDetenerBusqueda);
+
+            botonBusqueda.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(getApplicationContext(), "La búsqueda comenzará", Toast.LENGTH_SHORT).show();
+                    startService(new Intent(MainActivity.this, ServicioEscuchaBeacons.class));
+                }
+            });
+
+            botonDetenerBusqueda.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(getApplicationContext(), "La búsqueda se detendrá", Toast.LENGTH_SHORT).show();
+                    stopService(new Intent(MainActivity.this, ServicioEscuchaBeacons.class));
+                }
+            });
         }
+
     }
+
     // ---------------------------------------------------------------------------------------------
     /**
      * @brief Esta función se ejecuta cuando pulsas el botón para iniciar sesión

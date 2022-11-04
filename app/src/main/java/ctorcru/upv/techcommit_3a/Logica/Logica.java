@@ -2,6 +2,7 @@ package ctorcru.upv.techcommit_3a.Logica;
 
 import android.content.SharedPreferences;
 import android.util.Log;
+import android.widget.Toast;
 
 import ctorcru.upv.techcommit_3a.MainActivity;
 import ctorcru.upv.techcommit_3a.Modelo.Usuario;
@@ -15,7 +16,7 @@ import ctorcru.upv.techcommit_3a.Modelo.Usuario;
 // -----------------------------------------------------------------------------------------
 public class Logica {
     private static final String ETIQUETA_LOG = "Logica_REST";
-    private static final String restEndpoint = "http://192.168.137.1:8080";
+    private static final String restEndpoint = "http://192.168.68.102:8080";
     // ---------------------------------------------------------------------------------------------
     /**
      * @brief Constructor de la clase para poder ser llamado desde otra de forma simple
@@ -44,6 +45,7 @@ public class Logica {
                     public void callback(int codigo, String cuerpo) {
                         Log.d (ETIQUETA_LOG,"codigo respuesta: " + codigo + " <-> \n" + cuerpo);
                         if(codigo == 200 && !cuerpo.isEmpty()){
+                            Toast.makeText(MainActivity.getInstance(), "Es necesario reiniciar la aplicación para continuar.", Toast.LENGTH_SHORT).show();
                             MainActivity.getInstance().cambiarActivity(cuerpo);
                         }
                     }
