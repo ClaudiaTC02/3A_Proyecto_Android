@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import ctorcru.upv.techcommit_3a.Logica.Logica;
 import ctorcru.upv.techcommit_3a.Modelo.Usuario;
+import ctorcru.upv.techcommit_3a.Pantallas.Mis_Dispositivos;
 // -----------------------------------------------------------------------------------------
 /**
  * @brief Aquí se encuentra el código que configura la funcionalidad de la app
@@ -64,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Si hay un usuario iniciado, se va a la pantalla de inicio
         if(!usuarioIniciado.equals("ninguno")){
-            Intent myIntent = new Intent(MainActivity.this, Home.class);
+            Intent myIntent = new Intent(MainActivity.this, Mis_Dispositivos.class);
             MainActivity.this.startActivity(myIntent);
         }
 
@@ -96,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
     public void cambiarActivity(String cuerpo){
         SharedPreferences.Editor mEditor = preferencias.edit();
         mEditor.putString("usuarioIniciado", cuerpo).commit();
-        Intent myIntent = new Intent(MainActivity.this, Home.class);
+        Intent myIntent = new Intent(MainActivity.this, Mis_Dispositivos.class);
         MainActivity.this.startActivity(myIntent);
     }
 }

@@ -2,4 +2,22 @@
     <string name="app_name">TechCommit_3A</string>
     <string name="informacion">Esta aplicación está programada para que, al presionar el botón, se busquen los beacons enviados por el Sparkfun nRF52840 con nombre GTI-3ARoberto. </string>
     <string name="informacion2">Una vez pulsado el botón, automáticamente se buscarán dichos beacons, y para detener la búsqueda se debe pulsar el otro botón.</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_mis_dispositivos">Mis_Dispositivos</string>
+    <string name="title_activity_mi_perfil">Mi_Perfil</string>
+    <string name="title_activity_vista_mapa">Vista_Mapa</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+
+    <string name="menu_mis_dispositivos">Mis Dispositivos</string>
+    <string name="menu_mi_perfil">Mi Perfil</string>
+    <string name="menu_mapa">Mapa</string>
 </resources>
