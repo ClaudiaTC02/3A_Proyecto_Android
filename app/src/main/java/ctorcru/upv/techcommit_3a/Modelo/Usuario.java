@@ -1,5 +1,13 @@
 package ctorcru.upv.techcommit_3a.Modelo;
 // ---------------------------------------------------------------------------------------------
+
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.util.Log;
+import android.widget.Toast;
+
+import java.util.Arrays;
+
 /**
  * @brief Esta clase se encarga de montar el objeto que se subirá a la base de datos
  * Autora: Claudia Torres Cruz
@@ -12,6 +20,32 @@ public class Usuario {
     private String Nombre;
     private String Correo;
     private String Contrasena;
+
+    public void setId(String id) {
+        Id = id;
+    }
+
+    public void setNombre(String nombre) {
+        Nombre = nombre;
+    }
+
+    public void setCorreo(String correo) {
+        Correo = correo;
+    }
+
+    public void setContrasena(String contrasena) {
+        Contrasena = contrasena;
+    }
+// ---------------------------------------------------------------------------------------------
+    /**
+     * @brief Constructor de la clase VACIO
+     * @return objeto Usuario
+     * Diseño: String, String, String, String --> Usuario() --> Usuario
+     **/
+    // ---------------------------------------------------------------------------------------------
+    public Usuario() {
+
+    }
     // ---------------------------------------------------------------------------------------------
     /**
      * @brief Constructor de la clase
@@ -110,4 +144,18 @@ public class Usuario {
                 "}";
         return res;
     }
+    public Usuario JsonToString(String txt) {
+        Usuario usariof = new Usuario();
+        String[] textoSeparado = txt.split(";");
+        Log.d ("en la clase","clase " + Arrays.toString( textoSeparado));
+        usariof.setId(textoSeparado[0]);
+        usariof.setNombre(textoSeparado[1]);
+        usariof.setContrasena(textoSeparado[2]);
+        usariof.setCorreo(textoSeparado[3]);
+        String comprov = usariof.toString();
+        Log.d ("en la clase","clase " + comprov);
+
+        return  usariof;
+    }
+
 }
