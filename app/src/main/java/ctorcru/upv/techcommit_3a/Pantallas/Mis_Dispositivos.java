@@ -1,10 +1,11 @@
 package ctorcru.upv.techcommit_3a.Pantallas;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.Menu;
+import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -14,16 +15,21 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
+
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
+
+import ctorcru.upv.techcommit_3a.Modelo.Usuario;
 import ctorcru.upv.techcommit_3a.R;
 
 
 public class Mis_Dispositivos extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+    //variables y elementos para la vinculación del usuario
+    private String datosUsuario;
+    private Usuario infoUsuario = new Usuario();
+    private SharedPreferences preferencias;
+    private TextView nombreUsuario;
+
 
     DrawerLayout drawer;
     NavigationView navigationView;
@@ -32,6 +38,7 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
+        preferencias = getSharedPreferences("label", 0);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mis_dispositivos);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -48,6 +55,16 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        nombreUsuario = findViewById(R.id.txtuserDisp);
+        datosUsuario= getIntent().getStringExtra("infoUsuario");
+        String userpref= preferencias.getString("allinfoUser","");
+
+        Usuario dtosdef;
+        dtosdef= infoUsuario.JsonToString(userpref);
+        infoUsuario.JsonToString(userpref);
+
+        nombreUsuario.setText("Hola! "+ dtosdef.getNombre()+", te damos la bienvenida");
     }
 
     @Override

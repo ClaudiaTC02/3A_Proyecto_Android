@@ -1,10 +1,16 @@
 package ctorcru.upv.techcommit_3a.Pantallas;
 
+
+
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -21,14 +27,20 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
+import ctorcru.upv.techcommit_3a.Modelo.Usuario;
 import ctorcru.upv.techcommit_3a.R;
 
 public class Mi_Perfil extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+    private TextView nombrePerfil,correoPerfil, idPerfil ;
+    private EditText contrasenaPerfil;
 
+    private Usuario infoUsuario = new Usuario();
+    private SharedPreferences preferencias;
     @Override
     protected void onCreate(Bundle savedInstanceState){
+        preferencias = getSharedPreferences("label", 0);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mis_dispositivos);
+        setContentView(R.layout.activity_mi_perfil);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -43,6 +55,23 @@ public class Mi_Perfil extends AppCompatActivity implements NavigationView.OnNav
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
+
+        String userpref= preferencias.getString("allinfoUser","");
+        Usuario dtosdef;
+        dtosdef= infoUsuario.JsonToString(userpref);
+        infoUsuario.JsonToString(userpref);
+
+        nombrePerfil = findViewById(R.id.perfilnombre);
+        nombrePerfil.setText(dtosdef.getNombre());
+        correoPerfil = findViewById(R.id.perfilcorreo);
+        correoPerfil.setText(dtosdef.getCorreo());
+        contrasenaPerfil = findViewById(R.id.perfilcontrasena);
+        contrasenaPerfil.setText(dtosdef.getContrasena());
+
+
+
     }
 
     @Override

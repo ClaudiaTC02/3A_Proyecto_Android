@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import ctorcru.upv.techcommit_3a.Modelo.Usuario;
+import ctorcru.upv.techcommit_3a.Pantallas.Mi_Perfil;
 
 public class Home extends AppCompatActivity {
     private Button botonBusqueda;
@@ -58,7 +59,7 @@ public class Home extends AppCompatActivity {
         botonPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent myIntent = new Intent(Home.this, PerfilUsuario.class);
+                Intent myIntent = new Intent(Home.this, Mi_Perfil.class);
                 Home.this.startActivity(myIntent);
             }
         });

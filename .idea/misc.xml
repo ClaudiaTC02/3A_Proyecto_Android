@@ -5,7 +5,16 @@
       <map>
         <entry key="..\:/Users/Usuario/Documents/GitHub/APP_Android_3A/app/src/main/res/layout/activity_home.xml" value="0.16" />
         <entry key="..\:/Users/Usuario/Documents/GitHub/APP_Android_3A/app/src/main/res/layout/activity_main.xml" value="0.184375" />
+        <entry key="..\:/Users/Usuario/Documents/GitHub/APP_Android_3A/app/src/main/res/layout/activity_mi_perfil.xml" value="0.32395833333333335" />
+        <entry key="..\:/Users/Usuario/Documents/GitHub/APP_Android_3A/app/src/main/res/layout/activity_mis_dispositivos.xml" value="0.26342710997442453" />
         <entry key="..\:/Users/Usuario/Documents/GitHub/APP_Android_3A/app/src/main/res/layout/activity_perfil_usuario.xml" value="0.25" />
+        <entry key="..\:/Users/Usuario/Documents/GitHub/APP_Android_3A/app/src/main/res/layout/activity_vista_mapa.xml" value="0.18541666666666667" />
+        <entry key="..\:/Users/Usuario/Documents/GitHub/APP_Android_3A/app/src/main/res/layout/content_mi_perfil.xml" value="0.32395833333333335" />
+        <entry key="..\:/Users/Usuario/Documents/GitHub/APP_Android_3A/app/src/main/res/layout/content_mis_dispositivos.xml" value="0.2" />
+        <entry key="..\:/Users/Usuario/Documents/GitHub/APP_Android_3A/app/src/main/res/layout/content_vista_mapa.xml" value="0.18541666666666667" />
+        <entry key="..\:/Users/Usuario/Documents/GitHub/APP_Android_3A/app/src/main/res/layout/nav_header_mis_dispositivos.xml" value="0.32395833333333335" />
+        <entry key="..\:/Users/Usuario/Documents/GitHub/APP_Android_3A/app/src/main/res/menu/activity_mis_dispositivos_drawer.xml" value="0.32395833333333335" />
+        <entry key="..\:/Users/Usuario/Documents/GitHub/APP_Android_3A/app/src/main/res/menu/mis__dispositivos.xml" value="0.32395833333333335" />
         <entry key="..\:/Users/audin/AndroidStudioProjects/TechCommit_3A/app/src/main/res/layout/activity_home.xml" value="0.2957427536231884" />
         <entry key="..\:/Users/audin/AndroidStudioProjects/TechCommit_3A/app/src/main/res/layout/activity_main.xml" value="0.2957427536231884" />
       </map>
