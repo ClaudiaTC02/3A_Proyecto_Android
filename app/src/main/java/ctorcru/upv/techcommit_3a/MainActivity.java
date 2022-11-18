@@ -2,21 +2,18 @@ package ctorcru.upv.techcommit_3a;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.util.Arrays;
-
 import ctorcru.upv.techcommit_3a.Logica.Logica;
 import ctorcru.upv.techcommit_3a.Modelo.Usuario;
+import ctorcru.upv.techcommit_3a.Pantallas.Mis_Dispositivos;
 // -----------------------------------------------------------------------------------------
 /**
  * @brief Aquí se encuentra el código que configura la funcionalidad de la app
@@ -32,8 +29,6 @@ public class MainActivity extends AppCompatActivity {
     private static MainActivity myContext;
     private EditText contraseya;
     private SharedPreferences preferencias;
-
-
     // ---------------------------------------------------------------------------------------------
     // Métodos para coger el contexto de esta actividad
     // ---------------------------------------------------------------------------------------------
@@ -74,9 +69,6 @@ public class MainActivity extends AppCompatActivity {
             MainActivity.this.startActivity(myIntent);
         }
 
-
-
-
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -87,7 +79,6 @@ public class MainActivity extends AppCompatActivity {
      **/
     // ---------------------------------------------------------------------------------------------
     public void botonIniciarSesion(View v){
-
         if(correo.getText().equals(null) || contraseya.getText().equals(null)){
             Toast.makeText(this, "Introduzca por favor sus datos", Toast.LENGTH_SHORT).show();
         } else{
@@ -104,11 +95,9 @@ public class MainActivity extends AppCompatActivity {
      **/
     // ---------------------------------------------------------------------------------------------
     public void cambiarActivity(String cuerpo){
-
         SharedPreferences.Editor mEditor = preferencias.edit();
         mEditor.putString("usuarioIniciado", cuerpo).commit();
-        Intent myIntent = new Intent(MainActivity.this, Home.class);
-
+        Intent myIntent = new Intent(MainActivity.this, Mis_Dispositivos.class);
         /*String[] textoeparado = cuerpo.split("[:{}]");
 
         String datosB= Arrays.toString(textoeparado);
@@ -155,7 +144,5 @@ public class MainActivity extends AppCompatActivity {
         mEditor.apply();
         myIntent.putExtra("infoUsuario",cuerpo);
         MainActivity.this.startActivity(myIntent);
-
     }
-
 }
