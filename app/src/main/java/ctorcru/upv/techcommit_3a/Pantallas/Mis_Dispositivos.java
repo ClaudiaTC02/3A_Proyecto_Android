@@ -5,10 +5,11 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.Menu;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
@@ -21,6 +22,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import ctorcru.upv.techcommit_3a.Modelo.Usuario;
 import ctorcru.upv.techcommit_3a.R;
+import ctorcru.upv.techcommit_3a.ServicioEscuchaBeacons;
 
 
 public class Mis_Dispositivos extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -29,6 +31,8 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
     private Usuario infoUsuario = new Usuario();
     private SharedPreferences preferencias;
     private TextView nombreUsuario;
+    private Button botonBusqueda;
+    private Button botonDetenerBusqueda;
 
 
     DrawerLayout drawer;
@@ -43,6 +47,8 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
         setContentView(R.layout.activity_mis_dispositivos);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        botonBusqueda = findViewById(R.id.botonBusqueda);
+        botonDetenerBusqueda = findViewById(R.id.botonDetenerBusqueda);
 
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 //        fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
@@ -56,7 +62,7 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        nombreUsuario = findViewById(R.id.txtuserDisp);
+        nombreUsuario = findViewById(R.id.txtNombreh);
         datosUsuario= getIntent().getStringExtra("infoUsuario");
         String userpref= preferencias.getString("allinfoUser","");
 
@@ -65,6 +71,23 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
         infoUsuario.JsonToString(userpref);
 
         nombreUsuario.setText("Hola! "+ dtosdef.getNombre()+", te damos la bienvenida");
+
+
+        botonBusqueda.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(), "La búsqueda comenzará", Toast.LENGTH_SHORT).show();
+                startService(new Intent(Mis_Dispositivos.this, ServicioEscuchaBeacons.class));
+            }
+        });
+
+        botonDetenerBusqueda.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(), "La búsqueda se detendrá", Toast.LENGTH_SHORT).show();
+                stopService(new Intent(Mis_Dispositivos.this, ServicioEscuchaBeacons.class));
+            }
+        });
     }
 
     @Override
