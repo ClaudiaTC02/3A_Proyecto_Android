@@ -1,12 +1,11 @@
 package ctorcru.upv.techcommit_3a.Logica;
 
-import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.Toast;
 
 import java.util.Arrays;
 
-import ctorcru.upv.techcommit_3a.MainActivity;
+import ctorcru.upv.techcommit_3a.Pantallas.MainActivity;
 import ctorcru.upv.techcommit_3a.Modelo.Usuario;
 // -----------------------------------------------------------------------------------------
 /**

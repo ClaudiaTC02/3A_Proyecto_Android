@@ -11,10 +11,8 @@ import android.bluetooth.le.ScanFilter;
 import android.bluetooth.le.ScanResult;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
@@ -26,6 +24,7 @@ import java.util.List;
 
 import ctorcru.upv.techcommit_3a.Modelo.TramaIBeacon;
 import ctorcru.upv.techcommit_3a.Modelo.Utilidades;
+import ctorcru.upv.techcommit_3a.Pantallas.MainActivity;
 
 /**
  * @brief Aquí se encuentra el código que hace posible que la aplicación reciba los datos de los beacons enviados por el sensor

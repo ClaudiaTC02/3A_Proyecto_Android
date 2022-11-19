@@ -22,4 +22,11 @@
     <style name="Theme.TechCommit_3A.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.TechCommit_3A.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+
+    <!--<Splash Screen> -->
+    <style name="SplashScreenTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:windowBackground">@drawable/background_splashscreen</item>
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimary</item>
+    </style>
 </resources>
