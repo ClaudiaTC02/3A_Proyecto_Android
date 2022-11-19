@@ -6,13 +6,13 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".Pantallas.Vista_Mapa"
-    tools:showIn="@layout/app_bar_mis_dispositivos">
+    tools:showIn="@layout/activity_vista_mapa">
 
     <TextView
         android:id="@+id/textViewMapa"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/menu_mapa"
+        android:text="Mapa"
         android:textSize="30sp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"/>

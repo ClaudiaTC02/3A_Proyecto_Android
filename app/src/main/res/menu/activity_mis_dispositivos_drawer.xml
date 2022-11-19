@@ -9,18 +9,18 @@
     <item
         android:id="@+id/nav_Mis_Dispositivos"
         android:icon="@drawable/ic_menu_camera"
-        android:title="@string/menu_mis_dispositivos" />
+        android:title="Mis Dispositivos" />
 
     <item
         android:id="@+id/nav_Mi_Perfil"
         android:icon="@drawable/ic_menu_gallery"
-        android:title="@string/menu_mi_perfil" />
+        android:title="Mi Perfil" />
 
 
     <item
         android:id="@+id/nav_Mapa"
         android:icon="@drawable/ic_menu_slideshow"
-        android:title="@string/menu_mapa" />
+        android:title="Mapa" />
 
 
 </menu>

@@ -13,11 +13,4 @@
     <string name="title_activity_mi_perfil">Mi_Perfil</string>
     <string name="title_activity_vista_mapa">Vista_Mapa</string>
 
-    <string name="menu_home">Home</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
-
-    <string name="menu_mis_dispositivos">Mis Dispositivos</string>
-    <string name="menu_mi_perfil">Mi Perfil</string>
-    <string name="menu_mapa">Mapa</string>
 </resources>

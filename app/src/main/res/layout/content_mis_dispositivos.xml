@@ -1,21 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".Pantallas.Mis_Dispositivos"
-    tools:showIn="@layout/app_bar_mis_dispositivos">
-
-    <TextView
-        android:id="@+id/textViewDispositivos"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/menu_mis_dispositivos"
-        android:textSize="30sp"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"/>
+    tools:showIn="@layout/activity_mis_dispositivos">
 
 
-</RelativeLayout>
+
+        <TextView
+            android:id="@+id/mailuser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="124dp"
+            android:text="Has iniciado sesión"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/txtuserDisp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="37dp"
+            android:text="Hola! Bienvenido"
+            app:layout_constraintEnd_toEndOf="@+id/mailuser"
+            app:layout_constraintStart_toStartOf="@+id/mailuser"
+            app:layout_constraintTop_toBottomOf="@+id/mailuser"
+            tools:ignore="MissingConstraints" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
