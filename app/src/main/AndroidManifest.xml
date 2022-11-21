@@ -80,7 +80,8 @@
             android:name=".Pantallas.Mis_Dispositivos"
             android:exported="false"
             android:label="@string/title_activity_mis_dispositivos"
-            android:theme="@style/Theme.TechCommit_3A.NoActionBar">
+            android:theme="@style/Theme.TechCommit_3A.NoActionBar"
+            android:launchMode="singleInstance">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -101,6 +102,15 @@
         </activity>
 
         <service android:name=".ServicioEscuchaBeacons" />
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
     </application>
 
 </manifest>

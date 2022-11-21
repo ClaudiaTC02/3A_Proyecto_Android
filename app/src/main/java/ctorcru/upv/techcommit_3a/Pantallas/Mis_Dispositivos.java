@@ -1,5 +1,6 @@
 package ctorcru.upv.techcommit_3a.Pantallas;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -29,15 +30,18 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
     //variables y elementos para la vinculación del usuario
     private String datosUsuario;
     private Usuario infoUsuario = new Usuario();
+    private  Usuario dtosdef= new Usuario();
     private SharedPreferences preferencias;
     private TextView nombreUsuario;
     private Button botonBusqueda;
     private Button botonDetenerBusqueda;
-
+    public static Activity fa;
 
     DrawerLayout drawer;
     NavigationView navigationView;
     Toolbar toolbar=null;
+
+
 
 
     @Override
@@ -61,18 +65,18 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
+        cargarDatos();
         nombreUsuario = findViewById(R.id.txtNombreh);
-        datosUsuario= getIntent().getStringExtra("infoUsuario");
+        //inicializamos las Sharedpreferences para obtener la info del usuario
         String userpref= preferencias.getString("allinfoUser","");
+        //creamos al usuario que almacenará la info
 
-        Usuario dtosdef;
         dtosdef= infoUsuario.JsonToString(userpref);
         infoUsuario.JsonToString(userpref);
 
         nombreUsuario.setText("Hola! "+ dtosdef.getNombre()+", te damos la bienvenida");
 
-
+        fa = this;
         botonBusqueda.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -156,4 +160,31 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
         return true;
 
     }
+    private void cargarDatos(){
+        String userpref= preferencias.getString("allinfoUser","");
+        Usuario dtosdef;
+        dtosdef= infoUsuario.JsonToString(userpref);
+
+
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        cargarDatos();
+
+    }
+    @Override
+    public void onRestart() {
+        super.onRestart();
+        cargarDatos();
+
+    }
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        cargarDatos();
+
+    }
+
 }
