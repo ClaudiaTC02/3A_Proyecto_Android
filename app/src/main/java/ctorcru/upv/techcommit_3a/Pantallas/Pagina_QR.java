@@ -4,8 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,8 +23,9 @@ import ctorcru.upv.techcommit_3a.R;
 public class Pagina_QR extends AppCompatActivity {
     //Objetos
     private Button botonVincularSensor;
-    private ImageView flecha_atras,ImagenLogo;
+    private ImageView flecha_atras,ImagenLogo,ImagenPerfil;
     private TextView irAIniciarSesion;
+    private EditText editTextCodigo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +37,16 @@ public class Pagina_QR extends AppCompatActivity {
         flecha_atras = findViewById(R.id.flecha_atrasQR);
         ImagenLogo = findViewById(R.id.imagenLogoReg);
         irAIniciarSesion = findViewById(R.id.irAIniciarSesion);
-        // ----------------------------------------------------------
+        ImagenPerfil = findViewById(R.id.imagenperfil);
+        editTextCodigo = findViewById(R.id.escaneo_QR);
+        Intent intent = getIntent();
 
+        // ----------------------------------------------------------
+        //Si el se a scaneado un qr añadirlo al textbox
+        if(intent.getStringExtra("Codigo_QR") != null){
+            String codigo = intent.getStringExtra("Codigo_QR");
+            editTextCodigo.setText(codigo);
+        }
         // ----------------------------------------------------------
         //Añadimos los listeners a los botones
         botonVincularSensor.setOnClickListener(new View.OnClickListener() {
@@ -54,6 +65,12 @@ public class Pagina_QR extends AppCompatActivity {
         ImagenLogo.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 irPrincipio(null);
+            }
+        });
+
+        ImagenPerfil.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                AbrirScaner(null);
             }
         });
 
@@ -84,6 +101,10 @@ public class Pagina_QR extends AppCompatActivity {
 
     public void irIniciarSesion(View view) {
         Intent i = new Intent(this, MainActivity.class);
+        startActivity(i);
+    }
+    public void AbrirScaner(View view) {
+        Intent i = new Intent(this, Scanner_QR.class);
         startActivity(i);
     }
     // ---------------------------------------------------------------------------------------------
