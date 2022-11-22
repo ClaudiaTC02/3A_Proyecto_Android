@@ -99,6 +99,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         // ----------------------------------------------------------
+        String usuarioIniciado = preferencias.getString("usuarioIniciado", "ninguno");
+        if(!usuarioIniciado.equals("ninguno")){
+            Intent myIntent = new Intent(MainActivity.this, Mis_Dispositivos.class);
+            MainActivity.this.startActivity(myIntent);
+            MainActivity.this.finish();
+        }
     }
 
 
