@@ -39,21 +39,21 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.TechCommit_3A"
+        android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar"
         android:usesCleartextTraffic="true">
-
 
         <activity
             android:name=".Pantallas.Pagina_Registro"
-            android:exported="false">
+            android:exported="false"
+            android:theme="@style/Theme.TechCommit_3A.NoActionBar">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name=".Pantallas.Pre_Login_Registro"
-            android:exported="false">
+            android:exported="false"
+            android:theme="@style/Theme.TechCommit_3A.NoActionBar">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -80,37 +80,47 @@
             android:name=".Pantallas.Mis_Dispositivos"
             android:exported="false"
             android:label="@string/title_activity_mis_dispositivos"
-            android:theme="@style/Theme.TechCommit_3A.NoActionBar"
-            android:launchMode="singleInstance">
+            android:theme="@style/Theme.TechCommit_3A.NoActionBar">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".Pantallas.MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Theme.TechCommit_3A.NoActionBar">
+
         </activity>
         <activity
             android:name=".Pantallas.SplashScreen"
             android:exported="true"
-            android:theme="@style/SplashScreenTheme">
+            android:theme="@style/Theme.TechCommit_3A.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".Pantallas.Pagina_QR"
+            android:theme="@style/Theme.TechCommit_3A.NoActionBar"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <activity
+            android:name=".Pantallas.Recuperar_Contrasena"
+            android:theme="@style/Theme.TechCommit_3A.NoActionBar"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
 
         <service android:name=".ServicioEscuchaBeacons" />
-        <provider
-            android:name="androidx.core.content.FileProvider"
-            android:authorities="${applicationId}.provider"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths" />
-        </provider>
     </application>
 
 </manifest>

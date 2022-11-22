@@ -29,4 +29,5 @@
         app:headerLayout="@layout/nav_header_mis_dispositivos"
         app:menu="@menu/activity_mis_dispositivos_drawer" />
 
+
 </androidx.drawerlayout.widget.DrawerLayout>

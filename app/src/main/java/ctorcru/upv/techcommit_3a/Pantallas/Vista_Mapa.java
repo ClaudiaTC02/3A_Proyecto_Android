@@ -20,27 +20,54 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import ctorcru.upv.techcommit_3a.R;
 
+// -----------------------------------------------------------------------------------------
+/**
+ * @brief Aquí se encuentra el código que configura la funcionalidad de la app
+ * Autora: Roberto Matilla Augustinus
+ * Archivo: Vista_Mapa.java
+ **/
+// -----------------------------------------------------------------------------------------
+
+
 public class Vista_Mapa extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vista_mapa);
+
+        // ----------------------------------------------------------
+        //Aquí creamos la barra de navegación
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        // ----------------------------------------------------------
 
+        //-----------------------------------------------------------
+        //Botón que tenemos disponible para realizar alguna opción. De momento no se utiliza
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 //        fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
 //                .setAction("Action", null).show());
+        //-----------------------------------------------------------
 
+        // ----------------------------------------------------------
+        //Aquí creamos el menú lateral
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
+        // ----------------------------------------------------------
 
+        // ----------------------------------------------------------
+        //Aquí creamos la navegación entre las diferentes pantallas
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
+
+    // ---------------------------------------------------------------------------------------------
+    /**
+     * @brief La funcion onBackPressed() se encarga de cerrar el menú lateral si está abierto dando atrás
+     **/
+    // ---------------------------------------------------------------------------------------------
 
     @Override
     public void onBackPressed() {
@@ -51,7 +78,16 @@ public class Vista_Mapa extends AppCompatActivity implements NavigationView.OnNa
             super.onBackPressed();
         }
     }
+    // ---------------------------------------------------------------------------------------------
 
+
+    // ---------------------------------------------------------------------------------------------
+    /**
+     * @brief Esta función se encarga de crear las opciones del menú lateral
+     * @param menu
+     * @return true
+     **/
+    // ---------------------------------------------------------------------------------------------
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -59,8 +95,16 @@ public class Vista_Mapa extends AppCompatActivity implements NavigationView.OnNa
         getMenuInflater().inflate(R.menu.mis__dispositivos, menu);
         return true;
     }
+    // ---------------------------------------------------------------------------------------------
 
 
+    // ---------------------------------------------------------------------------------------------
+    /**
+     * @brief Esta función se encarga de poder seleccionar las opciones del menú lateral y saber la seleccionada
+     * @param item
+     * @return true
+     **/
+    // ---------------------------------------------------------------------------------------------
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -75,31 +119,38 @@ public class Vista_Mapa extends AppCompatActivity implements NavigationView.OnNa
 
         return super.onOptionsItemSelected(item);
     }
+    // ---------------------------------------------------------------------------------------------
 
+    // ---------------------------------------------------------------------------------------------
+    /**
+     * @brief Esta función se encarga de saber que opción hemos elegido para dirigirnos a la pantalla correspondiente
+     * @param item
+     * @return true
+     **/
+    // ---------------------------------------------------------------------------------------------
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
-
+        //Aquí se añaden tantas opciones como actividades tengamos
         switch (id){
             case R.id.nav_Mis_Dispositivos:
                 Intent intent = new Intent(this, Mis_Dispositivos.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(intent);
-                overridePendingTransition(0,0);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 break;
             case R.id.nav_Mi_Perfil:
                 Intent intent2 = new Intent(this, Mi_Perfil.class);
                 intent2.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(intent2);
-                overridePendingTransition(0,0);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 break;
             case R.id.nav_Mapa:
                 Intent intent3 = new Intent(this, Vista_Mapa.class);
                 intent3.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(intent3);
-                overridePendingTransition(0,0);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 break;
         }
 

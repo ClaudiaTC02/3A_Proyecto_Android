@@ -9,87 +9,44 @@
     tools:showIn="@layout/activity_mi_perfil">
 
 
-    <EditText
-        android:id="@+id/perfilnombre"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="68dp"
-        android:layout_marginTop="156dp"
-        android:editable="true"
-        android:enabled="false"
-        android:minHeight="48dp"
-        android:text="Nombre"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/perfilnombre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="76dp"
+                android:layout_marginTop="84dp"
+                android:text="Nombre"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/perfilcontrasena"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:editable="true"
-        android:ems="10"
-        android:enabled="false"
-        android:inputType="textPassword"
-        android:minHeight="48dp"
-        app:layout_constraintStart_toStartOf="@+id/perfiladmin"
-        app:layout_constraintTop_toBottomOf="@+id/perfiladmin" />
+            <TextView
+                android:id="@+id/perfilcorreo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:text="Correo"
+                app:layout_constraintStart_toStartOf="@+id/perfilnombre"
+                app:layout_constraintTop_toBottomOf="@+id/perfilnombre" />
 
-    <EditText
-        android:id="@+id/perfilcorreo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:editable="true"
-        android:enabled="false"
-        android:minHeight="48dp"
-        android:text="Correo"
-        app:layout_constraintStart_toStartOf="@+id/perfilnombre"
-        app:layout_constraintTop_toBottomOf="@+id/perfilnombre" />
+            <EditText
+                android:id="@+id/perfilcontrasena"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="44dp"
+                android:ems="10"
+                android:inputType="textPassword"
+                app:layout_constraintStart_toStartOf="@+id/perfiladmin"
+                app:layout_constraintTop_toBottomOf="@+id/perfiladmin" />
 
-    <TextView
+            <TextView
                 android:id="@+id/perfiladmin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="36dp"
-                android:text="no admin"
+                android:text="admin"
                 app:layout_constraintStart_toStartOf="@+id/perfilcorreo"
                 app:layout_constraintTop_toBottomOf="@+id/perfilcorreo" />
-
-    <Button
-        android:id="@+id/btnEditar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="96dp"
-        android:text="Editar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/perfilcontrasena"
-        app:layout_constraintHorizontal_bias="0.795"
-        app:layout_constraintStart_toStartOf="@+id/perfilcontrasena" />
-
-    <Button
-        android:id="@+id/btnActualizarP"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="144dp"
-        android:text="Actualizar"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <EditText
-        android:id="@+id/editConfirmp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:ems="10"
-        android:inputType="textPassword"
-        android:minHeight="48dp"
-        android:visibility="invisible"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/perfilcontrasena" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

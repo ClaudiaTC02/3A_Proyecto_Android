@@ -4,82 +4,157 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/content_mis_dispositivos"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".Pantallas.Mis_Dispositivos"
     tools:showIn="@layout/activity_mis_dispositivos">
 
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/materialCardView"
+            style="@style/MyCardView"
+            android:layout_width="match_parent"
+            android:layout_height="230dp"
+            android:layout_marginTop="55dp"
+            app:cardBackgroundColor="#59a8a8"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/txtNombreh"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
+                            android:fontFamily="@font/varela_round"
+                            android:text="Hola ,Bienvenido"
+                            android:textColor="@color/white"
+                            android:textSize="25dp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/comentarioDespNombre"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:fontFamily="@font/varela_round"
+                            android:text="Conecta con tu dispositivo y comienza a compartir sus datos."
+                            android:textAlignment="viewStart"
+                            android:textColor="@color/white"
+                            android:textSize="18dp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/txtNombreh" />
+
+                        <Button
+                            android:id="@+id/botonDetenerBusqueda"
+                            android:layout_width="150dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:backgroundTint="#9eb4b4"
+                            android:fontFamily="@font/varela_round"
+                            android:text="Desconectar"
+                            android:textAllCaps="false"
+                            android:textColor="@color/white"
+                            android:textStyle="bold"
+                            app:cornerRadius="12dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintStart_toEndOf="@+id/botonBusqueda"
+                            app:layout_constraintTop_toBottomOf="@+id/comentarioDespNombre" />
+
+                        <Button
+                            android:id="@+id/botonBusqueda"
+                            android:layout_width="150dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:backgroundTint="@color/white"
+                            android:fontFamily="@font/varela_round"
+                            android:text="Conectar"
+                            android:textAllCaps="false"
+                            android:textColor="#59a8a8"
+                            android:textStyle="bold"
+                            app:cornerRadius="12dp"
+                            app:layout_constraintEnd_toStartOf="@+id/botonDetenerBusqueda"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/comentarioDespNombre" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
 
         <TextView
-            android:id="@+id/Comentario"
-            android:layout_width="347dp"
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="30dp"
             android:fontFamily="@font/varela_round"
-            android:text="@string/informacion"
-            android:textAlignment="center"
+            android:text="Mi dispositivo"
+            android:textColor="#59a8a8"
+            android:textSize="20dp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/Comentario2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/materialCardView" />
+
+        <ImageView
+            android:id="@+id/ImagenMisDispositivos"
+            android:layout_width="150dp"
+            android:layout_height="110dp"
+            android:layout_marginTop="10dp"
+            app:tint="#706C6C"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="packed" />
+            app:layout_constraintTop_toBottomOf="@+id/textView4"
+            app:srcCompat="@drawable/fondo_input" />
 
         <TextView
-            android:id="@+id/Comentario2"
-            android:layout_width="347dp"
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
+            android:layout_marginTop="10dp"
             android:fontFamily="@font/varela_round"
-            android:text="@string/informacion2"
-            android:textAlignment="center"
+            android:text="Nombre del dispositivo"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/botonBusqueda"
+            android:textSize="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Comentario" />
-
-        <Button
-            android:id="@+id/botonBusqueda"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Comenzar la búsqueda"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Comentario2" />
-
-        <Button
-            android:id="@+id/botonDetenerBusqueda"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Detener la búsqueda"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/botonBusqueda"
-            app:layout_constraintStart_toStartOf="@+id/botonBusqueda"
-            app:layout_constraintTop_toBottomOf="@+id/botonBusqueda" />
+            app:layout_constraintTop_toBottomOf="@+id/ImagenMisDispositivos" />
 
         <TextView
-            android:id="@+id/mailuser"
+            android:id="@+id/textView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Has iniciado sesión"
-            app:layout_constraintBottom_toTopOf="@+id/Comentario"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/varela_round"
+            android:text="Ubicación del dispositivo"
+            android:textStyle="bold"
+            android:textSize="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
         <TextView
-            android:id="@+id/txtNombreh"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="80dp"
-            android:text="Hola! Bienvenido"
-            app:layout_constraintEnd_toEndOf="@+id/mailuser"
-            app:layout_constraintStart_toStartOf="@+id/mailuser"
-            app:layout_constraintTop_toTopOf="parent" />
-
-
+            android:fontFamily="@font/varela_round"
+            android:layout_marginTop="20dp"
+            android:text="Estado del dispositivo"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
