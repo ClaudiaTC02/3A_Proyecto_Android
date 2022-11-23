@@ -16,8 +16,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
@@ -25,14 +23,11 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import ctorcru.upv.techcommit_3a.Logica.Logica;
+import ctorcru.upv.techcommit_3a.Modelo.DispositivoUsuario;
 import ctorcru.upv.techcommit_3a.Modelo.Usuario;
 import ctorcru.upv.techcommit_3a.R;
 // -----------------------------------------------------------------------------------------
@@ -49,6 +44,7 @@ public class Mi_Perfil extends AppCompatActivity implements NavigationView.OnNav
 
     private EditText contrasenaPerfil,oldcontrasena;
     private EditText confirmarcontrasena;
+    private TextView dispositivos;
     private ImageView fotoperfil;
     private Usuario infoUsuario = new Usuario();
     private  Usuario dtosdef= new Usuario();
@@ -57,6 +53,11 @@ public class Mi_Perfil extends AppCompatActivity implements NavigationView.OnNav
     private Button btnactualizar,btnEditar,btnComprov,btnCancelar;
     private static Mi_Perfil myContext;
     private String userpref;
+    private String dipositivopref;
+    private DispositivoUsuario dispositivo = new DispositivoUsuario();
+    private DispositivoUsuario didef = new DispositivoUsuario();
+    //estavariable va dedicada para obtener el sensor por la id del usuario
+    private Logica logica= new Logica();
     //para tomar las fotos
 
     //para editar nombre correo y contraseña
@@ -118,14 +119,20 @@ public class Mi_Perfil extends AppCompatActivity implements NavigationView.OnNav
 
         cargarDatos();
 
+
         userpref= preferencias.getString("allinfoUser","");
+        dipositivopref= preferencias.getString("allinfoDispositivo","");
+
 
         // ----------------------------------------------------------
         //Enlazamos los objetos con los elementos
 
-        dtosdef= infoUsuario.JsonToString(userpref);
+
         String id= dtosdef.getId();
         String contra=dtosdef.getContrasena();
+        logica.buscarDispositivoUsuario(dtosdef);
+        dtosdef= infoUsuario.JsonToString(userpref);
+        didef=dispositivo.JsonToString(dipositivopref);
 
         nombrePerfil = findViewById(R.id.perfilnombre);
         nombrePerfil.setText(dtosdef.getNombre());
@@ -138,7 +145,8 @@ public class Mi_Perfil extends AppCompatActivity implements NavigationView.OnNav
         oldcontrasena = findViewById(R.id.editOldContra);
         btnComprov=(Button)findViewById(R.id.btnComprov);
         btnCancelar=(Button)findViewById(R.id.btnCancel);
-
+        dispositivos=findViewById(R.id.txtdispositivos);
+        dispositivos.setText("Id del dispositivo: "+didef.getIdSensor());
 
         //variable que almacenará el texto del editTex de nuestra contrasenya actual
         btnComprov.setOnClickListener(new View.OnClickListener() {
@@ -409,6 +417,9 @@ public class Mi_Perfil extends AppCompatActivity implements NavigationView.OnNav
     private void cargarDatos(){
         userpref= preferencias.getString("allinfoUser","");
         dtosdef= infoUsuario.JsonToString(userpref);
+        dipositivopref =  preferencias.getString("allinfoDispositivo","");
+        didef=dispositivo.JsonToString(dipositivopref);
+
     }
     @Override
     public void onResume() {
@@ -417,4 +428,11 @@ public class Mi_Perfil extends AppCompatActivity implements NavigationView.OnNav
 
     }
 
+    public void buscarDispositivoUsuario(String res) {
+        SharedPreferences.Editor mEditor = preferencias.edit();
+        mEditor.putString("allinfoDispositivo",res);
+        mEditor.apply();
+        dipositivopref =  preferencias.getString("allinfoDispositivo","");
+        didef=dispositivo.JsonToString(dipositivopref);
+    }
 }

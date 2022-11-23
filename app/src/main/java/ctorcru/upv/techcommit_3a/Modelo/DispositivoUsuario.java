@@ -4,15 +4,15 @@ import android.util.Log;
 
 import java.util.Arrays;
 
-public class Dispositivo {
+public class DispositivoUsuario {
     private String IdUsuario;
     private String IdSensor;
 
-    public Dispositivo(String idUsuario, String idSensor) {
+    public DispositivoUsuario(String idUsuario, String idSensor) {
         IdUsuario = idUsuario;
         IdSensor = idSensor;
     }
-    public Dispositivo() {
+    public DispositivoUsuario() {
 
     }
 
@@ -34,7 +34,7 @@ public class Dispositivo {
 
     @Override
     public String toString() {
-        return "Dispositivo{" +
+        return "DispositivoUsuario{" +
                 "IdUsuario='" + IdUsuario + '\'' +
                 ", IdSensor='" + IdSensor + '\'' +
                 '}';
@@ -46,14 +46,14 @@ public class Dispositivo {
                 "}";
         return res;
     }
-    public Dispositivo JsonToString(String txt) {
-        Dispositivo dispositivof = new Dispositivo();
+    public DispositivoUsuario JsonToString(String txt) {
+        DispositivoUsuario dispositivof = new DispositivoUsuario();
+        Log.d ("en la clase","c.Dispositivov " + txt);
         String[] textoSeparado = txt.split(";");
-        Log.d ("en la clase","c.Dispositivo " + Arrays.toString( textoSeparado));
-        dispositivof.setIdUsuario(textoSeparado[0]);
-        dispositivof.setIdSensor(textoSeparado[1]);
-        String comprov = textoSeparado.toString();
-        Log.d ("en la clase","clase " + comprov);
+        Log.d ("en la clase","c.DispositivoUsuario " + Arrays.toString( textoSeparado));
+        dispositivof.setIdUsuario(String.valueOf(Long.parseLong(textoSeparado[0])));
+        dispositivof.setIdSensor(String.valueOf(Long.parseLong(textoSeparado[1])));
+        Log.d ("en la clase","clasedisp " +dispositivof.toString() );
 
         return  dispositivof;
     }

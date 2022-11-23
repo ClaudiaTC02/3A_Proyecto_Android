@@ -6,19 +6,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:visibility="visible"
     tools:openDrawer="start">
 
     <include
         layout="@layout/app_bar_mis_dispositivos"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-         />
+        android:visibility="visible" />
 
     <include
         layout="@layout/content_mi_perfil"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        />
+        android:visibility="visible" />
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
@@ -26,6 +27,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
+        android:visibility="visible"
         app:headerLayout="@layout/nav_header_mis_dispositivos"
         app:menu="@menu/activity_mis_dispositivos_drawer" />
 

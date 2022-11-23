@@ -202,22 +202,29 @@ public class Logica {
      * Diseño: actualizarUsuario --> iactualizarUsuario() --> actualizarUsuario
      **/
 
-    public void buscarDispositivo(Usuario usuario){
+    public void buscarDispositivoUsuario(Usuario usuario){
         PeticionarioREST elPeticionarioREST = new PeticionarioREST();
 
-        String nuevoEndpoint = new String(restEndpoint+"/buscarDispoitivo?Id_Usuario="+usuario.getId()).replaceAll(" ","%20");
+        String nuevoEndpoint = new String(restEndpoint+"/buscarDispositivoUsuario?Id_Usuario="+usuario.getId()).replaceAll(" ","%20");
 
-        Log.d(ETIQUETA_LOG, "obtener usuario en "+nuevoEndpoint);
+        Log.d(ETIQUETA_LOG, "obtener dispositivo en "+nuevoEndpoint);
         elPeticionarioREST.hacerPeticionREST("GET", nuevoEndpoint,
                 null,
                 new PeticionarioREST.RespuestaREST () {
                     @Override
                     public void callback(int codigo, String cuerpo) {
                         Log.d (ETIQUETA_LOG,"codigo respuesta: " + codigo + " <-> \n" + cuerpo);
+                        Log.d (ETIQUETA_LOG,"llega:  "+cuerpo);
                         if(codigo == 200 && !cuerpo.isEmpty()){
                             //Toast.makeText(MainActivity.getInstance(), "Es necesario reiniciar la aplicación para continuar.", Toast.LENGTH_SHORT).show();
                             //creamos una lista de strings que alacenará lo que obtengamos del json la peticion pero sin : y {}
                             String[] textoeparado = cuerpo.split("[:{}]");
+                            String checked = Arrays.toString(textoeparado);
+                            Log.d (ETIQUETA_LOG,"conversion:  "+checked);
+                            String[] recuperacion = checked.split("[:{}]");
+                            Log.d (ETIQUETA_LOG,"conversion2:  "+textoeparado[3].split(",")[0]);
+                            String checked2 = Arrays.toString(recuperacion);
+                            Log.d (ETIQUETA_LOG,"conversion3:  "+checked2);
                             //esta sera la variable encargada de almacenar el resultado
                             String res= "";
                             //recorrremos la lista de strings anterior
@@ -227,24 +234,26 @@ public class Logica {
                                     //nos guardamos el id
                                     String correct= textoeparado[i].split(",")[0];
                                     //lo anyadimos a la variable encargada de almacenar el resultado
-                                    res=correct+";";
+                                    res=res+correct+";";
 
-                                    Log.d (ETIQUETA_LOG,"ideaso " + res);
+                                    Log.d (ETIQUETA_LOG,"ideasod " + res);
                                     //usariof.setId(textoeparado[i+]);
                                 }
                                 //en esta posición está el id del sensor
                                 if(i==3){
                                     //nos guardamos el id del sensor
                                     String correct= textoeparado[i].split(",")[0];
-                                    String end1= correct.substring(1,correct.length()-1);
+
                                     //lo anyadimos a la variable encargada de almacenar el resultado
-                                    res=res+end1+";";
+                                    res=res+correct;
                                 }
 
+
                             }
+
                             Log.d (ETIQUETA_LOG,"disposol" + res);
                             //enviamos el resultado anterior sacado del Json y se lo enviamos a la función cambiarActivity
-
+                            Mi_Perfil.getInstance().buscarDispositivoUsuario(res);
                         }
                     }
                 });
