@@ -88,6 +88,22 @@ public class Usuario {
         Contrasena = contrasena;
     }
     // ---------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
+    /**
+     * @brief Constructor de la clase
+     * @param nombre
+     * @param correo
+     * @param contrasena
+     * @return objeto Usuario
+     * Diseño: String,String, String --> Usuario() --> Usuario
+     **/
+    // ---------------------------------------------------------------------------------------------
+    public Usuario(String nombre, String correo, String contrasena) {
+        Nombre = nombre;
+        Correo = correo;
+        Contrasena = contrasena;
+    }
+    // ---------------------------------------------------------------------------------------------
     /**
      * @brief Con este método se obtiene el id
      * @return Id

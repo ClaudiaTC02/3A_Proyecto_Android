@@ -91,6 +91,7 @@ public class Pagina_QR extends AppCompatActivity {
     // ---------------------------------------------------------------------------------------------
     public void irRegistro(View view) {
         Intent i = new Intent(this, Pagina_Registro.class);
+        i.putExtra("Codigo_QR", editTextCodigo.getText().toString());
         startActivity(i);
     }
 

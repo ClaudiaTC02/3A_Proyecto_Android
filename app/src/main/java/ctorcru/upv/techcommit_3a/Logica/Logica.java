@@ -18,7 +18,7 @@ import ctorcru.upv.techcommit_3a.Pantallas.Mi_Perfil;
 // -----------------------------------------------------------------------------------------
 public class Logica {
     private static final String ETIQUETA_LOG = "Logica_REST";
-    private static final String restEndpoint = "http://192.168.0.20:8080";
+    private static final String restEndpoint = "http://192.168.68.111:8080";
     // ---------------------------------------------------------------------------------------------
     /**
      * @brief Constructor de la clase para poder ser llamado desde otra de forma simple
@@ -109,7 +109,7 @@ public class Logica {
         // 192.168.85.84 ip pc sobremesa
         String nuevoEndpoint = new String(restEndpoint+"/usuario").replaceAll(" ","%20");
         Log.d("PRUEBA", "publicarMediciones endpoint: "+nuevoEndpoint);
-        elPeticionarioREST.hacerPeticionREST("POST", "http://192.168.43.233:8080/usuario",
+        elPeticionarioREST.hacerPeticionREST("POST", "http://192.168.68.111:8080/usuario",
                 usuario.toJSON(),
                 new PeticionarioREST.RespuestaREST () {
                     @Override
