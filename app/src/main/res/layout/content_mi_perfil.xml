@@ -9,44 +9,130 @@
     tools:showIn="@layout/activity_mi_perfil">
 
 
-            <TextView
-                android:id="@+id/perfilnombre"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="76dp"
-                android:layout_marginTop="84dp"
-                android:text="Nombre"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+    <EditText
+        android:id="@+id/perfilnombre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="100dp"
+        android:editable="true"
+        android:enabled="false"
+        android:minHeight="48dp"
+        android:text="Nombre"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/perfilcorreo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="28dp"
-                android:text="Correo"
-                app:layout_constraintStart_toStartOf="@+id/perfilnombre"
-                app:layout_constraintTop_toBottomOf="@+id/perfilnombre" />
+    <EditText
+        android:id="@+id/perfilcontrasena"
+        android:layout_width="241dp"
+        android:layout_height="48dp"
+        android:editable="true"
+        android:ems="10"
+        android:enabled="false"
+        android:inputType="textPassword"
+        android:minHeight="48dp"
+        app:layout_constraintStart_toStartOf="@+id/perfiladmin"
+        app:layout_constraintTop_toBottomOf="@+id/btnComprov" />
 
-            <EditText
-                android:id="@+id/perfilcontrasena"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:layout_marginTop="44dp"
-                android:ems="10"
-                android:inputType="textPassword"
-                app:layout_constraintStart_toStartOf="@+id/perfiladmin"
-                app:layout_constraintTop_toBottomOf="@+id/perfiladmin" />
+    <EditText
+        android:id="@+id/perfilcorreo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:editable="true"
+        android:enabled="false"
+        android:minHeight="48dp"
+        android:text="Correo"
+        app:layout_constraintStart_toStartOf="@+id/perfilnombre"
+        app:layout_constraintTop_toBottomOf="@+id/perfilnombre" />
 
-            <TextView
-                android:id="@+id/perfiladmin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="36dp"
-                android:text="admin"
-                app:layout_constraintStart_toStartOf="@+id/perfilcorreo"
-                app:layout_constraintTop_toBottomOf="@+id/perfilcorreo" />
+    <TextView
+        android:id="@+id/perfiladmin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="no admin"
+        app:layout_constraintStart_toStartOf="@+id/perfilcorreo"
+        app:layout_constraintTop_toBottomOf="@+id/perfilcorreo" />
+
+    <Button
+        android:id="@+id/btnEditar"
+        android:layout_width="126dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="196dp"
+        android:text="Editar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/editConfirmp"
+        app:layout_constraintStart_toStartOf="@+id/perfilcontrasena" />
+
+    <Button
+        android:id="@+id/btnActualizarP"
+        android:layout_width="125dp"
+        android:layout_height="45dp"
+        android:layout_marginBottom="196dp"
+        android:text="Actualizar"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnCancel"
+        app:layout_constraintHorizontal_bias="0.586"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/editConfirmp"
+        android:layout_width="242dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="12dp"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:minHeight="48dp"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="@+id/perfilcontrasena"
+        app:layout_constraintTop_toBottomOf="@+id/perfilcontrasena" />
+
+    <EditText
+        android:id="@+id/editOldContra"
+        android:layout_width="240dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="Introduzca la contraseña actual"
+        android:inputType="textPassword"
+        android:textSize="14sp"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="@+id/perfiladmin"
+        app:layout_constraintTop_toBottomOf="@+id/perfiladmin" />
+
+    <Button
+        android:id="@+id/btnComprov"
+        android:layout_width="113dp"
+        android:layout_height="48dp"
+        android:text="Comprobar"
+        android:textSize="10sp"
+        android:visibility="invisible"
+        app:layout_constraintStart_toEndOf="@+id/editOldContra"
+        app:layout_constraintTop_toTopOf="@+id/editOldContra" />
+
+    <Button
+        android:id="@+id/btnCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="40dp"
+        android:text="Cancelar"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btnActualizarP" />
+
+    <TextView
+        android:id="@+id/txtdispositivos"
+        android:layout_width="126dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="20dp"
+        android:text="dispositivo"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/editOldContra"
+        app:layout_constraintTop_toBottomOf="@+id/btnActualizarP" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

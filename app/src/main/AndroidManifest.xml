@@ -81,7 +81,8 @@
             android:name=".Pantallas.Mis_Dispositivos"
             android:exported="false"
             android:label="@string/title_activity_mis_dispositivos"
-            android:theme="@style/Theme.TechCommit_3A.NoActionBar">
+            android:theme="@style/Theme.TechCommit_3A.NoActionBar"
+            android:launchMode="singleInstance">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
