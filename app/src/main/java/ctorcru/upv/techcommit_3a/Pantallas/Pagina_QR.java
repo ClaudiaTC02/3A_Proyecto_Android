@@ -15,6 +15,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import ctorcru.upv.techcommit_3a.R;
 // -----------------------------------------------------------------------------------------
@@ -60,18 +61,33 @@ public class Pagina_QR extends AppCompatActivity {
         // ----------------------------------------------------------
 
         // ----------------------------------------------------------
-        //Si el checkbox esta marcado se activa el boton
+        //Si el checkbox esta marcado y edittext con código se activa el boton
         checkBoxTerminos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(checkBoxTerminos.isChecked()){
+                if(!checkBoxTerminos.isEnabled()){
+                    Toast.makeText(Pagina_QR.this, "ss", Toast.LENGTH_SHORT).show();
+                }
+                if(checkBoxTerminos.isChecked() && !editTextCodigo.getText().toString().isEmpty()){
                     botonVincularSensor.setEnabled(true);
-                }else{
+                }
+                else if(!checkBoxTerminos.isChecked() && editTextCodigo.getText().toString().isEmpty()){
+                    botonVincularSensor.setEnabled(false);
+                }
+                else if(!checkBoxTerminos.isChecked() && !editTextCodigo.getText().toString().isEmpty()) {
+                    botonVincularSensor.setEnabled(false);
+                }
+                else if(checkBoxTerminos.isChecked() && editTextCodigo.getText().toString().isEmpty()){
+                    botonVincularSensor.setEnabled(false);
+                }
+                else{
                     botonVincularSensor.setEnabled(false);
                 }
             }
+
         });
         // ----------------------------------------------------------
+
 
         // ----------------------------------------------------------
         //Abrir dialogo de politica de privacidad al pulsar en el texto
