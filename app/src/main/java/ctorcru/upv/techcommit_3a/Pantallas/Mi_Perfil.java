@@ -27,6 +27,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import ctorcru.upv.techcommit_3a.Logica.Logica;
+import ctorcru.upv.techcommit_3a.Modelo.Dispositivo;
 import ctorcru.upv.techcommit_3a.Modelo.DispositivoUsuario;
 import ctorcru.upv.techcommit_3a.Modelo.Usuario;
 import ctorcru.upv.techcommit_3a.R;
@@ -41,10 +42,9 @@ import ctorcru.upv.techcommit_3a.R;
 public class Mi_Perfil extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private EditText nombrePerfil,correoPerfil;
     //Objetos
-
     private EditText contrasenaPerfil,oldcontrasena;
     private EditText confirmarcontrasena;
-    private TextView dispositivos;
+    private TextView dispositivos,sensornombre,sensorciudad;
     private ImageView fotoperfil;
     private Usuario infoUsuario = new Usuario();
     private  Usuario dtosdef= new Usuario();
@@ -53,12 +53,17 @@ public class Mi_Perfil extends AppCompatActivity implements NavigationView.OnNav
     private Button btnactualizar,btnEditar,btnComprov,btnCancelar;
     private static Mi_Perfil myContext;
     private String userpref;
-    private String dipositivopref;
+    private String dipositivopref,datosusuario;
     private DispositivoUsuario dispositivo = new DispositivoUsuario();
     private DispositivoUsuario didef = new DispositivoUsuario();
+    private int cont=0;
     //estavariable va dedicada para obtener el sensor por la id del usuario
     private Logica logica= new Logica();
-    //para tomar las fotos
+    private String sensorpref;
+    private Dispositivo sensordefinitivo= new Dispositivo();
+    private Dispositivo sensor= new Dispositivo();
+    private String resultadoCiudad;
+    private String resultadoNombreDispositivo;
 
     //para editar nombre correo y contraseña
 
@@ -120,17 +125,19 @@ public class Mi_Perfil extends AppCompatActivity implements NavigationView.OnNav
         cargarDatos();
 
 
-        userpref= preferencias.getString("allinfoUser","");
+
         dipositivopref= preferencias.getString("allinfoDispositivo","");
+        resultadoCiudad= preferencias.getString("ciudad","");
+        resultadoNombreDispositivo= preferencias.getString("nombresensor","");
 
 
         // ----------------------------------------------------------
         //Enlazamos los objetos con los elementos
-
-
+        datosusuario= getIntent().getStringExtra("id");
+        logica.buscarDispositivoUsuario(datosusuario );
         String id= dtosdef.getId();
         String contra=dtosdef.getContrasena();
-        logica.buscarDispositivoUsuario(dtosdef);
+
         dtosdef= infoUsuario.JsonToString(userpref);
         didef=dispositivo.JsonToString(dipositivopref);
 
@@ -145,8 +152,17 @@ public class Mi_Perfil extends AppCompatActivity implements NavigationView.OnNav
         oldcontrasena = findViewById(R.id.editOldContra);
         btnComprov=(Button)findViewById(R.id.btnComprov);
         btnCancelar=(Button)findViewById(R.id.btnCancel);
+
         dispositivos=findViewById(R.id.txtdispositivos);
-        dispositivos.setText("Id del dispositivo: "+didef.getIdSensor());
+        didef.setIdUsuario(dtosdef.getId());
+        dispositivos.setText("Id del dispositivo:"+didef.getIdSensor());
+
+        sensornombre=findViewById(R.id.sensornametxt);
+        sensorciudad=findViewById(R.id.ciudadsensortxt);
+
+
+        sensornombre.setText("Nombre del sensor: "+resultadoNombreDispositivo);
+        sensorciudad.setText("Ciudad del sensor: "+resultadoCiudad);
 
         //variable que almacenará el texto del editTex de nuestra contrasenya actual
         btnComprov.setOnClickListener(new View.OnClickListener() {
@@ -419,6 +435,8 @@ public class Mi_Perfil extends AppCompatActivity implements NavigationView.OnNav
         dtosdef= infoUsuario.JsonToString(userpref);
         dipositivopref =  preferencias.getString("allinfoDispositivo","");
         didef=dispositivo.JsonToString(dipositivopref);
+        sensorpref= preferencias.getString("allinfoSensor","");
+        sensordefinitivo= sensor.JsonToString(sensorpref);
 
     }
     @Override
@@ -431,8 +449,42 @@ public class Mi_Perfil extends AppCompatActivity implements NavigationView.OnNav
     public void buscarDispositivoUsuario(String res) {
         SharedPreferences.Editor mEditor = preferencias.edit();
         mEditor.putString("allinfoDispositivo",res);
-        mEditor.apply();
+
         dipositivopref =  preferencias.getString("allinfoDispositivo","");
         didef=dispositivo.JsonToString(dipositivopref);
+        sensordefinitivo.setIdSensor(didef.getIdSensor());
+        logica.buscarSenorCiudadporId(didef.getIdSensor());
+        logica.obtenerNombrePorId(didef.getIdSensor());
+        mEditor.apply();
+        if(didef.getIdSensor().isEmpty()){
+            Intent intent = getIntent();
+            finish();
+
+            startActivity(intent);
+        }
+
+
+
+
+    }
+
+
+    public void obtenerciudad(String res) {
+        SharedPreferences.Editor mEditor = preferencias.edit();
+
+        mEditor.putString("ciudad",res);
+        mEditor.apply();
+        resultadoCiudad=res;
+        sensordefinitivo.setCiudad(res);
+
+    }
+
+    public void obtenerNombreporId(String res) {
+        SharedPreferences.Editor mEditor = preferencias.edit();
+
+        mEditor.putString("nombresensor",res);
+        mEditor.apply();
+        resultadoNombreDispositivo=res;
+        sensordefinitivo.setNombre(res);
     }
 }

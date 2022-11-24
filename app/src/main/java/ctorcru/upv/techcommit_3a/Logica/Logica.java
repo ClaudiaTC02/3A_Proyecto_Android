@@ -5,6 +5,7 @@ import android.widget.Toast;
 
 import java.util.Arrays;
 
+import ctorcru.upv.techcommit_3a.Modelo.Dispositivo;
 import ctorcru.upv.techcommit_3a.Pantallas.MainActivity;
 import ctorcru.upv.techcommit_3a.Modelo.Usuario;
 import ctorcru.upv.techcommit_3a.Pantallas.Mi_Perfil;
@@ -202,10 +203,10 @@ public class Logica {
      * Diseño: actualizarUsuario --> iactualizarUsuario() --> actualizarUsuario
      **/
 
-    public void buscarDispositivoUsuario(Usuario usuario){
+    public void buscarDispositivoUsuario(String usuario){
         PeticionarioREST elPeticionarioREST = new PeticionarioREST();
 
-        String nuevoEndpoint = new String(restEndpoint+"/buscarDispositivoUsuario?Id_Usuario="+usuario.getId()).replaceAll(" ","%20");
+        String nuevoEndpoint = new String(restEndpoint+"/buscarDispositivoUsuario?Id_Usuario="+usuario).replaceAll(" ","%20");
 
         Log.d(ETIQUETA_LOG, "obtener dispositivo en "+nuevoEndpoint);
         elPeticionarioREST.hacerPeticionREST("GET", nuevoEndpoint,
@@ -229,21 +230,10 @@ public class Logica {
                             String res= "";
                             //recorrremos la lista de strings anterior
                             for(int i = 0; i < textoeparado.length; i++){
-                                //en esta posición está almacenado el id del usuario
-                                if(i==2){
-                                    //nos guardamos el id
-                                    String correct= textoeparado[i].split(",")[0];
-                                    //lo anyadimos a la variable encargada de almacenar el resultado
-                                    res=res+correct+";";
-
-                                    Log.d (ETIQUETA_LOG,"ideasod " + res);
-                                    //usariof.setId(textoeparado[i+]);
-                                }
                                 //en esta posición está el id del sensor
                                 if(i==3){
                                     //nos guardamos el id del sensor
                                     String correct= textoeparado[i].split(",")[0];
-
                                     //lo anyadimos a la variable encargada de almacenar el resultado
                                     res=res+correct;
                                 }
@@ -253,7 +243,90 @@ public class Logica {
 
                             Log.d (ETIQUETA_LOG,"disposol" + res);
                             //enviamos el resultado anterior sacado del Json y se lo enviamos a la función cambiarActivity
+
                             Mi_Perfil.getInstance().buscarDispositivoUsuario(res);
+                        }
+                    }
+                });
+    }
+    public void obtenerNombrePorId(String id){
+        PeticionarioREST elPeticionarioREST = new PeticionarioREST();
+
+        String nuevoEndpoint = new String(restEndpoint+"/buscarDispositivoPorId?Id_Dispositivo="+id).replaceAll(" ","%20");
+
+        Log.d(ETIQUETA_LOG, "obtener dispositivo en "+nuevoEndpoint);
+        elPeticionarioREST.hacerPeticionREST("GET", nuevoEndpoint,
+                null,
+                new PeticionarioREST.RespuestaREST () {
+                    @Override
+                    public void callback(int codigo, String cuerpo) {
+                        Log.d (ETIQUETA_LOG,"codigo respuesta: " + codigo + " <-> \n" + cuerpo);
+                        Log.d (ETIQUETA_LOG,"llega:  "+cuerpo);
+                        if(codigo == 200 && !cuerpo.isEmpty()){
+                            //creamos una lista de strings que alacenará lo que obtengamos del json la peticion pero sin : y {}
+                            String[] textoeparado = cuerpo.split("[:{}]");
+                            //esta sera la variable encargada de almacenar el resultado
+                            String res= "";
+                            //recorrremos la lista de strings anterior
+                            for(int i = 0; i < textoeparado.length; i++){
+                                //en esta posición está almacenado el id del sensor
+                                //en esta posición está el nombre del sensor
+                                if(i==3){
+                                    //nos guardamos el nombre del sensor
+                                    String correct= textoeparado[i].split(",")[0];
+                                    //lo anyadimos a la variable encargada de almacenar el resultado
+                                    res=res+correct;
+                                }
+
+
+                            }
+                            Log.d (ETIQUETA_LOG,"disposol" + res);
+                            //enviamos el resultado anterior sacado del Json y se lo enviamos a la función buscardispositivo
+                            Dispositivo sensor= new Dispositivo();
+                            Dispositivo sensorfinal=new Dispositivo();
+                            sensorfinal=sensor.JsonToString(res);
+                            Mi_Perfil.getInstance().obtenerNombreporId(res);
+                        }
+                    }
+                });
+    }
+    public void buscarSenorCiudadporId(String id){
+        PeticionarioREST elPeticionarioREST = new PeticionarioREST();
+
+        String nuevoEndpoint = new String(restEndpoint+"/buscarDispositivoPorId?Id_Dispositivo="+id).replaceAll(" ","%20");
+
+        Log.d(ETIQUETA_LOG, "obtener dispositivo en "+nuevoEndpoint);
+        elPeticionarioREST.hacerPeticionREST("GET", nuevoEndpoint,
+                null,
+                new PeticionarioREST.RespuestaREST () {
+                    @Override
+                    public void callback(int codigo, String cuerpo) {
+                        Log.d (ETIQUETA_LOG,"codigo respuesta: " + codigo + " <-> \n" + cuerpo);
+                        Log.d (ETIQUETA_LOG,"llega:  "+cuerpo);
+                        if(codigo == 200 && !cuerpo.isEmpty()){
+                            //creamos una lista de strings que alacenará lo que obtengamos del json la peticion pero sin : y {}
+                            String[] textoeparado = cuerpo.split("[:{}]");
+                            //esta sera la variable encargada de almacenar el resultado
+                            String res= "";
+                            //recorrremos la lista de strings anterior
+                            for(int i = 0; i < textoeparado.length; i++){
+                                //en esta posición está almacenado el id del sensor
+                                //en esta posición está el nombre del sensor
+                                if(i==4){
+                                    //nos guardamos el id de la ciudad del sensor
+                                    String correct= textoeparado[i].split(",")[0];
+                                    //lo anyadimos a la variable encargada de almacenar el resultado
+                                    res=res+correct;
+                                }
+
+
+                            }
+                            Log.d (ETIQUETA_LOG,"disposol" + res);
+                            //enviamos el resultado anterior sacado del Json y se lo enviamos a la función buscardispositivo
+                            Dispositivo sensor= new Dispositivo();
+                            Dispositivo sensorfinal=new Dispositivo();
+                            sensorfinal=sensor.JsonToString(res);
+                            Mi_Perfil.getInstance().obtenerciudad(res);
                         }
                     }
                 });

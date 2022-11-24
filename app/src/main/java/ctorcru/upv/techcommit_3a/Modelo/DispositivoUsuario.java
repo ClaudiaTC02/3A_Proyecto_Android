@@ -41,20 +41,21 @@ public class DispositivoUsuario {
     }
     public String toJSON(){
         String res = "{" +
-                "\"Id\":\""+this.getIdUsuario()+"\", " +
-                "\"Nombre\":\""+this.getIdSensor()+"\", " +
+                "\"Id_Sensor\":\""+this.getIdUsuario()+"\", " +
+                "\"Id_Dispositivo\":\""+this.getIdSensor()+"\", " +
                 "}";
         return res;
     }
+
     public DispositivoUsuario JsonToString(String txt) {
         DispositivoUsuario dispositivof = new DispositivoUsuario();
         Log.d ("en la clase","c.Dispositivov " + txt);
         String[] textoSeparado = txt.split(";");
         Log.d ("en la clase","c.DispositivoUsuario " + Arrays.toString( textoSeparado));
-        dispositivof.setIdUsuario(String.valueOf(Long.parseLong(textoSeparado[0])));
-        dispositivof.setIdSensor(String.valueOf(Long.parseLong(textoSeparado[1])));
+        dispositivof.setIdSensor(textoSeparado[0]);
         Log.d ("en la clase","clasedisp " +dispositivof.toString() );
-
         return  dispositivof;
     }
+
+
 }

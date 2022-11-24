@@ -215,6 +215,7 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
             case R.id.nav_Mi_Perfil:
                 Intent intent2 = new Intent(this, Mi_Perfil.class);
                 intent2.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                intent2.putExtra("id",dtosdef.getId());
                 startActivity(intent2);
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 break;
