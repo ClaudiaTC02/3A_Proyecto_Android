@@ -1,19 +1,335 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <TextView
+        android:id="@+id/textView18"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
         android:fontFamily="@font/varela_round"
         android:text="@string/pol_tica_de_privacidadP"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="25dp"
         android:textSize="20sp"
         android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/politica1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/varela_round"
+        android:padding="20dp"
+        android:textSize="15sp"
+        android:text="@string/politica1"
+        android:justificationMode="inter_word"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView18" />
+
+
+    <TextView
+        android:id="@+id/agfd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:fontFamily="@font/varela_round"
+        android:text="@string/informaci_n_personal_que_recopilamos"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/politica1" />
+
+    <TextView
+        android:id="@+id/politica2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/varela_round"
+        android:justificationMode="inter_word"
+        android:padding="20dp"
+        android:text="@string/cuando_visitas_techcommit_recopilamos_autom_ticamente_cierta_informaci_n_sobre_tu_dispositivo_incluida_informaci_n_sobre_tu_navegador_web_direcci_n_ip_zona_horaria_y_algunas_de_las_cookies_instaladas_en_tu_dispositivo_adem_s_a_medida_que_navegas_recopilamos_informaci_n_sobre_las_p_ginas_web_individuales_o_los_productos_que_ves_qu_sitios_web_o_t_rminos_de_b_squeda_te_remitieron_a_la_web_y_c_mo_interact_as_nos_referimos_a_esta_informaci_n_recopilada_autom_ticamente_como_informaci_n_del_dispositivo_adem_s_podemos_recopilar_los_datos_personales_que_nos_proporcionas_incluidos_entre_otros_nombre_apellido_direcci_n_informaci_n_de_pago_etc_durante_el_registro_para_poder_cumplir_con_el_acuerdo"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/agfd" />
+
+    <TextView
+        android:id="@+id/textView19"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:fontFamily="@font/varela_round"
+        android:text="@string/por_qu_procesamos_tus_datos"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/politica2" />
+
+
+    <TextView
+        android:id="@+id/politica3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/varela_round"
+        android:justificationMode="inter_word"
+        android:padding="20dp"
+        android:text="@string/politica3"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView19" />
+
+
+    <TextView
+        android:id="@+id/textView20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:fontFamily="@font/varela_round"
+        android:text="@string/tus_derechos"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/politica3" />
+
+
+    <TextView
+        android:id="@+id/politica4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/varela_round"
+        android:justificationMode="inter_word"
+        android:padding="20dp"
+        android:text="@string/politica5"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView20" />
+
+    <TextView
+        android:id="@+id/derecho1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/varela_round"
+        android:text="@string/derecho1"
+        android:textSize="15sp"
+        android:paddingStart="20dp"
+        android:textAlignment="textStart"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/politica4" />
+
+
+    <TextView
+        android:id="@+id/derecho2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/varela_round"
+        android:text="@string/derecho2"
+        android:textSize="15sp"
+        android:paddingStart="20dp"
+        android:textAlignment="textStart"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/derecho1" />
+
+    <TextView
+        android:id="@+id/derecho3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/varela_round"
+        android:text="@string/derecho3"
+        android:textSize="15sp"
+        android:paddingStart="20dp"
+        android:textAlignment="textStart"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/derecho2" />
+
+
+    <TextView
+        android:id="@+id/derecho4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/varela_round"
+        android:text="@string/derecho4"
+        android:textSize="15sp"
+        android:paddingStart="20dp"
+        android:textAlignment="textStart"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/derecho3" />
+
+
+    <TextView
+        android:id="@+id/derecho5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/varela_round"
+        android:text="@string/derecho5"
+        android:textSize="15sp"
+        android:paddingStart="20dp"
+        android:textAlignment="textStart"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/derecho4" />
+
+
+    <TextView
+        android:id="@+id/derecho6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/varela_round"
+        android:text="@string/derecho6"
+        android:textSize="15sp"
+        android:paddingStart="20dp"
+        android:textAlignment="textStart"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/derecho5" />
+
+
+    <TextView
+        android:id="@+id/derecho7"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/varela_round"
+        android:text="@string/derecho7"
+        android:textSize="15sp"
+        android:paddingStart="20dp"
+        android:textAlignment="textStart"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/derecho6" />
+
+
+    <TextView
+        android:id="@+id/derecho8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/varela_round"
+        android:text="@string/derecho8"
+        android:textSize="15sp"
+        android:paddingStart="20dp"
+        android:textAlignment="textStart"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/derecho7" />
+
+
+    <TextView
+        android:id="@+id/politica55"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/varela_round"
+        android:justificationMode="inter_word"
+        android:padding="20dp"
+        android:text="@string/politica555"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/derecho8" />
+
+
+
+    <TextView
+        android:id="@+id/textView21"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:fontFamily="@font/varela_round"
+        android:text="@string/seguridad_de_tu_informaci_n"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/politica55" />
+
+
+    <TextView
+        android:id="@+id/politica5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/varela_round"
+        android:justificationMode="inter_word"
+        android:padding="20dp"
+        android:text="@string/politica4"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView21" />
+
+
+    <TextView
+        android:id="@+id/textView22"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:fontFamily="@font/varela_round"
+        android:text="@string/divulgaci_n_legal"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/politica5" />
+
+
+    <TextView
+        android:id="@+id/politica6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/varela_round"
+        android:justificationMode="inter_word"
+        android:padding="20dp"
+        android:text="@string/politica6"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView22" />
+
+
+    <TextView
+        android:id="@+id/textView23"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:fontFamily="@font/varela_round"
+        android:text="@string/informaci_n_de_contacto"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/politica6" />
+
+
+    <TextView
+        android:id="@+id/politica7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/varela_round"
+        android:justificationMode="inter_word"
+        android:padding="20dp"
+        android:text="@string/politica7"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView23" />
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

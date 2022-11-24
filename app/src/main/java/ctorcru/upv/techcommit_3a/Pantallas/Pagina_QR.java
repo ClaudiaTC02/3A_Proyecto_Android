@@ -1,9 +1,13 @@
 package ctorcru.upv.techcommit_3a.Pantallas;
 
+import static android.text.Layout.JUSTIFICATION_MODE_INTER_WORD;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.text.LineBreaker;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -77,6 +81,8 @@ public class Pagina_QR extends AppCompatActivity {
                 dialogo_politica_privacidad = new AlertDialog.Builder(Pagina_QR.this);
                 //Mostrar xml
                 dialogo_politica_privacidad.setView(R.layout.dialogo_politica_privacidad);
+                //Boton aceptar
+                dialogo_politica_privacidad.setPositiveButton("Aceptar", null);
                 dialogo_politica_privacidad.show();
             }
         });
@@ -148,5 +154,6 @@ public class Pagina_QR extends AppCompatActivity {
         startActivity(i);
     }
     // ---------------------------------------------------------------------------------------------
+
 
 }
