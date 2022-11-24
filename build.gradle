@@ -4,6 +4,12 @@ buildscript {
         google()
         mavenCentral()
     }
+    gradle.projectsEvaluated {
+        tasks.withType(javax.tools.JavaCompiler){
+            options.encoding='UTF-8'
+            options.compilerArgs << "-Xlint:deprecation"
+        }
+    }
     dependencies {
         classpath 'com.android.tools.build:gradle:7.3.1'
 
