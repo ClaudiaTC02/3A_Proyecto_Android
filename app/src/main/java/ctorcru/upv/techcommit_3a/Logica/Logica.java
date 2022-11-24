@@ -20,7 +20,7 @@ import ctorcru.upv.techcommit_3a.Pantallas.Pagina_Registro;
 // -----------------------------------------------------------------------------------------
 public class Logica {
     private static final String ETIQUETA_LOG = "Logica_REST";
-    private static final String restEndpoint = "http://192.168.137.1:8080";
+    private static final String restEndpoint = "http://192.168.0.20:8080";
 
     // ---------------------------------------------------------------------------------------------
     /**
@@ -155,13 +155,13 @@ public class Logica {
      * Diseño: actualizarUsuario --> iactualizarUsuario() --> actualizarUsuario
      **/
 
-    public void actualizarUsuario(Usuario usuario){
+    public void actualizarUsuario(Usuario usuario, String a){
         PeticionarioREST elPeticionarioREST = new PeticionarioREST();
-        int id=Integer.parseInt(usuario.getId());
-        String nuevoEndpoint = new String(restEndpoint+"/actualizarUsuario?id="+usuario.getId()+"&Correo="+usuario.getCorreo()+"&Contrasena="+usuario.getContrasena()+"&EsAdmin="+usuario.getEsAdmin()+"&Nombre="+usuario.getNombre()).replaceAll(" ","%20");
+        //int id=Integer.parseInt(usuario.getId());
+        String nuevoEndpoint = new String(restEndpoint+"/actualizarUsuario?correoa="+a+"&Correo="+usuario.getCorreo()+"&Contrasena="+usuario.getContrasena()+"&EsAdmin="+usuario.getEsAdmin()+"&Nombre="+usuario.getNombre()).replaceAll(" ","%20");
+        Log.d(ETIQUETA_LOG, "getCorreo  en "+a);
 
-
-        Log.d(ETIQUETA_LOG, "actualizar foto en "+nuevoEndpoint);
+        Log.d(ETIQUETA_LOG, "actualizar  en "+nuevoEndpoint);
         elPeticionarioREST.hacerPeticionREST("GET", nuevoEndpoint,
                 null,
                 new PeticionarioREST.RespuestaREST () {

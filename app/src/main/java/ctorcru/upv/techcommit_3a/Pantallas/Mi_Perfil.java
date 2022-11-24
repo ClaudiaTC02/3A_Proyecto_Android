@@ -49,11 +49,13 @@ public class Mi_Perfil extends AppCompatActivity implements NavigationView.OnNav
     private Usuario infoUsuario = new Usuario();
     private  Usuario dtosdef= new Usuario();
     private  Usuario actualizador = new Usuario();
+    private Usuario antiguo = new Usuario();
     private SharedPreferences preferencias;
     private Button btnactualizar,btnEditar,btnComprov,btnCancelar;
     private static Mi_Perfil myContext;
     private String userpref;
     private String dipositivopref,datosusuario;
+    String correo;
     private DispositivoUsuario dispositivo = new DispositivoUsuario();
     private DispositivoUsuario didef = new DispositivoUsuario();
     private int cont=0;
@@ -240,6 +242,9 @@ public class Mi_Perfil extends AppCompatActivity implements NavigationView.OnNav
                 confirmarcontrasena.setText(dtosdef.getContrasena());
 
 
+                 correo= correoPerfil.getText().toString();
+
+
             }
         });
 
@@ -272,7 +277,7 @@ public class Mi_Perfil extends AppCompatActivity implements NavigationView.OnNav
                     actualizado.setEsAdmin(dtosdef.getEsAdmin());
 
                     //le enviamos el usuario pendiente de actualizar a la funcion de la logica res
-                    new Logica().actualizarUsuario(actualizado);
+                    new Logica().actualizarUsuario(actualizado,correo);
                     btnactualizar.setVisibility(View.INVISIBLE);
 
                     final  CharSequence[] opciones={"Aceptar"};
