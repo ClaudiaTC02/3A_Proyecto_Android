@@ -93,7 +93,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:riv_oval="true" />
+            app:riv_oval="true"
+            tools:ignore="SpeakableTextPresentCheck" />
 
         <TextView
             android:id="@+id/addimagen"
@@ -122,7 +123,8 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/frameLayout3" />
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout3"
+        tools:ignore="TouchTargetSizeCheck" />
 
     <ImageView
         android:id="@+id/qrcodigo"
@@ -172,18 +174,30 @@
         app:layout_constraintEnd_toStartOf="@+id/view"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/textView"
-        app:layout_constraintTop_toTopOf="@+id/view" />
+        app:layout_constraintTop_toTopOf="@+id/view"
+        tools:ignore="TouchTargetSizeCheck" />
 
     <CheckBox
         android:id="@+id/checkBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/varela_round"
-        android:textColor="#454444"
-        android:layout_marginEnd="10dp"
         android:text="@string/he_le_do_la_pol_tica_de_privacidad"
-        app:layout_constraintEnd_toEndOf="@+id/escaneo_QR"
+        android:textColor="#454444"
         app:layout_constraintStart_toStartOf="@+id/escaneo_QR"
+        app:layout_constraintTop_toBottomOf="@+id/escaneo_QR"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <TextView
+        android:id="@+id/politica"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/varela_round"
+        android:text="@string/pol_tica_de_privacidad"
+        android:textColor="#59A8A8"
+        android:layout_marginStart="5dp"
+        app:layout_constraintBottom_toTopOf="@+id/scan_qr"
+        app:layout_constraintStart_toEndOf="@+id/checkBox"
         app:layout_constraintTop_toBottomOf="@+id/escaneo_QR" />
 
 

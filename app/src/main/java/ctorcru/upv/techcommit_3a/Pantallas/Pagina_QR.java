@@ -1,5 +1,6 @@
 package ctorcru.upv.techcommit_3a.Pantallas;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -27,6 +28,8 @@ public class Pagina_QR extends AppCompatActivity {
     private TextView irAIniciarSesion;
     private EditText editTextCodigo;
     private CheckBox checkBoxTerminos;
+    private TextView politica;
+    private AlertDialog.Builder dialogo_politica_privacidad;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +44,7 @@ public class Pagina_QR extends AppCompatActivity {
         ImagenQR = findViewById(R.id.imagenparaqr);
         editTextCodigo = findViewById(R.id.escaneo_QR);
         checkBoxTerminos = findViewById(R.id.checkBox);
+        politica = findViewById(R.id.politica);
         Intent intent = getIntent();
 
         // ----------------------------------------------------------
@@ -63,6 +67,24 @@ public class Pagina_QR extends AppCompatActivity {
                 }
             }
         });
+        // ----------------------------------------------------------
+
+        // ----------------------------------------------------------
+        //Abrir dialogo de politica de privacidad al pulsar en el texto
+        politica.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogo_politica_privacidad = new AlertDialog.Builder(Pagina_QR.this);
+                //Mostrar xml
+                dialogo_politica_privacidad.setView(R.layout.dialogo_politica_privacidad);
+                dialogo_politica_privacidad.show();
+            }
+        });
+        // ----------------------------------------------------------
+
+        // ----------------------------------------------------------
+        //Subrayar texto de politica de privacidad
+        politica.setPaintFlags(politica.getPaintFlags() |   android.graphics.Paint.UNDERLINE_TEXT_FLAG);
         // ----------------------------------------------------------
 
         //Añadimos los listeners a los botones
