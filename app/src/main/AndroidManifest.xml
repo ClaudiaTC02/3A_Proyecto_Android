@@ -9,6 +9,7 @@
     <!-- Request legacy Bluetooth permissions on older devices. -->
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.CAMERA"/>
     <!--
  Needed only if your app looks for Bluetooth devices.
              If your app doesn't use Bluetooth scan results to derive physical
@@ -104,6 +105,14 @@
         </activity>
         <activity
             android:name=".Pantallas.Pagina_QR"
+            android:theme="@style/Theme.TechCommit_3A.NoActionBar"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Pantallas.Scanner_QR"
             android:theme="@style/Theme.TechCommit_3A.NoActionBar"
             android:exported="false">
             <meta-data
