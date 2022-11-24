@@ -65,11 +65,11 @@
                 android:id="@+id/textView13"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="40dp"
                 android:fontFamily="@font/varela_round"
-                android:text="Información editable del Usuario"
+                android:text="Información del Usuario"
                 android:textColor="#59a8a8"
-                android:textSize="20dp"
+                android:textSize="25dp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -88,7 +88,7 @@
                 android:textSize="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/textView13"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView13">
 
             </TextView>
@@ -124,7 +124,7 @@
                 android:textSize="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/textView13"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/perfilnombre">
 
             </TextView>
@@ -133,7 +133,6 @@
                 android:id="@+id/perfilcontrasena"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
                 android:background="@drawable/fondo_input"
                 android:editable="true"
                 android:ems="10"
@@ -145,7 +144,7 @@
                 android:paddingEnd="50dp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/perfiladmin"
-                app:layout_constraintTop_toBottomOf="@+id/btnComprov" />
+                app:layout_constraintTop_toBottomOf="@+id/textView16" />
 
             <EditText
                 android:id="@+id/perfilcorreo"
@@ -185,45 +184,53 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/varela_round"
-
+                android:text="Contraseña/Cambiar contraseña"
                 android:textColor="#59a8a8"
                 android:textSize="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
-                android:text="Contraseña/Cambiar contraseña"
-                app:layout_constraintStart_toStartOf="@+id/textView13"
+                app:layout_constraintStart_toStartOf="@+id/perfiladmin"
                 app:layout_constraintTop_toBottomOf="@+id/perfiladmin">
 
             </TextView>
 
             <Button
                 android:id="@+id/btnEditar"
-                android:layout_width="126dp"
-                android:layout_height="48dp"
-                android:layout_marginBottom="152dp"
+                android:layout_width="170dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/varela_round"
                 android:text="Editar"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/editConfirmp"
-                app:layout_constraintHorizontal_bias="0.459"
-                app:layout_constraintStart_toStartOf="@+id/perfilcontrasena" />
+                android:textAllCaps="false"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:cornerRadius="10dp"
+                app:layout_constraintStart_toStartOf="@+id/perfilcontrasena"
+                app:layout_constraintTop_toTopOf="@+id/btnActualizarP" />
 
             <Button
                 android:id="@+id/btnActualizarP"
-                android:layout_width="125dp"
-                android:layout_height="45dp"
-                android:layout_marginBottom="148dp"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:layout_marginBottom="196dp"
+                android:fontFamily="@font/varela_round"
                 android:text="Actualizar"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textStyle="bold"
                 android:visibility="invisible"
+                app:cornerRadius="12dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/btnCancel"
-                app:layout_constraintHorizontal_bias="0.065"
-                app:layout_constraintStart_toStartOf="@+id/editOldContra" />
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/editOldContra"
+                app:layout_constraintTop_toBottomOf="@+id/editOldContra" />
 
             <EditText
                 android:id="@+id/editConfirmp"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginStart="4dp"
                 android:background="@drawable/fondo_input"
                 android:ems="10"
                 android:inputType="textPassword"
@@ -232,7 +239,7 @@
                 android:paddingStart="8dp"
                 android:paddingEnd="50dp"
                 android:textStyle="bold"
-                android:visibility="invisible"
+                android:visibility="gone"
                 app:layout_constraintStart_toStartOf="@+id/perfilcontrasena"
                 app:layout_constraintTop_toBottomOf="@+id/perfilcontrasena" />
 
@@ -240,7 +247,7 @@
                 android:id="@+id/editOldContra"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="52dp"
                 android:background="@drawable/fondo_input"
                 android:ems="10"
                 android:hint="Introduzca la contraseña actual"
@@ -255,21 +262,30 @@
 
             <Button
                 android:id="@+id/btnComprov"
-                android:layout_width="113dp"
-                android:layout_height="48dp"
+                android:layout_width="wrap_content"
+                android:layout_height="42dp"
                 android:text="Comprobar"
+                android:fontFamily="@font/varela_round"
+                android:textAllCaps="false"
                 android:textSize="10sp"
+                android:textStyle="bold"
+                app:cornerRadius="10dp"
                 android:visibility="invisible"
-                app:layout_constraintStart_toEndOf="@+id/editOldContra"
-                app:layout_constraintTop_toTopOf="@+id/editOldContra" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editOldContra" />
 
             <Button
                 android:id="@+id/btnCancel"
-                android:layout_width="wrap_content"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="40dp"
+                android:backgroundTint="#9eb4b4"
+                android:fontFamily="@font/varela_round"
                 android:text="Cancelar"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textStyle="bold"
                 android:visibility="gone"
+                app:cornerRadius="12dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/btnActualizarP" />
 
@@ -277,12 +293,13 @@
                 android:id="@+id/textView17"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:fontFamily="@font/varela_round"
-
                 android:text="Información acerca de el dispositivo"
                 android:textColor="#59a8a8"
                 android:textSize="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/perfiladmin"
                 app:layout_constraintTop_toBottomOf="@+id/btnActualizarP">
 
@@ -296,7 +313,7 @@
                 android:fontFamily="@font/varela_round"
                 android:text="dispositivo"
                 android:textColor="#59a8a8"
-                android:textSize="20dp"
+                android:textSize="15dp"
                 android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -305,16 +322,16 @@
 
             <TextView
                 android:id="@+id/sensornametxt"
-                android:visibility="visible"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/varela_round"
+                android:text="Nombre del sensor"
                 android:textColor="#59a8a8"
-                android:textSize="20dp"
+                android:textSize="15dp"
+                android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
-                android:text="Nombre del sensor"
                 app:layout_constraintStart_toStartOf="@+id/txtdispositivos"
                 app:layout_constraintTop_toBottomOf="@+id/txtdispositivos" />
 
@@ -327,7 +344,7 @@
                 android:text="Ciuda:"
                 android:textColor="#59a8a8"
                 android:textSize="20dp"
-                android:visibility="visible"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/sensornametxt"

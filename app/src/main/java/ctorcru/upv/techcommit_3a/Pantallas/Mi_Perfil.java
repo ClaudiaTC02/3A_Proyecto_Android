@@ -7,6 +7,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
@@ -44,7 +46,7 @@ public class Mi_Perfil extends AppCompatActivity implements NavigationView.OnNav
     //Objetos
     private EditText contrasenaPerfil,oldcontrasena;
     private EditText confirmarcontrasena;
-    private TextView dispositivos,sensornombre,sensorciudad;
+    private TextView dispositivos,sensornombre,sensorciudad,txtTitulo;
     private ImageView fotoperfil;
     private Usuario infoUsuario = new Usuario();
     private  Usuario dtosdef= new Usuario();
@@ -154,7 +156,10 @@ public class Mi_Perfil extends AppCompatActivity implements NavigationView.OnNav
         oldcontrasena = findViewById(R.id.editOldContra);
         btnComprov=(Button)findViewById(R.id.btnComprov);
         btnCancelar=(Button)findViewById(R.id.btnCancel);
-
+        TextView txtTitulo = (TextView)findViewById(R.id.textView13);
+        SpannableString content = new SpannableString("Información de Usuario");
+        content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+        txtTitulo.setText(content);
         dispositivos=findViewById(R.id.txtdispositivos);
         didef.setIdUsuario(dtosdef.getId());
         dispositivos.setText("Id del dispositivo:"+didef.getIdSensor());
