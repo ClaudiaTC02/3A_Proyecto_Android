@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.Menu;
@@ -45,6 +46,7 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
     private SharedPreferences preferencias;
     private TextView nombreUsuario;
     private Button botonBusqueda;
+    private Button botonCerrarSesion;
     private Button botonDetenerBusqueda;
     private ImageView ImagenMisDispositivos;
     DrawerLayout drawer;
@@ -71,6 +73,7 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
         botonBusqueda = findViewById(R.id.botonBusqueda);
         botonDetenerBusqueda = findViewById(R.id.botonDetenerBusqueda);
         ImagenMisDispositivos = findViewById(R.id.ImagenMisDispositivos);
+        botonCerrarSesion = findViewById(R.id.cerrar_sesion);
         nombreUsuario = findViewById(R.id.txtNombreh);
         datosUsuario= getIntent().getStringExtra("infoUsuario");
         String userpref= preferencias.getString("allinfoUser","");
@@ -112,6 +115,8 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
                 startService(new Intent(Mis_Dispositivos.this, ServicioEscuchaBeacons.class));
             }
         });
+
+
 
         botonDetenerBusqueda.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -240,6 +245,7 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
 
 
     }
+
     @Override
     public void onResume() {
         super.onResume();

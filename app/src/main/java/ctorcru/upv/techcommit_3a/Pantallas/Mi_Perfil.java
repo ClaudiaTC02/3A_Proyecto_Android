@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
@@ -53,7 +54,7 @@ public class Mi_Perfil extends AppCompatActivity implements NavigationView.OnNav
     private  Usuario actualizador = new Usuario();
     private Usuario antiguo = new Usuario();
     private SharedPreferences preferencias;
-    private Button btnactualizar,btnEditar,btnComprov,btnCancelar;
+    private Button btnactualizar,btnEditar,btnComprov,btnCancelar,btnCerrarSesion;
     private static Mi_Perfil myContext;
     private String userpref;
     private String dipositivopref,datosusuario;
@@ -144,7 +145,7 @@ public class Mi_Perfil extends AppCompatActivity implements NavigationView.OnNav
 
         dtosdef= infoUsuario.JsonToString(userpref);
         didef=dispositivo.JsonToString(dipositivopref);
-
+        btnCerrarSesion=findViewById(R.id.cerrar_sesion_prov);
         nombrePerfil = findViewById(R.id.perfilnombre);
         nombrePerfil.setText(dtosdef.getNombre());
         correoPerfil = findViewById(R.id.perfilcorreo);
@@ -227,6 +228,13 @@ public class Mi_Perfil extends AppCompatActivity implements NavigationView.OnNav
                 });
                 alertOpciones.show();
 
+            }
+        });
+
+        //botonCerrarSesion
+        btnCerrarSesion.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                cerrarSesion(null);
             }
         });
 
@@ -496,5 +504,14 @@ public class Mi_Perfil extends AppCompatActivity implements NavigationView.OnNav
         mEditor.apply();
         resultadoNombreDispositivo=res;
         sensordefinitivo.setNombre(res);
+    }
+    public void cerrarSesion(View view){
+        Log.d("cerrarSesion", "llego aqui");
+        SharedPreferences.Editor mEditor = preferencias.edit();
+        mEditor.putString("usuarioIniciado", "ninguno");
+        mEditor.putString("allinfoUser","ninguno");
+        mEditor.apply();
+        Intent i = new Intent(this, Pre_Login_Registro.class);
+        startActivity(i);
     }
 }
