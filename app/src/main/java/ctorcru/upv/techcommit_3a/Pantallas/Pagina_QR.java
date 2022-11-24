@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,7 +22,7 @@ import ctorcru.upv.techcommit_3a.R;
 public class Pagina_QR extends AppCompatActivity {
     //Objetos
     private Button botonVincularSensor;
-    private ImageView flecha_atras,ImagenLogo,ImagenPerfil;
+    private ImageView flecha_atras,ImagenLogo,ImagenQR;
     private TextView irAIniciarSesion;
     private EditText editTextCodigo;
 
@@ -37,7 +36,7 @@ public class Pagina_QR extends AppCompatActivity {
         flecha_atras = findViewById(R.id.flecha_atrasQR);
         ImagenLogo = findViewById(R.id.imagenLogoReg);
         irAIniciarSesion = findViewById(R.id.irAIniciarSesion);
-        ImagenPerfil = findViewById(R.id.imagenperfil);
+        ImagenQR = findViewById(R.id.imagenparaqr);
         editTextCodigo = findViewById(R.id.escaneo_QR);
         Intent intent = getIntent();
 
@@ -68,7 +67,7 @@ public class Pagina_QR extends AppCompatActivity {
             }
         });
 
-        ImagenPerfil.setOnClickListener(new View.OnClickListener() {
+        ImagenQR.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 AbrirScaner(null);
             }

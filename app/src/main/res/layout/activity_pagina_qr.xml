@@ -84,7 +84,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.makeramen.roundedimageview.RoundedImageView
-            android:id="@+id/imagenperfil"
+            android:id="@+id/imagenparaqr"
             android:layout_width="180dp"
             android:layout_height="180dp"
             android:background="@drawable/imagen_fondo"
@@ -103,7 +103,8 @@
             android:layout_gravity="center"
             android:fontFamily="@font/varela_round"
             android:text="@string/escanea_el_qr"
-            android:textSize="12sp"></TextView>
+            android:textSize="12sp">
+        </TextView>
     </FrameLayout>
 
     <EditText
