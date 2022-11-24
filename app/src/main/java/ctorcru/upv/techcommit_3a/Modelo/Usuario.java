@@ -176,7 +176,7 @@ public class Usuario {
                 "\"Nombre\":\""+this.getNombre()+"\", " +
                 "\"Contrasena\":\""+this.getContrasena()+"\", "+
                 "\"Correo\":\""+this.getCorreo()+"\", " +
-                "\"EsAdmin\":\""+this.getEsAdmin()+"\", " +
+                "\"EsAdmin\":\""+this.getEsAdmin()+"\"" +
                 //"\"Foto\":\""+this.getFoto()+"\"" +
                 "}";
         return res;

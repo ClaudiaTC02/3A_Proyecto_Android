@@ -43,6 +43,31 @@ public class Pagina_Registro extends AppCompatActivity {
     private EditText nombre, correo, contraseña, contraseñaVerificada;
     private Button botonRegistrarse;
     private SharedPreferences preferencias;
+    private String dispositivo;
+    private String usuario;
+    private static Pagina_Registro myContext;
+    private  String codigo;
+
+    // ---------------------------------------------------------------------------------------------
+    /**
+     * @brief Constructor de la clase
+     * @return objeto MainActivity
+     * Diseño: --> MainActivity() --> MainActivity
+     **/
+    // ---------------------------------------------------------------------------------------------
+    public Pagina_Registro() {
+        myContext =  this;
+    }
+    // ---------------------------------------------------------------------------------------------
+    /**
+     * @brief Método que devuelve el contexto de la actividad
+     * @return myContext
+     * Diseño: --> MainActivity() --> MainActivity
+     **/
+    // ---------------------------------------------------------------------------------------------
+    public static Pagina_Registro getInstance() {
+        return myContext;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +83,8 @@ public class Pagina_Registro extends AppCompatActivity {
         contraseñaVerificada = findViewById(R.id.verificarContrasenya);
         botonRegistrarse = findViewById(R.id.botonRegistrarse);
         preferencias = getSharedPreferences("label", 0);
-
+        Intent intent = getIntent();
+        codigo = intent.getStringExtra("Codigo_QR");
         // ----------------------------------------------------------
         //Añadimos los listeners a los botones
         flecha_atras.setOnClickListener(new View.OnClickListener() {
@@ -126,6 +152,11 @@ public class Pagina_Registro extends AppCompatActivity {
            Log.d("registroUsuario", nombre.getText().toString() +"  "+ correo.getText().toString() +"  "+ contraseña.getText().toString());
             Usuario usuario = new Usuario(nombre.getText().toString(), correo.getText().toString(), contraseña.getText().toString());
             new Logica().insertarUsuario(usuario);
+
+            Log.d("prueba",codigo);
+            new Logica().insertarUsuario_Dispositivo(correo.getText().toString(), codigo);
+
+
             String cuerpo = "3;"+nombre.getText().toString()+";"+contraseña.getText().toString()+";"+correo.getText().toString()+";";
             Log.d("cuerpoRegistro", cuerpo);
             sendEmail(nombre.getText().toString(), correo.getText().toString());
@@ -138,6 +169,12 @@ public class Pagina_Registro extends AppCompatActivity {
             myIntent.putExtra("infoUsuario",cuerpo);
             Pagina_Registro.this.startActivity(myIntent);
         }
+    }
+    public void recogerrIdUsuario(String usuario_){
+        usuario = usuario_;
+    }
+    public void recogerrIdDispositivo(String dispositivo_){
+        dispositivo = dispositivo_;
     }
 
     protected void sendEmail(String nombre, String correo) {

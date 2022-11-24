@@ -56,7 +56,7 @@ public class Dispositivo {
         String res = "{" +
                 "\"Id_Sensor\":\""+this.getIdSensor()+"\", " +
                 "\"Nombre\":\""+this.getNombre()+"\", " +
-                "\"Ciudad\":\""+this.getCiudad()+"\", " +
+                "\"Ciudad\":\""+this.getCiudad()+"\"" +
                 "}";
         return res;
     }

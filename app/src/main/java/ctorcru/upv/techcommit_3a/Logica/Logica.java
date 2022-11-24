@@ -9,6 +9,7 @@ import ctorcru.upv.techcommit_3a.Modelo.Dispositivo;
 import ctorcru.upv.techcommit_3a.Pantallas.MainActivity;
 import ctorcru.upv.techcommit_3a.Modelo.Usuario;
 import ctorcru.upv.techcommit_3a.Pantallas.Mi_Perfil;
+import ctorcru.upv.techcommit_3a.Pantallas.Pagina_Registro;
 // -----------------------------------------------------------------------------------------
 /**
  * @brief Aquí se encuentra el código que llama a las peticiones para realizar la consulta
@@ -19,7 +20,8 @@ import ctorcru.upv.techcommit_3a.Pantallas.Mi_Perfil;
 // -----------------------------------------------------------------------------------------
 public class Logica {
     private static final String ETIQUETA_LOG = "Logica_REST";
-    private static final String restEndpoint = "http://192.168.68.111:8080";
+    private static final String restEndpoint = "http://192.168.137.1:8080";
+
     // ---------------------------------------------------------------------------------------------
     /**
      * @brief Constructor de la clase para poder ser llamado desde otra de forma simple
@@ -38,7 +40,7 @@ public class Logica {
     // ---------------------------------------------------------------------------------------------
     public void buscarUsuario(Usuario usuario){
         PeticionarioREST elPeticionarioREST = new PeticionarioREST();
-        String nuevoEndpoint = new String(restEndpoint+"/buscarUsuario?Correo="+usuario.getCorreo()+"&Contrasena="+usuario.getContrasena()).replaceAll(" ","%20");
+        String nuevoEndpoint = new String(restEndpoint+"/verificarUsuario?Correo="+usuario.getCorreo()+"&Contrasena="+usuario.getContrasena()).replaceAll(" ","%20");
 
         Log.d(ETIQUETA_LOG, "obtener usuario en "+nuevoEndpoint);
         elPeticionarioREST.hacerPeticionREST("GET", nuevoEndpoint,
@@ -110,12 +112,39 @@ public class Logica {
         // 192.168.85.84 ip pc sobremesa
         String nuevoEndpoint = new String(restEndpoint+"/usuario").replaceAll(" ","%20");
         Log.d("PRUEBA", "publicarMediciones endpoint: "+nuevoEndpoint);
-        elPeticionarioREST.hacerPeticionREST("POST", "http://192.168.68.111:8080/usuario",
+        Log.d("PRUEBA",usuario.toJSON());
+        elPeticionarioREST.hacerPeticionREST("POST", nuevoEndpoint,
                 usuario.toJSON(),
                 new PeticionarioREST.RespuestaREST () {
                     @Override
                     public void callback(int codigo, String cuerpo) {
                         Log.d ("PRUEBA",usuario.toJSON());
+                        Log.d ("PRUEBA","codigo respuesta: " + codigo + " <-> \n" + cuerpo);
+                    }
+                });
+    }
+    /**
+     * @brief Este método se encarga de insertar un usuario_dispositivo
+     * @param correo
+     * @param nombre
+     * Diseño: int,int --> insertarUsuario_Dispositivo() -->
+     **/
+    // ---------------------------------------------------------------------------------------------
+    public void insertarUsuario_Dispositivo(String correo, String nombre){
+        PeticionarioREST elPeticionarioREST = new PeticionarioREST();
+        String res = "{" +
+                "\"Correo\":\""+correo+"\", " +
+                "\"Nombre\":\""+nombre+"\"" +
+                "}";
+        String nuevoEndpoint = new String(restEndpoint+"/usuario_dispositivo").replaceAll(" ","%20");
+        Log.d("PRUEBA", "publicarMediciones endpoint: "+nuevoEndpoint);
+        Log.d("PRUEBA",res);
+        elPeticionarioREST.hacerPeticionREST("POST", nuevoEndpoint,
+                res,
+                new PeticionarioREST.RespuestaREST () {
+                    @Override
+                    public void callback(int codigo, String cuerpo) {
+                        Log.d ("PRUEBA",res);
                         Log.d ("PRUEBA","codigo respuesta: " + codigo + " <-> \n" + cuerpo);
                     }
                 });
