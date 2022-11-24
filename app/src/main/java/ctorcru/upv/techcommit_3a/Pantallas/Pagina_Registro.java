@@ -143,11 +143,12 @@ public class Pagina_Registro extends AppCompatActivity {
         else{
            Log.d("registroUsuario", nombre.getText().toString() +"  "+ correo.getText().toString() +"  "+ contraseña.getText().toString());
             Usuario usuario = new Usuario(nombre.getText().toString(), correo.getText().toString(), contraseña.getText().toString());
+
             new Logica().insertarUsuario(usuario);
 
             Log.d("prueba",codigo);
-            new Logica().insertarUsuario_Dispositivo(correo.getText().toString(), codigo);
 
+            new Logica().insertarUsuario_Dispositivo(correo.getText().toString(), codigo);
 
             String cuerpo = "3;"+nombre.getText().toString()+";"+contraseña.getText().toString()+";"+correo.getText().toString()+";";
             Log.d("cuerpoRegistro", cuerpo);
