@@ -1,7 +1,9 @@
 package ctorcru.upv.techcommit_3a.Pantallas;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
@@ -31,8 +33,10 @@ import ctorcru.upv.techcommit_3a.R;
 
 public class Vista_Mapa extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+    private SharedPreferences preferencias;
     @Override
     protected void onCreate(Bundle savedInstanceState){
+        preferencias = getSharedPreferences("label", 0);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vista_mapa);
 
@@ -152,11 +156,24 @@ public class Vista_Mapa extends AppCompatActivity implements NavigationView.OnNa
                 startActivity(intent3);
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 break;
+            case R.id.nav_Cerrar_sesion:
+                cerrarSesion(null);
+                break;
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
 
+    }
+
+    public void cerrarSesion(View view){
+        Log.d("cerrarSesion", "llego aqui");
+        SharedPreferences.Editor mEditor = preferencias.edit();
+        mEditor.putString("usuarioIniciado", "ninguno");
+        mEditor.putString("allinfoUser","ninguno");
+        mEditor.apply();
+        Intent i = new Intent(this, Pre_Login_Registro.class);
+        startActivity(i);
     }
 }

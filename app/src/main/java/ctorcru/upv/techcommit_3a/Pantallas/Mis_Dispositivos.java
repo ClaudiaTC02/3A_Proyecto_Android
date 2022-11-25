@@ -1,6 +1,7 @@
 package ctorcru.upv.techcommit_3a.Pantallas;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -53,6 +54,7 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
     NavigationView navigationView;
     Toolbar toolbar=null;
     public static Activity fa;
+    private AlertDialog.Builder cerrarSesioon;
 
 
 
@@ -230,6 +232,9 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
                 startActivity(intent3);
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 break;
+            case R.id.nav_Cerrar_sesion:
+                cerrarSesion(null);
+                break;
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -264,5 +269,26 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
 
         cargarDatos();
 
+    }
+    public void cerrarSesion(View view){
+        Log.d("cerrarSesion", "llego aqui");
+        SharedPreferences.Editor mEditor = preferencias.edit();
+        mEditor.putString("usuarioIniciado", "ninguno");
+        mEditor.putString("allinfoUser","ninguno");
+        mEditor.apply();
+        Intent i = new Intent(this, Pre_Login_Registro.class);
+        startActivity(i);
+    }
+
+    public void Alerta(String titulo, String mensaje){
+        cerrarSesioon = new AlertDialog.Builder(Mis_Dispositivos.this);
+        cerrarSesioon.setTitle("Cerrar Sesión");
+        cerrarSesioon.setMessage("¿Estás seguro de que quieres cerrar sesión?");
+        cerrarSesioon.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                cerrarSesion(null);
+            }
+        });
     }
 }

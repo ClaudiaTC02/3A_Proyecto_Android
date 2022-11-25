@@ -3,6 +3,7 @@ package ctorcru.upv.techcommit_3a.Pantallas;
 
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -69,6 +70,7 @@ public class Mi_Perfil extends AppCompatActivity implements NavigationView.OnNav
     private Dispositivo sensor= new Dispositivo();
     private String resultadoCiudad;
     private String resultadoNombreDispositivo;
+    private AlertDialog.Builder cerrarSesion;
 
     //para editar nombre correo y contraseña
 
@@ -433,6 +435,9 @@ public class Mi_Perfil extends AppCompatActivity implements NavigationView.OnNav
                 startActivity(intent3);
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 break;
+            case R.id.nav_Cerrar_sesion:
+                cerrarSesion(null);
+                break;
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -480,12 +485,7 @@ public class Mi_Perfil extends AppCompatActivity implements NavigationView.OnNav
 
             startActivity(intent);
         }
-
-
-
-
     }
-
 
     public void obtenerciudad(String res) {
         SharedPreferences.Editor mEditor = preferencias.edit();

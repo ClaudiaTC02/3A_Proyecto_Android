@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
@@ -21,6 +22,22 @@
         android:id="@+id/nav_Mapa"
         android:icon="@drawable/ic_menu_slideshow"
         android:title="Mapa" />
+
+
+    <group>
+        <item
+            android:id="@+id/espacio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:title="" />
+
+        <item
+            android:id="@+id/nav_Cerrar_sesion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="Cerrar Sesión" />
+    </group>
 
 
 </menu>

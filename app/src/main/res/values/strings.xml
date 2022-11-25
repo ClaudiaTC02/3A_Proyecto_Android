@@ -29,7 +29,7 @@
     <string name="escaneaqr">Escanea el código QR de tu dispositivo o intrduce el código manualmente para continuar</string>
     <string name="ya_tienes_cuenta">¿Ya tienes cuenta?</string>
     <string name="introduce_tu_correo">Introduce tu correo</string>
-     <string name="pol_tica_de_privacidad">política de privacidad</string>
+    <string name="pol_tica_de_privacidad">política de privacidad</string>
     <string name="pol_tica_de_privacidadP">Política de privacidad</string>
     <string name="he_le_do_la_pol_tica_de_privacidad">He leído la</string>
     <string name="cerrar_sesi_n">Cerrar sesión</string>
@@ -55,5 +55,7 @@
     <string name="politica6">Divulgaremos cualquier información que recopilemos, usemos o recibamos si así lo requiere o lo permite la ley, como para cumplir con una citación o un proceso legal similar, y cuando creemos de buena fe que la divulgación es necesaria para proteger nuestros derechos, proteger tu seguridad o la seguridad de los demás, investigar el fraude o responder a una solicitud del gobierno.</string>
     <string name="informaci_n_de_contacto">Información de contacto:</string>
     <string name="politica7">Si deseas comunicarte con nosotros para comprender más sobre esta Política o deseas comunicarte con nosotros en relación con cualquier asunto sobre los derechos individuales y tu información personal, puedes enviarnos un correo electrónico a techcommit10@gmail.com.</string>
+    <string name="donde_puedes_controlar_los_gases_en_tiempo_real">Donde puedes controlar los gases en tiempo real</string>
+    <string name="techcommit">TechCommit</string>
 
 </resources>

@@ -9,7 +9,7 @@
     <!-- Request legacy Bluetooth permissions on older devices. -->
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.CAMERA" />
     <!--
  Needed only if your app looks for Bluetooth devices.
              If your app doesn't use Bluetooth scan results to derive physical
@@ -42,7 +42,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar"
         android:usesCleartextTraffic="true">
-
         <activity
             android:name=".Pantallas.Pagina_Registro"
             android:exported="false"
@@ -81,8 +80,8 @@
             android:name=".Pantallas.Mis_Dispositivos"
             android:exported="false"
             android:label="@string/title_activity_mis_dispositivos"
-            android:theme="@style/Theme.TechCommit_3A.NoActionBar"
-            android:launchMode="singleInstance">
+            android:launchMode="singleInstance"
+            android:theme="@style/Theme.TechCommit_3A.NoActionBar">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -90,9 +89,7 @@
         <activity
             android:name=".Pantallas.MainActivity"
             android:exported="true"
-            android:theme="@style/Theme.TechCommit_3A.NoActionBar">
-
-        </activity>
+            android:theme="@style/Theme.TechCommit_3A.NoActionBar"></activity>
         <activity
             android:name=".Pantallas.SplashScreen"
             android:exported="true"
@@ -105,30 +102,28 @@
         </activity>
         <activity
             android:name=".Pantallas.Pagina_QR"
-            android:theme="@style/Theme.TechCommit_3A.NoActionBar"
-            android:exported="false">
+            android:exported="false"
+            android:theme="@style/Theme.TechCommit_3A.NoActionBar">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".Pantallas.Scanner_QR"
-            android:theme="@style/Theme.TechCommit_3A.NoActionBar"
-            android:exported="false">
+            android:exported="false"
+            android:theme="@style/Theme.TechCommit_3A.NoActionBar">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name=".Pantallas.Recuperar_Contrasena"
-            android:theme="@style/Theme.TechCommit_3A.NoActionBar"
-            android:exported="false">
+            android:exported="false"
+            android:theme="@style/Theme.TechCommit_3A.NoActionBar">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
 
         <service android:name=".ServicioEscuchaBeacons" />
     </application>
