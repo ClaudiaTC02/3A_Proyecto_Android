@@ -1,5 +1,6 @@
 package ctorcru.upv.techcommit_3a.Pantallas;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 
@@ -34,6 +36,7 @@ import ctorcru.upv.techcommit_3a.R;
 public class Vista_Mapa extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private SharedPreferences preferencias;
+    private AlertDialog.Builder cerrarSesioon;
     @Override
     protected void onCreate(Bundle savedInstanceState){
         preferencias = getSharedPreferences("label", 0);
@@ -117,8 +120,28 @@ public class Vista_Mapa extends AppCompatActivity implements NavigationView.OnNa
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
+
+        if (id == R.id.cerrar_sesion) {
+            cerrarSesioon = new AlertDialog.Builder(this);
+            cerrarSesioon.setTitle("Cerrar Sesión");
+            cerrarSesioon.setMessage("¿Estás seguro de que quieres cerrar sesión?");
+            cerrarSesioon.setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    cerrarSesion(null);
+                    finish();
+                }
+            });
+            cerrarSesioon.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.cancel();
+                }
+            });
+            cerrarSesioon.show();
         }
 
         return super.onOptionsItemSelected(item);
@@ -155,9 +178,6 @@ public class Vista_Mapa extends AppCompatActivity implements NavigationView.OnNa
                 intent3.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(intent3);
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                break;
-            case R.id.nav_Cerrar_sesion:
-                cerrarSesion(null);
                 break;
         }
 

@@ -189,8 +189,28 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
+
+        if (id == R.id.cerrar_sesion) {
+            cerrarSesioon = new AlertDialog.Builder(this);
+            cerrarSesioon.setTitle("Cerrar Sesión");
+            cerrarSesioon.setMessage("¿Estás seguro de que quieres cerrar sesión?");
+            cerrarSesioon.setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    cerrarSesion(null);
+                    finish();
+                }
+            });
+            cerrarSesioon.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.cancel();
+                }
+            });
+            cerrarSesioon.show();
         }
 
         return super.onOptionsItemSelected(item);
@@ -231,9 +251,6 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
                 intent3.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(intent3);
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                break;
-            case R.id.nav_Cerrar_sesion:
-                cerrarSesion(null);
                 break;
         }
 

@@ -20,7 +20,7 @@ import ctorcru.upv.techcommit_3a.Pantallas.Pagina_Registro;
 // -----------------------------------------------------------------------------------------
 public class Logica {
     private static final String ETIQUETA_LOG = "Logica_REST";
-    private static final String restEndpoint = "http://192.168.0.20:8080";
+    private static final String restEndpoint = "http://192.168.68.100:8080";
 
     // ---------------------------------------------------------------------------------------------
     /**
