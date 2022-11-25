@@ -9,33 +9,27 @@
 
     <item
         android:id="@+id/nav_Mis_Dispositivos"
-        android:icon="@drawable/ic_menu_camera"
+        android:icon="@drawable/ic_sensor"
         android:title="Mis Dispositivos" />
 
     <item
         android:id="@+id/nav_Mi_Perfil"
-        android:icon="@drawable/ic_menu_gallery"
+        android:icon="@drawable/ic_persona"
         android:title="Mi Perfil" />
 
 
     <item
         android:id="@+id/nav_Mapa"
-        android:icon="@drawable/ic_menu_slideshow"
+        android:icon="@drawable/ic_mapa"
         android:title="Mapa" />
 
 
     <group>
         <item
-            android:id="@+id/espacio"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:title="" />
-
-        <item
             android:id="@+id/nav_Cerrar_sesion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_cerrar_sesion"
             android:title="Cerrar Sesión" />
     </group>
 
