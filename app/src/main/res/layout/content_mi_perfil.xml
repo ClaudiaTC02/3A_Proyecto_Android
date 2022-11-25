@@ -40,7 +40,8 @@
             android:textSize="25dp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/textView11"
-            app:layout_constraintStart_toStartOf="parent"></TextView>
+            app:layout_constraintStart_toStartOf="parent">
+        </TextView>
 
         <TextView
             android:id="@+id/textView11"
@@ -80,7 +81,7 @@
                     android:id="@+id/textView13"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="23dp"
                     android:fontFamily="@font/varela_round"
                     android:text="Información del Usuario"
                     android:textColor="#59a8a8"
@@ -96,7 +97,7 @@
                     android:id="@+id/textView14"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="26dp"
+                    android:layout_marginTop="10dp"
                     android:fontFamily="@font/varela_round"
                     android:text="Nombre de usuario"
                     android:textColor="#59a8a8"
@@ -187,7 +188,6 @@
                     android:id="@+id/perfiladmin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
                     android:fontFamily="@font/varela_round"
                     android:text="Rol: Usuario"
                     android:textColor="#59a8a8"
