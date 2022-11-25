@@ -1,9 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/content_mis_dispositivos"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".Pantallas.Mis_Dispositivos"
+    tools:showIn="@layout/activity_mi_perfil">
+
+
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="55dp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.0"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -12,64 +27,6 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:context=".Pantallas.Mi_Perfil"
         tools:showIn="@layout/activity_mi_perfil">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="?actionBarSize"
-            android:background="#64a7a9"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="MissingConstraints">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="0dp"
-                android:background="?attr/colorPrimary">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="35dp"
-                    android:layout_marginTop="15dp"
-                    android:fontFamily="@font/varela_round"
-                    android:scrollbarThumbHorizontal="@color/ic_launcher_background"
-                    android:text="Mi perfil"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageView4"
-                    app:layout_constraintStart_toEndOf="@+id/imageView4"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0"></TextView>
-
-                <ImageView
-                    android:id="@+id/imageView4"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="18dp"
-                    android:background="@drawable/menuicono"
-                    android:backgroundTint="@color/white"
-                    android:scrollbarThumbHorizontal="@drawable/menuicono"
-                    android:scrollbarThumbVertical="@drawable/menuicono"
-                    android:scrollbarTrackHorizontal="@drawable/menuicono"
-                    android:scrollbarTrackVertical="@drawable/menuicono"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageView
-                    android:id="@+id/imageView5"
-                    android:layout_width="20dp"
-                    android:layout_height="30dp"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginEnd="16dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/dots" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </RelativeLayout>
 
         <TextView
             android:id="@+id/textView12"
@@ -89,7 +46,7 @@
             android:id="@+id/textView11"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="36dp"
+            android:layout_marginBottom="25dp"
             android:fontFamily="@font/varela_round"
             android:text="Información"
             android:textColor="@color/white"
@@ -106,7 +63,7 @@
             style="@style/MyCardViewI"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="180dp"
+            android:layout_marginTop="120dp"
             app:cardBackgroundColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -116,13 +73,13 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="728dp">
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/textView13"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="40dp"
+                    android:layout_marginTop="30dp"
                     android:fontFamily="@font/varela_round"
                     android:text="Información del Usuario"
                     android:textColor="#59a8a8"
@@ -144,7 +101,6 @@
                     android:textColor="#59a8a8"
                     android:textSize="20dp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView13">
 
@@ -157,6 +113,7 @@
                     android:layout_marginTop="15dp"
                     android:background="@drawable/fondo_input"
                     android:editable="true"
+                    android:textColor="#5B5C5C"
                     android:ems="10"
                     android:enabled="false"
                     android:fontFamily="@font/varela_round"
@@ -167,6 +124,7 @@
                     android:paddingEnd="50dp"
                     android:text="Nombre"
                     android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@+id/textView14"
                     app:layout_constraintStart_toStartOf="@+id/textView14"
                     app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
@@ -180,7 +138,7 @@
                     android:textColor="#59a8a8"
                     android:textSize="20dp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
+
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/perfilnombre">
 
@@ -190,6 +148,7 @@
                     android:id="@+id/perfilcontrasena"
                     android:layout_width="250dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
                     android:background="@drawable/fondo_input"
                     android:editable="true"
                     android:ems="10"
@@ -200,7 +159,8 @@
                     android:paddingStart="8dp"
                     android:paddingEnd="50dp"
                     android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="@+id/perfiladmin"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView16" />
 
                 <EditText
@@ -210,7 +170,9 @@
                     android:layout_marginTop="15dp"
                     android:background="@drawable/fondo_input"
                     android:editable="true"
+                    android:textColor="#5B5C5C"
                     android:enabled="false"
+                    android:fontFamily="@font/varela_round"
                     android:minHeight="48dp"
                     android:padding="10dp"
                     android:paddingStart="8dp"
@@ -228,47 +190,32 @@
                     android:fontFamily="@font/varela_round"
                     android:text="Rol: Usuario"
                     android:textColor="#59a8a8"
+                    android:visibility="invisible"
                     android:textSize="18dp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="@+id/perfilcorreo"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/perfilcorreo" />
 
                 <TextView
                     android:id="@+id/textView16"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
                     android:fontFamily="@font/varela_round"
                     android:text="Contraseña/Cambiar contraseña"
                     android:textColor="#59a8a8"
                     android:textSize="20dp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="@+id/perfiladmin"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/perfiladmin">
 
                 </TextView>
 
                 <Button
-                    android:id="@+id/btnEditar"
-                    android:layout_width="170dp"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/varela_round"
-                    android:text="Editar"
-                    android:textAllCaps="false"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    app:cornerRadius="10dp"
-                    app:layout_constraintStart_toStartOf="@+id/perfilcontrasena"
-                    app:layout_constraintTop_toTopOf="@+id/btnActualizarP" />
-
-                <Button
                     android:id="@+id/btnActualizarP"
                     android:layout_width="120dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="50dp"
+                    android:layout_marginTop="70dp"
                     android:layout_marginBottom="196dp"
                     android:fontFamily="@font/varela_round"
                     android:text="Actualizar"
@@ -279,55 +226,7 @@
                     app:cornerRadius="12dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/btnCancel"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="@+id/editOldContra"
-                    app:layout_constraintTop_toBottomOf="@+id/editOldContra" />
-
-                <EditText
-                    android:id="@+id/editConfirmp"
-                    android:layout_width="250dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
-                    android:background="@drawable/fondo_input"
-                    android:ems="10"
-                    android:inputType="textPassword"
-                    android:minHeight="48dp"
-                    android:padding="10dp"
-                    android:paddingStart="8dp"
-                    android:paddingEnd="50dp"
-                    android:textStyle="bold"
-                    android:visibility="gone"
-                    app:layout_constraintStart_toStartOf="@+id/perfilcontrasena"
-                    app:layout_constraintTop_toBottomOf="@+id/perfilcontrasena" />
-
-                <EditText
-                    android:id="@+id/editOldContra"
-                    android:layout_width="250dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="52dp"
-                    android:background="@drawable/fondo_input"
-                    android:ems="10"
-                    android:hint="Introduzca la contraseña actual"
-                    android:inputType="textPassword"
-                    android:padding="10dp"
-                    android:paddingStart="8dp"
-                    android:paddingEnd="50dp"
-                    android:textStyle="bold"
-                    android:visibility="invisible"
-                    app:layout_constraintStart_toStartOf="@+id/perfiladmin"
-                    app:layout_constraintTop_toBottomOf="@+id/textView16" />
-
-                <Button
-                    android:id="@+id/btnComprov"
-                    android:layout_width="wrap_content"
-                    android:layout_height="42dp"
-                    android:fontFamily="@font/varela_round"
-                    android:text="Comprobar"
-                    android:textAllCaps="false"
-                    android:textSize="10sp"
-                    android:textStyle="bold"
-                    android:visibility="invisible"
-                    app:cornerRadius="10dp"
+                    app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/editOldContra" />
 
@@ -341,10 +240,66 @@
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textStyle="bold"
-                    android:visibility="gone"
+                    android:visibility="invisible"
                     app:cornerRadius="12dp"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/btnActualizarP"
                     app:layout_constraintTop_toTopOf="@+id/btnActualizarP" />
+
+                <EditText
+                    android:id="@+id/editConfirmp"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/fondo_input"
+                    android:ems="10"
+                    android:inputType="textPassword"
+                    android:minHeight="48dp"
+                    android:padding="10dp"
+                    android:layout_marginTop="10dp"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="50dp"
+                    android:textStyle="bold"
+                    android:visibility="invisible"
+                    app:layout_constraintEnd_toEndOf="@+id/perfilcontrasena"
+                    app:layout_constraintStart_toStartOf="@+id/perfilcontrasena"
+                    app:layout_constraintTop_toBottomOf="@+id/perfilcontrasena" />
+
+                <EditText
+                    android:id="@+id/editOldContra"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/fondo_input"
+                    android:ems="10"
+                    android:fontFamily="@font/varela_round"
+                    android:hint="Contraseña actual"
+                    android:inputType="textPassword"
+                    android:padding="10dp"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="50dp"
+                    android:textStyle="bold"
+                    android:visibility="invisible"
+                    app:layout_constraintEnd_toEndOf="@+id/perfilcontrasena"
+                    app:layout_constraintStart_toStartOf="@+id/perfilcontrasena"
+                    app:layout_constraintTop_toBottomOf="@+id/perfilcontrasena" />
+
+                <Button
+                    android:id="@+id/btnComprov"
+                    android:layout_width="wrap_content"
+                    android:layout_height="42dp"
+                    android:fontFamily="@font/varela_round"
+                    android:text="Comprobar"
+                    android:textAllCaps="false"
+                    android:textSize="12sp"
+                    android:layout_marginTop="5dp"
+                    android:textStyle="bold"
+                    android:visibility="invisible"
+                    app:cornerRadius="10dp"
+                    app:layout_constraintEnd_toEndOf="@+id/editOldContra"
+                    app:layout_constraintStart_toStartOf="@+id/editOldContra"
+                    app:layout_constraintTop_toBottomOf="@+id/editOldContra" />
+
 
                 <TextView
                     android:id="@+id/textView17"
@@ -352,12 +307,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/varela_round"
-                    android:text="Información acerca de el dispositivo"
+                    android:text="Información del dispositivo"
                     android:textColor="#59a8a8"
-                    android:textSize="20dp"
+                    android:textSize="25dp"
+                    android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="@+id/perfiladmin"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/btnActualizarP">
 
                 </TextView>
@@ -371,10 +326,10 @@
                     android:text="dispositivo"
                     android:textColor="#59a8a8"
                     android:textSize="15dp"
+                    android:layout_marginEnd="15dp"
                     android:visibility="visible"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="@+id/editOldContra"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
                 <TextView
@@ -387,9 +342,9 @@
                     android:textColor="#59a8a8"
                     android:textSize="15dp"
                     android:visibility="visible"
+                    android:layout_marginEnd="15dp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="@+id/txtdispositivos"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/txtdispositivos" />
 
                 <TextView
@@ -407,19 +362,19 @@
                     app:layout_constraintStart_toStartOf="@+id/sensornametxt"
                     app:layout_constraintTop_toBottomOf="@+id/sensornametxt" />
 
-                <Button
-                    android:id="@+id/cerrar_sesion_prov"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="20dp"
-                    android:text="Cerrar seison"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/sensornametxt" />
+                <ImageView
+                    android:id="@+id/btnEditar"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:clickable="true"
+                    android:src="@drawable/ic_editar"
+                    app:layout_constraintBottom_toTopOf="@+id/textView13"
+                    app:layout_constraintEnd_toEndOf="@+id/textView13"
+                    app:layout_constraintStart_toEndOf="@+id/textView13"
+                    app:tint="#59a8a8" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

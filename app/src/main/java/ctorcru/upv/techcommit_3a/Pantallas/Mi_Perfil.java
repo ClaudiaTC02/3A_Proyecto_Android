@@ -55,7 +55,8 @@ public class Mi_Perfil extends AppCompatActivity implements NavigationView.OnNav
     private  Usuario actualizador = new Usuario();
     private Usuario antiguo = new Usuario();
     private SharedPreferences preferencias;
-    private Button btnactualizar,btnEditar,btnComprov,btnCancelar,btnCerrarSesion;
+    private Button btnactualizar,btnComprov,btnCancelar,btnCerrarSesion;
+    private ImageView btnEditar;
     private static Mi_Perfil myContext;
     private String userpref;
     private String dipositivopref,datosusuario;
@@ -71,6 +72,7 @@ public class Mi_Perfil extends AppCompatActivity implements NavigationView.OnNav
     private String resultadoCiudad;
     private String resultadoNombreDispositivo;
     private AlertDialog.Builder cerrarSesioon;
+    private AlertDialog.Builder editar;
 
     //para editar nombre correo y contraseña
 
@@ -147,14 +149,13 @@ public class Mi_Perfil extends AppCompatActivity implements NavigationView.OnNav
 
         dtosdef= infoUsuario.JsonToString(userpref);
         didef=dispositivo.JsonToString(dipositivopref);
-        btnCerrarSesion=findViewById(R.id.cerrar_sesion_prov);
         nombrePerfil = findViewById(R.id.perfilnombre);
         nombrePerfil.setText(dtosdef.getNombre());
         correoPerfil = findViewById(R.id.perfilcorreo);
         correoPerfil.setText(dtosdef.getCorreo());
         contrasenaPerfil = findViewById(R.id.perfilcontrasena);
         contrasenaPerfil.setText(dtosdef.getContrasena());
-        btnEditar=(Button)findViewById(R.id.btnEditar);
+        btnEditar= findViewById(R.id.btnEditar);
         confirmarcontrasena=findViewById(R.id.editConfirmp);
         oldcontrasena = findViewById(R.id.editOldContra);
         btnComprov=(Button)findViewById(R.id.btnComprov);
@@ -165,7 +166,7 @@ public class Mi_Perfil extends AppCompatActivity implements NavigationView.OnNav
         txtTitulo.setText(content);
         dispositivos=findViewById(R.id.txtdispositivos);
         didef.setIdUsuario(dtosdef.getId());
-        dispositivos.setText("Id del dispositivo:"+didef.getIdSensor());
+        dispositivos.setText("Id del dispositivo: "+didef.getIdSensor());
 
         sensornombre=findViewById(R.id.sensornametxt);
         sensorciudad=findViewById(R.id.ciudadsensortxt);
@@ -206,7 +207,6 @@ public class Mi_Perfil extends AppCompatActivity implements NavigationView.OnNav
             }
         });
 
-
         btnCancelar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -218,7 +218,7 @@ public class Mi_Perfil extends AppCompatActivity implements NavigationView.OnNav
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         if(opciones[i].equals("Aceptar")){
-                            Intent myIntent = new Intent(Mi_Perfil.this, Mis_Dispositivos.class);
+                            Intent myIntent = new Intent(Mi_Perfil.this, Mi_Perfil.class);
                             Mi_Perfil.this.startActivity(myIntent);
                             Mi_Perfil.this.finish();
                         }
@@ -233,35 +233,40 @@ public class Mi_Perfil extends AppCompatActivity implements NavigationView.OnNav
             }
         });
 
-        //botonCerrarSesion
-        btnCerrarSesion.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                cerrarSesion(null);
-            }
-        });
-
         //si pulsamos el boton editar
         btnEditar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                btnCancelar.setVisibility(View.VISIBLE);
-                btnEditar.setVisibility(View.GONE);
-                btnComprov.setVisibility(View.VISIBLE);
-                oldcontrasena.setVisibility(View.VISIBLE);
-                nombrePerfil.setEnabled(true);
-                correoPerfil.setEnabled(true);
-                correoPerfil.setEnabled(true);
-                contrasenaPerfil.setEnabled(false);
-                btnactualizar.setVisibility(View.VISIBLE);
-                confirmarcontrasena.setVisibility(View.INVISIBLE);
-                confirmarcontrasena.setText(dtosdef.getContrasena());
-
-
-                 correo= correoPerfil.getText().toString();
-
-
+                editar = new AlertDialog.Builder(Mi_Perfil.this);
+                editar.setTitle("Editar información de usuario");
+                editar.setMessage("¿Desea editar su información de usuario?");
+                editar.setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        btnCancelar.setVisibility(View.VISIBLE);
+                        btnEditar.setVisibility(View.GONE);
+                        btnComprov.setVisibility(View.VISIBLE);
+                        oldcontrasena.setVisibility(View.VISIBLE);
+                        nombrePerfil.setEnabled(true);
+                        correoPerfil.setEnabled(true);
+                        correoPerfil.setEnabled(true);
+                        contrasenaPerfil.setEnabled(false);
+                        btnactualizar.setVisibility(View.VISIBLE);
+                        confirmarcontrasena.setVisibility(View.INVISIBLE);
+                        confirmarcontrasena.setText(dtosdef.getContrasena());
+                        correo= correoPerfil.getText().toString();
+                    }
+                });
+                editar.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+                editar.show();
             }
         });
+
 
         //pulsamos el boton actualizar
         btnactualizar = (Button) findViewById(R.id.btnActualizarP);
