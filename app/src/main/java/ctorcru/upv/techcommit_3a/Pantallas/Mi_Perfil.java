@@ -3,7 +3,6 @@ package ctorcru.upv.techcommit_3a.Pantallas;
 
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -48,7 +47,7 @@ public class Mi_Perfil extends AppCompatActivity implements NavigationView.OnNav
     //Objetos
     private EditText contrasenaPerfil,oldcontrasena;
     private EditText confirmarcontrasena;
-    private TextView dispositivos,sensornombre,sensorciudad,txtTitulo;
+    private TextView dispositivos,sensornombre,sensorciudad,txtTitulo, tusdispositivos;
     private ImageView fotoperfil;
     private Usuario infoUsuario = new Usuario();
     private  Usuario dtosdef= new Usuario();
@@ -156,14 +155,18 @@ public class Mi_Perfil extends AppCompatActivity implements NavigationView.OnNav
         contrasenaPerfil = findViewById(R.id.perfilcontrasena);
         contrasenaPerfil.setText(dtosdef.getContrasena());
         btnEditar= findViewById(R.id.btnEditar);
+        tusdispositivos = (TextView) findViewById(R.id.tusdispositivos);
         confirmarcontrasena=findViewById(R.id.editConfirmp);
         oldcontrasena = findViewById(R.id.editOldContra);
         btnComprov=(Button)findViewById(R.id.btnComprov);
         btnCancelar=(Button)findViewById(R.id.btnCancel);
         TextView txtTitulo = (TextView)findViewById(R.id.textView13);
+        TextView textInfoDIspositivo = (TextView)findViewById(R.id.tusdispositivos);
         SpannableString content = new SpannableString("Información de Usuario");
         content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
         txtTitulo.setText(content);
+        textInfoDIspositivo.setPaintFlags(textInfoDIspositivo.getPaintFlags() |   android.graphics.Paint.UNDERLINE_TEXT_FLAG);
+
         dispositivos=findViewById(R.id.txtdispositivos);
         didef.setIdUsuario(dtosdef.getId());
         dispositivos.setText("Id del dispositivo: "+didef.getIdSensor());
@@ -251,7 +254,10 @@ public class Mi_Perfil extends AppCompatActivity implements NavigationView.OnNav
                         correoPerfil.setEnabled(true);
                         correoPerfil.setEnabled(true);
                         contrasenaPerfil.setEnabled(false);
+                        tusdispositivos.setVisibility(View.GONE);
+                        dispositivos.setVisibility(View.GONE);
                         btnactualizar.setVisibility(View.VISIBLE);
+                        sensornombre.setVisibility(View.GONE);
                         confirmarcontrasena.setVisibility(View.INVISIBLE);
                         confirmarcontrasena.setText(dtosdef.getContrasena());
                         correo= correoPerfil.getText().toString();
@@ -309,7 +315,7 @@ public class Mi_Perfil extends AppCompatActivity implements NavigationView.OnNav
                         public void onClick(DialogInterface dialogInterface, int i) {
                             if(opciones[i].equals("Aceptar")){
                                 Mis_Dispositivos.fa.finish();
-                                Intent myIntent = new Intent(Mi_Perfil.this, Mis_Dispositivos.class);
+                                Intent myIntent = new Intent(Mi_Perfil.this, Mi_Perfil.class);
                                 Mi_Perfil.this.startActivity(myIntent);
 
                                 Mi_Perfil.this.finish();
