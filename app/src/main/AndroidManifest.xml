@@ -125,7 +125,8 @@
                 android:value="" />
         </activity>
 
-        <service android:name=".ServicioEscuchaBeacons" />
+        <service android:name=".ServicioEscuchaBeacons"
+            android:foregroundServiceType="location"/>
     </application>
 
 </manifest>

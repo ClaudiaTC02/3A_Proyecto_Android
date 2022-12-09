@@ -48,6 +48,7 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
     private TextView nombreUsuario;
     private Button botonBusqueda;
     private Button botonCerrarSesion;
+    private static Mis_Dispositivos myContext;
     private Button botonDetenerBusqueda;
     private ImageView ImagenMisDispositivos;
     DrawerLayout drawer;
@@ -307,5 +308,14 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
                 cerrarSesion(null);
             }
         });
+    }
+
+    //getInstance
+    public Mis_Dispositivos() {
+        myContext =  this;
+    }
+
+    public static Mis_Dispositivos getInstance() {
+        return myContext;
     }
 }

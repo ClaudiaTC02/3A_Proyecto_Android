@@ -25,6 +25,7 @@ import java.util.List;
 import ctorcru.upv.techcommit_3a.Modelo.TramaIBeacon;
 import ctorcru.upv.techcommit_3a.Modelo.Utilidades;
 import ctorcru.upv.techcommit_3a.Pantallas.MainActivity;
+import ctorcru.upv.techcommit_3a.Pantallas.Mis_Dispositivos;
 
 /**
  * @brief Aquí se encuentra el código que hace posible que la aplicación reciba los datos de los beacons enviados por el sensor
@@ -241,10 +242,7 @@ public class ServicioEscuchaBeacons extends Service {
                         || ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
         )
         {
-                ActivityCompat.requestPermissions(
-                         MainActivity.getInstance(),
-                         new String[]{Manifest.permission.BLUETOOTH, Manifest.permission.BLUETOOTH_ADMIN, Manifest.permission.ACCESS_FINE_LOCATION},
-                         CODIGO_PETICION_PERMISOS);
+            ActivityCompat.requestPermissions(Mis_Dispositivos.getInstance(), new String[]{Manifest.permission.BLUETOOTH, Manifest.permission.BLUETOOTH_ADMIN, Manifest.permission.ACCESS_FINE_LOCATION}, 0);
         }
         else {
             Log.d(ETIQUETA_LOG, " inicializarBlueTooth(): parece que YA tengo los permisos necesarios !!!!");
