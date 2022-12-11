@@ -58,7 +58,7 @@
 
 
     <Button
-        android:id="@+id/scan_qr"
+        android:id="@+id/vincular_sensor_boton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/varela_round"
@@ -195,7 +195,7 @@
         android:text="@string/pol_tica_de_privacidad"
         android:textColor="#59A8A8"
         android:layout_marginStart="5dp"
-        app:layout_constraintBottom_toTopOf="@+id/scan_qr"
+        app:layout_constraintBottom_toTopOf="@+id/vincular_sensor_boton"
         app:layout_constraintStart_toEndOf="@+id/checkBox"
         app:layout_constraintTop_toBottomOf="@+id/escaneo_QR" />
 

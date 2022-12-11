@@ -3,6 +3,7 @@ package ctorcru.upv.techcommit_3a;
 import static androidx.test.espresso.Espresso.closeSoftKeyboard;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.supportsInputMethods;
@@ -79,10 +80,17 @@ public class TestActivity_Pagina_Registro {
      * Comprueba que se puede pulsar el botón de registro (Este test se modificará cuando se implemente el registro)
      */
     @Test
-    public void comprobarBotonRegistro() {
+    public void comprobarRegistroReal() {
         //Comprobamos que la actividad se muestra
         onView(isDisplayed());
-        //Hacemos click en el botón de registro
-        onView(withId(R.id.botonRegistrarse)).perform(click());
+        //Rellenamos los campos
+        onView(withId(R.id.text_nombre)).perform(typeText("Roberto"));
+        closeSoftKeyboard();
+        onView(withId(R.id.correo2)).perform(typeText("roberto@roberto.com"));
+        closeSoftKeyboard();
+        onView(withId(R.id.contrasena2)).perform(typeText("1234"));
+        closeSoftKeyboard();
+        onView(withId(R.id.verificarContrasenya)).perform(typeText("1234"));
+        closeSoftKeyboard();
     }
 }

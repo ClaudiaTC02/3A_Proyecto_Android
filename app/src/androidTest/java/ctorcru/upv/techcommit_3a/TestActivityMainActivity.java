@@ -7,6 +7,7 @@ import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.supportsInputMethods;
+import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
@@ -93,7 +94,7 @@ public class TestActivityMainActivity {
         onView(isDisplayed());
         //Escribimos un correo válido
         onView(withId(R.id.correo)).perform(click()).check(matches(supportsInputMethods()));
-        onView(withId(R.id.correo)).perform(typeText("roberto@roberto.com"));
+        onView(withId(R.id.correo)).perform(typeText("prueba@prueba.com"));
         closeSoftKeyboard();
         //Escribimos una contraseña válida
         onView(withId(R.id.contrasenya)).perform(click()).check(matches(supportsInputMethods()));
@@ -103,6 +104,9 @@ public class TestActivityMainActivity {
         onView(withId(R.id.botonIniciarSesion)).perform(click());
         //Comprobamos que se muestra la actividad de mis dispositivos
         onView(withId(R.id.content_mis_dispositivos)).check(matches(isDisplayed()));
+
+        CerrarSesion();
+
     }
 
     /**
@@ -139,5 +143,17 @@ public class TestActivityMainActivity {
         onView(withId(R.id.irAIniciarSesion)).perform(click());
         //Comprobamos que se muestra la actividad de registro
         onView(withId(R.id.ActivityRegistro1)).check(matches(isDisplayed()));
+    }
+
+
+    /**
+     * Comprueba que es posible cerrar sesión
+     * @brief Test realizado con un usuario existente en la base de datos
+     */
+    public void CerrarSesion() {
+        onView(withContentDescription("Más opciones")).perform(click());
+        onView(withText("Cerrar sesión")).perform(click());
+        //Darle al botón de aceptar
+        onView(withText("Si")).perform(click());
     }
 }

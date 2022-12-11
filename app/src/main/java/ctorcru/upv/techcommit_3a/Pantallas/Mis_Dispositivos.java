@@ -119,8 +119,6 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
             }
         });
 
-
-
         botonDetenerBusqueda.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

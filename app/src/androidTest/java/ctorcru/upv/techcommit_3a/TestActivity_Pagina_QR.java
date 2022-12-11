@@ -7,9 +7,14 @@ import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.supportsInputMethods;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
-import androidx.test.espresso.action.ViewActions;
+import android.Manifest;
+import android.app.UiAutomation;
+
+
 import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
+import androidx.test.uiautomator.UiDevice;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -57,13 +62,17 @@ public class TestActivity_Pagina_QR {
      * Comprueba que al pulsar el botón de vincular se cambia a la actividad de registro
      */
     @Test
-    public void comprobarVincular() {
+    public void comprobarEscanerQR() {
+        UiAutomation uiAutomation = InstrumentationRegistry.getInstrumentation().getUiAutomation();
+        UiDevice uiDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
         //Comprobamos que la actividad se muestra
         onView(isDisplayed());
-        //Hacemos click en el botón de registro
-        onView(withId(R.id.scan_qr)).perform(click());
-        //Comprobamos que se muestra la actividad de registro
-        onView(withId(R.id.ActivityRegistro2)).check(matches(isDisplayed()));
+        //Hacemos click en la imagen para hacer la foto
+        onView(withId(R.id.frameLayout3)).perform(click());
+        //Se abre la camara
+        uiAutomation.grantRuntimePermission("ctorcru.upv.techcommit_3a", Manifest.permission.CAMERA);
+        //Volvemos atrás
+        uiDevice.pressBack();
     }
 
 
