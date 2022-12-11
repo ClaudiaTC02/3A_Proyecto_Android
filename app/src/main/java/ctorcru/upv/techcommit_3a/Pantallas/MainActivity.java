@@ -15,7 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import ctorcru.upv.techcommit_3a.Logica.Logica;
-import ctorcru.upv.techcommit_3a.Modelo.DispositivoUsuario;
+
 import ctorcru.upv.techcommit_3a.Modelo.Usuario;
 import ctorcru.upv.techcommit_3a.R;
 // -----------------------------------------------------------------------------------------
@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText contraseya;
     private ImageView flecha_atras,ImagenLogo;
     private SharedPreferences preferencias;
-
+    private Logica logica= new Logica();
     // ---------------------------------------------------------------------------------------------
     // Métodos para coger el contexto de esta actividad
     // ---------------------------------------------------------------------------------------------
@@ -147,6 +147,7 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, (R.string.avisoNadaIniciarSesion), Toast.LENGTH_SHORT).show();
         } else{
             new Logica().buscarUsuario(new Usuario(correo.getText().toString(),contraseya.getText().toString()));
+            logica.buscarDispositivosDelUsuario(correo.getText().toString());
         }
     }
 
@@ -173,7 +174,13 @@ public class MainActivity extends AppCompatActivity {
         startActivity(i);
     }
 
+    public void obtenerNombresSensor(String cuerpo) {
+        SharedPreferences.Editor mEditor = preferencias.edit();
+        Log.d("obtenerNombre", "le paso "+ cuerpo);
+        mEditor.putString("allinfosensores",cuerpo);
+        mEditor.apply();
 
+    }
 
     // ---------------------------------------------------------------------------------------------
 }

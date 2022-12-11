@@ -26,6 +26,9 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.json.JSONException;
+
+import ctorcru.upv.techcommit_3a.Logica.Logica;
 import ctorcru.upv.techcommit_3a.Modelo.Usuario;
 import ctorcru.upv.techcommit_3a.R;
 import ctorcru.upv.techcommit_3a.ServicioEscuchaBeacons;
@@ -59,6 +62,7 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
 
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
         preferencias = getSharedPreferences("label", 0);
@@ -72,7 +76,11 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
 
         // ----------------------------------------------------------
         //Enlazamos los objetos con los elementos
-        cargarDatos();
+        try {
+            cargarDatos();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         botonBusqueda = findViewById(R.id.botonBusqueda);
         botonDetenerBusqueda = findViewById(R.id.botonDetenerBusqueda);
         ImagenMisDispositivos = findViewById(R.id.ImagenMisDispositivos);
@@ -80,8 +88,18 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
         nombreUsuario = findViewById(R.id.txtNombreh);
         datosUsuario= getIntent().getStringExtra("infoUsuario");
         String userpref= preferencias.getString("allinfoUser","");
-        dtosdef= infoUsuario.JsonToString(userpref);
-        infoUsuario.JsonToString(userpref);
+
+        try {
+            dtosdef= infoUsuario.JsonToString(userpref);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            infoUsuario.JsonToString(userpref);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         nombreUsuario.setText("Hola "+ dtosdef.getNombre()+", bienvenido a TechCommit");
         fa = this;
 
@@ -261,7 +279,7 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
 
     }
     // ---------------------------------------------------------------------------------------------
-    private void cargarDatos(){
+    private void cargarDatos()throws JSONException{
         String userpref= preferencias.getString("allinfoUser","");
         Usuario dtosdef;
         dtosdef= infoUsuario.JsonToString(userpref);
@@ -272,20 +290,32 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
     @Override
     public void onResume() {
         super.onResume();
-        cargarDatos();
+        try {
+            cargarDatos();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
     }
     @Override
     public void onRestart() {
         super.onRestart();
-        cargarDatos();
+        try {
+            cargarDatos();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
     }
     @Override
     public void onStart() {
         super.onStart();
 
-        cargarDatos();
+        try {
+            cargarDatos();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
     }
     public void cerrarSesion(View view){
@@ -293,6 +323,7 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
         SharedPreferences.Editor mEditor = preferencias.edit();
         mEditor.putString("usuarioIniciado", "ninguno");
         mEditor.putString("allinfoUser","ninguno");
+        mEditor.putString("allinfosensores","ninguno");
         mEditor.apply();
         Intent i = new Intent(this, Pre_Login_Registro.class);
         startActivity(i);
@@ -318,4 +349,5 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
     public static Mis_Dispositivos getInstance() {
         return myContext;
     }
+
 }

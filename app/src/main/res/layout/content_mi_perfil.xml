@@ -315,52 +315,6 @@
                     app:layout_constraintTop_toBottomOf="@+id/perfilcontrasena">
 
                 </TextView>
-
-                <TextView
-                    android:id="@+id/txtdispositivos"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:fontFamily="@font/varela_round"
-                    android:text="dispositivo"
-                    android:textColor="#59a8a8"
-                    android:textSize="15dp"
-                    android:layout_marginEnd="15dp"
-                    android:visibility="visible"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tusdispositivos" />
-
-                <TextView
-                    android:id="@+id/sensornametxt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:fontFamily="@font/varela_round"
-                    android:text="Nombre del sensor"
-                    android:textColor="#59a8a8"
-                    android:textSize="15dp"
-                    android:visibility="visible"
-                    android:layout_marginEnd="15dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/txtdispositivos" />
-
-                <TextView
-                    android:id="@+id/ciudadsensortxt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:fontFamily="@font/varela_round"
-                    android:text="Ciuda:"
-                    android:textColor="#59a8a8"
-                    android:textSize="20dp"
-                    android:visibility="gone"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="@+id/sensornametxt"
-                    app:layout_constraintTop_toBottomOf="@+id/sensornametxt" />
-
                 <ImageView
                     android:id="@+id/btnEditar"
                     android:layout_width="22dp"
@@ -371,6 +325,18 @@
                     app:layout_constraintEnd_toEndOf="@+id/textView13"
                     app:layout_constraintStart_toEndOf="@+id/textView13"
                     app:tint="#59a8a8" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/my_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:visibility="visible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tusdispositivos"
+                    tools:listitem="@layout/list_item" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>

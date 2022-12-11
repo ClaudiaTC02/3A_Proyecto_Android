@@ -6,6 +6,9 @@ import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Arrays;
 
 /**
@@ -22,27 +25,6 @@ public class Usuario {
     private String Contrasena;
     private String EsAdmin="0";//cambiar cuando se use, ahora esta en predefinido
     //private String Foto;
-    public void setId(String id) {
-        Id = id;
-    }
-
-    public void setNombre(String nombre) {
-        Nombre = nombre;
-    }
-
-    public void setCorreo(String correo) {
-        Correo = correo;
-    }
-
-    public void setContrasena(String contrasena) {
-        Contrasena = contrasena;
-    }
-    /*public void setFoto(String foto) {
-        Foto = foto;
-    }*/
-    public void setEsAdmin(String admin) {
-        EsAdmin = admin;
-    }
 
 // ---------------------------------------------------------------------------------------------
     /**
@@ -103,6 +85,57 @@ public class Usuario {
         Correo = correo;
         Contrasena = contrasena;
     }
+
+    // ---------------------------------------------------------------------------------------------
+    /**
+     * @brief Con este método se da el id
+     * Diseño:String --> setId()
+     **/
+    // ---------------------------------------------------------------------------------------------
+    public void setId(String id) {
+        Id = id;
+    }
+
+    // ---------------------------------------------------------------------------------------------
+    /**
+     * @brief Con este método se da el nombre
+     * Diseño: String--> setNombre()
+     **/
+    // ---------------------------------------------------------------------------------------------
+    public void setNombre(String nombre) {
+        Nombre = nombre;
+    }
+
+    // ---------------------------------------------------------------------------------------------
+    /**
+     * @brief Con este método se da el correo
+     * Diseño: String -->setCorreo()
+     **/
+    // ---------------------------------------------------------------------------------------------
+    public void setCorreo(String correo) {
+        Correo = correo;
+    }
+
+    // ---------------------------------------------------------------------------------------------
+    /**
+     * @brief Con este método se da la contrasenya
+     * Diseño: String --> setContrasena()
+     **/
+    // ---------------------------------------------------------------------------------------------
+    public void setContrasena(String contrasena) {
+        Contrasena = contrasena;
+    }
+
+    // ---------------------------------------------------------------------------------------------
+    /**
+     * @brief Con este método da su rol
+     * Diseño: String-->setEsAdmin()
+     **/
+    // ---------------------------------------------------------------------------------------------
+    public void setEsAdmin(String admin) {
+        EsAdmin = admin;
+    }
+
     // ---------------------------------------------------------------------------------------------
     /**
      * @brief Con este método se obtiene el id
@@ -145,13 +178,23 @@ public class Usuario {
     public String getContrasena() {
         return Contrasena;
     }
+
+    /**
+     * @brief Con este método se obtiene su rol
+     * @return EsAdmin
+     * Diseño: --> getEsAdmin() --> String
+     **/
     // ---------------------------------------------------------------------------------------------
     public String getEsAdmin() {
         return EsAdmin;
     }
-    /*public String getFoto() {
-        return Foto;
-    }*/
+
+    /**
+     * @brief Con este método se pasa a string el usuario
+     * @return String
+     * Diseño: --> toString() --> String
+     **/
+    // ---------------------------------------------------------------------------------------------
     @Override
     public String toString() {
         return "Usuario{" +
@@ -165,9 +208,9 @@ public class Usuario {
     }
     // ---------------------------------------------------------------------------------------------
     /**
-     * @brief Con este método convoerte el objeto a formatee json
+     * @brief Con este método convoerte el objeto a formato json
      * @return res
-     * Diseño: --> getContrasena() --> String
+     * Diseño: --> toJSON() --> String
      **/
     // ---------------------------------------------------------------------------------------------
     public String toJSON(){
@@ -181,16 +224,26 @@ public class Usuario {
                 "}";
         return res;
     }
-    public Usuario JsonToString(String txt) {
+
+    // ---------------------------------------------------------------------------------------------
+    /**
+     * @brief Con este método convierte el json en un usuario
+     * @return usuariof
+     * Diseño: String --> JsonToString() --> usuariof
+     **/
+    // ---------------------------------------------------------------------------------------------
+    public Usuario JsonToString(String txt) throws JSONException {
         Usuario usariof = new Usuario();
-        String[] textoSeparado = txt.split(";");
-        Log.d ("en la clase","clase " + Arrays.toString( textoSeparado));
-        usariof.setId(textoSeparado[0]);
-        usariof.setNombre(textoSeparado[1]);
-        usariof.setContrasena(textoSeparado[2]);
-        usariof.setCorreo(textoSeparado[3]);
+        //creamos un objeto json con el string que recibimos
+        JSONObject obj = new JSONObject(txt);
+        //recogemos sus respectivos datos
+        usariof.setId(obj.getString("id"));
+        usariof.setNombre(obj.getString("Nombre"));
+        usariof.setContrasena(obj.getString("Contrasena"));
+        usariof.setCorreo(obj.getString("Correo"));
         usariof.setEsAdmin("0");
-        //usariof.setFoto(textoSeparado[4]);
+
+        //devolvemos el usuario
         String comprov = usariof.toString();
         Log.d ("en la clase","clase " + comprov);
 

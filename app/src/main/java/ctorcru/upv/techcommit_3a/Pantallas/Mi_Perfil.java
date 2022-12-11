@@ -28,10 +28,19 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import ctorcru.upv.techcommit_3a.Logica.Logica;
-import ctorcru.upv.techcommit_3a.Modelo.Dispositivo;
-import ctorcru.upv.techcommit_3a.Modelo.DispositivoUsuario;
+import ctorcru.upv.techcommit_3a.Modelo.RecyclerAdapter;
+import ctorcru.upv.techcommit_3a.Modelo.Sensores;
 import ctorcru.upv.techcommit_3a.Modelo.Usuario;
 import ctorcru.upv.techcommit_3a.R;
 // -----------------------------------------------------------------------------------------
@@ -44,37 +53,32 @@ import ctorcru.upv.techcommit_3a.R;
 
 public class Mi_Perfil extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private EditText nombrePerfil,correoPerfil;
-    //Objetos
+    //Objetos visibles en la aplicación
     private EditText contrasenaPerfil,oldcontrasena;
     private EditText confirmarcontrasena;
-    private TextView dispositivos,sensornombre,sensorciudad,txtTitulo, tusdispositivos;
-    private ImageView fotoperfil;
-    private Usuario infoUsuario = new Usuario();
-    private  Usuario dtosdef= new Usuario();
-    private  Usuario actualizador = new Usuario();
-    private Usuario antiguo = new Usuario();
+    private TextView  tusdispositivos;
     private SharedPreferences preferencias;
     private Button btnactualizar,btnComprov,btnCancelar,btnCerrarSesion;
     private ImageView btnEditar;
-    private static Mi_Perfil myContext;
-    private String userpref;
-    private String dipositivopref,datosusuario;
-    String correo;
-    private DispositivoUsuario dispositivo = new DispositivoUsuario();
-    private DispositivoUsuario didef = new DispositivoUsuario();
-    private int cont=0;
-    //estavariable va dedicada para obtener el sensor por la id del usuario
-    private Logica logica= new Logica();
-    private String sensorpref;
-    private Dispositivo sensordefinitivo= new Dispositivo();
-    private Dispositivo sensor= new Dispositivo();
-    private String resultadoCiudad;
-    private String resultadoNombreDispositivo;
+    //para el recyclerview
+    private RecyclerView mRecyclerView;
+    private List<Object> viewItems= new ArrayList<>();
+    private  RecyclerView.Adapter mAdapter;
+    private  RecyclerView.LayoutManager layoutManager;
+    private String jsonDataString;
+    //alertas
     private AlertDialog.Builder cerrarSesioon;
     private AlertDialog.Builder editar;
 
-    //para editar nombre correo y contraseña
+    //variables creadas para interaccionar con las clases
+    private Usuario infoUsuario = new Usuario();
+    private  Usuario dtosdef= new Usuario();
+    private static Mi_Perfil myContext;
+    private String userpref;
 
+    String correo;
+
+    //constructores
     /**
      * @brief Constructor de la clase
      * @return objeto MainActivity
@@ -129,29 +133,32 @@ public class Mi_Perfil extends AppCompatActivity implements NavigationView.OnNav
         navigationView.setNavigationItemSelectedListener(this);
 
 
-
-        cargarDatos();
-
-
-
-        dipositivopref= preferencias.getString("allinfoDispositivo","");
-        resultadoCiudad= preferencias.getString("ciudad","");
-        resultadoNombreDispositivo= preferencias.getString("nombresensor","");
-
+        //llamamos a la función cargardatos---------------------------
+        try {
+            cargarDatos();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         // ----------------------------------------------------------
         //Enlazamos los objetos con los elementos
-        datosusuario= getIntent().getStringExtra("id");
-        logica.buscarDispositivoUsuario(datosusuario );
         String id= dtosdef.getId();
         String contra=dtosdef.getContrasena();
 
-        dtosdef= infoUsuario.JsonToString(userpref);
-        didef=dispositivo.JsonToString(dipositivopref);
+        //asociamos al objeto de tipo usuario la asignación del nuevo usuario
+        try {
+            dtosdef= infoUsuario.JsonToString(userpref);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        //asignamos sus respectivas variables los editext y lo que contendrán
         nombrePerfil = findViewById(R.id.perfilnombre);
         nombrePerfil.setText(dtosdef.getNombre());
         correoPerfil = findViewById(R.id.perfilcorreo);
         correoPerfil.setText(dtosdef.getCorreo());
+
         contrasenaPerfil = findViewById(R.id.perfilcontrasena);
         contrasenaPerfil.setText(dtosdef.getContrasena());
         btnEditar= findViewById(R.id.btnEditar);
@@ -160,6 +167,8 @@ public class Mi_Perfil extends AppCompatActivity implements NavigationView.OnNav
         oldcontrasena = findViewById(R.id.editOldContra);
         btnComprov=(Button)findViewById(R.id.btnComprov);
         btnCancelar=(Button)findViewById(R.id.btnCancel);
+
+        //Asociamos el texview y le agregamos el span bajo él
         TextView txtTitulo = (TextView)findViewById(R.id.textView13);
         TextView textInfoDIspositivo = (TextView)findViewById(R.id.tusdispositivos);
         SpannableString content = new SpannableString("Información de Usuario");
@@ -167,24 +176,27 @@ public class Mi_Perfil extends AppCompatActivity implements NavigationView.OnNav
         txtTitulo.setText(content);
         textInfoDIspositivo.setPaintFlags(textInfoDIspositivo.getPaintFlags() |   android.graphics.Paint.UNDERLINE_TEXT_FLAG);
 
-        dispositivos=findViewById(R.id.txtdispositivos);
-        didef.setIdUsuario(dtosdef.getId());
-        dispositivos.setText("Id del dispositivo: "+didef.getIdSensor());
-
-        sensornombre=findViewById(R.id.sensornametxt);
-        sensorciudad=findViewById(R.id.ciudadsensortxt);
+        //para el recyclerview
+        mRecyclerView= (RecyclerView) findViewById(R.id.my_recycler_view);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(layoutManager);
 
 
-        sensornombre.setText("Nombre del sensor: "+resultadoNombreDispositivo);
-        sensorciudad.setText("Ciudad del sensor: "+resultadoCiudad);
+        mRecyclerView.setHasFixedSize(true);
+        layoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(layoutManager);
 
-        //variable que almacenará el texto del editTex de nuestra contrasenya actual
+        mAdapter = new RecyclerAdapter(this, viewItems);
+        mRecyclerView.setAdapter(mAdapter);
+
+        //si pulsamos el botón comprobar contrasenya
         btnComprov.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String contraOld = String.valueOf(oldcontrasena.getText());
-
+                //si coincide con la contrasenya ctual que tiene el usuario
                 if(contraOld.equals(contra)){
+                    //desbloqueamos todas las opciones para poder editar la contrasenya
                     btnComprov.setVisibility(View.GONE);
                     oldcontrasena.setVisibility(View.GONE);
                     contrasenaPerfil.setVisibility(View.VISIBLE);
@@ -192,6 +204,7 @@ public class Mi_Perfil extends AppCompatActivity implements NavigationView.OnNav
                     contrasenaPerfil.setEnabled(true);
                     confirmarcontrasena.setEnabled(true);
                 }else{
+                    //si no coinciden hacemos altar una alerta
                     oldcontrasena.setText("");
                     final  CharSequence[] opciones={"Aceptar"};
                     final AlertDialog.Builder alertOpciones = new AlertDialog.Builder(Mi_Perfil.this);
@@ -209,10 +222,13 @@ public class Mi_Perfil extends AppCompatActivity implements NavigationView.OnNav
                 }
             }
         });
+        //fin onClick()btnCoprov---------------------------------------------------------------------------------------------------
 
+        //si pulsamos el boton cancelar la edición del perfil
         btnCancelar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //lanzamos una alerta
                 final  CharSequence[] opciones={"Aceptar","Seguir editando"};
                 final AlertDialog.Builder alertOpciones = new AlertDialog.Builder(Mi_Perfil.this);
                 alertOpciones.setTitle("Deseas cancelar la edición de tu perfil?");
@@ -220,11 +236,13 @@ public class Mi_Perfil extends AppCompatActivity implements NavigationView.OnNav
                 alertOpciones.setItems(opciones, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+                        //si se pulsa aceptar
                         if(opciones[i].equals("Aceptar")){
                             Intent myIntent = new Intent(Mi_Perfil.this, Mi_Perfil.class);
                             Mi_Perfil.this.startActivity(myIntent);
                             Mi_Perfil.this.finish();
                         }
+                        //si se pulsa seguir editando
                         if(opciones[i].equals("Seguir editando")){
                             dialogInterface.dismiss();
                         }
@@ -235,17 +253,22 @@ public class Mi_Perfil extends AppCompatActivity implements NavigationView.OnNav
 
             }
         });
+        //fin onClick() btnCancelar---------------------------------------------------------------------------------------------------
+
 
         //si pulsamos el boton editar
         btnEditar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //lanzamos una alerta
                 editar = new AlertDialog.Builder(Mi_Perfil.this);
                 editar.setTitle("Editar información de usuario");
                 editar.setMessage("¿Desea editar su información de usuario?");
+                //si se pulsa si
                 editar.setPositiveButton("Si", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+                        //Desplegamos las opciones para poder editar los parametros poniendolos interactuables
                         btnCancelar.setVisibility(View.VISIBLE);
                         btnEditar.setVisibility(View.GONE);
                         btnComprov.setVisibility(View.VISIBLE);
@@ -255,14 +278,14 @@ public class Mi_Perfil extends AppCompatActivity implements NavigationView.OnNav
                         correoPerfil.setEnabled(true);
                         contrasenaPerfil.setEnabled(false);
                         tusdispositivos.setVisibility(View.GONE);
-                        dispositivos.setVisibility(View.GONE);
+                        mRecyclerView.setVisibility(View.GONE);
                         btnactualizar.setVisibility(View.VISIBLE);
-                        sensornombre.setVisibility(View.GONE);
                         confirmarcontrasena.setVisibility(View.INVISIBLE);
                         confirmarcontrasena.setText(dtosdef.getContrasena());
                         correo= correoPerfil.getText().toString();
                     }
                 });
+                //si se pulsa no
                 editar.setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -272,7 +295,7 @@ public class Mi_Perfil extends AppCompatActivity implements NavigationView.OnNav
                 editar.show();
             }
         });
-
+        //fin onClick() btnEditar---------------------------------------------------------------------------------------------------
 
         //pulsamos el boton actualizar
         btnactualizar = (Button) findViewById(R.id.btnActualizarP);
@@ -352,6 +375,13 @@ public class Mi_Perfil extends AppCompatActivity implements NavigationView.OnNav
                 }
             }
         });
+
+
+
+        addItemsFromJSON();
+
+
+
     }
 
 
@@ -473,7 +503,15 @@ public class Mi_Perfil extends AppCompatActivity implements NavigationView.OnNav
 
     }
 
+    // ---------------------------------------------------------------------------------------------
+    /**
+     * @brief Esta función se encarga de recibir la info del usuario actualizado
+     * @param res
+     * @return 0
+     **/
+    // ---------------------------------------------------------------------------------------------
     public void actualizarUsuario(String res) {
+        //De la función logica obtenemos el json y actualizamos las preferencias para que se actualicen los paramtros en la aplicacion
         SharedPreferences.Editor mEditor = preferencias.edit();
         mEditor.putString("allinfoUser",res);
         mEditor.apply();
@@ -481,65 +519,85 @@ public class Mi_Perfil extends AppCompatActivity implements NavigationView.OnNav
         usuario.putString("usuarioIniciado", res);
         usuario.apply();
     }
-    private void cargarDatos(){
+    // ---------------------------------------------------------------------------------------------
+    /**
+     * @brief Esta función se encarga de cargar los datos en la activity
+     * @return 0
+     **/
+    // ---------------------------------------------------------------------------------------------
+    private void cargarDatos() throws JSONException{
         userpref= preferencias.getString("allinfoUser","");
         dtosdef= infoUsuario.JsonToString(userpref);
-        dipositivopref =  preferencias.getString("allinfoDispositivo","");
-        didef=dispositivo.JsonToString(dipositivopref);
-        sensorpref= preferencias.getString("allinfoSensor","");
-        sensordefinitivo= sensor.JsonToString(sensorpref);
 
     }
+    // ---------------------------------------------------------------------------------------------
+    /**
+     * @brief Esta función se encarga de llamar a cargar datos en caso de que el usuario regrese de habrla dejado en segundo plano
+     * @return 0
+     **/
+    // ---------------------------------------------------------------------------------------------
     @Override
     public void onResume() {
         super.onResume();
-        cargarDatos();
-
-    }
-
-    public void buscarDispositivoUsuario(String res) {
-        SharedPreferences.Editor mEditor = preferencias.edit();
-        mEditor.putString("allinfoDispositivo",res);
-
-        dipositivopref =  preferencias.getString("allinfoDispositivo","");
-        didef=dispositivo.JsonToString(dipositivopref);
-        sensordefinitivo.setIdSensor(didef.getIdSensor());
-        logica.buscarSenorCiudadporId(didef.getIdSensor());
-        logica.obtenerNombrePorId(didef.getIdSensor());
-        mEditor.apply();
-        if(didef.getIdSensor().isEmpty()){
-            Intent intent = getIntent();
-            finish();
-
-            startActivity(intent);
+        try {
+            cargarDatos();
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
-    }
-
-    public void obtenerciudad(String res) {
-        SharedPreferences.Editor mEditor = preferencias.edit();
-
-        mEditor.putString("ciudad",res);
-        mEditor.apply();
-        resultadoCiudad=res;
-        sensordefinitivo.setCiudad(res);
 
     }
-
-    public void obtenerNombreporId(String res) {
-        SharedPreferences.Editor mEditor = preferencias.edit();
-
-        mEditor.putString("nombresensor",res);
-        mEditor.apply();
-        resultadoNombreDispositivo=res;
-        sensordefinitivo.setNombre(res);
-    }
+    // ---------------------------------------------------------------------------------------------
+    /**
+     * @brief Esta función se encarga de cerrar sesion
+     * @param view
+     * @return 0
+     **/
+    // ---------------------------------------------------------------------------------------------
     public void cerrarSesion(View view){
         Log.d("cerrarSesion", "llego aqui");
         SharedPreferences.Editor mEditor = preferencias.edit();
         mEditor.putString("usuarioIniciado", "ninguno");
         mEditor.putString("allinfoUser","ninguno");
+        mEditor.putString("allinfosensores","ninguno");
         mEditor.apply();
         Intent i = new Intent(this, Pre_Login_Registro.class);
         startActivity(i);
     }
+
+    // ---------------------------------------------------------------------------------------------
+    /**
+     * @brief Esta función se encarga de cargar los datos al recyclerview
+     * @return 0
+     **/
+    // ---------------------------------------------------------------------------------------------
+    private void addItemsFromJSON() {
+        //llamamos a la variable de sharedpreferences que llenamos al iniciar sesion con los nombres de los json de los nombres de los dispositivos
+        jsonDataString=preferencias.getString("allinfosensores","");
+        //procedemos a quitar los [] sobrantes obtenidas en la peticion
+        StringBuilder sb = new StringBuilder(jsonDataString);
+        sb.deleteCharAt(jsonDataString.length() - 1);
+        sb.deleteCharAt(0);
+        //almacenamos el resultado de la eliminacion en una variable
+        String res1= sb.toString();
+        String res2= res1.replace("],[",",");//quitamos lo restante de la cadena para poder convertirse enun jsonArray
+
+        Log.d("addItemsFormJson", "jsona "+ res2);
+        try {
+            //convertimos elstring definitivamente limpio en un jsonArray
+            JSONArray jsonArray= new JSONArray(res2);
+            //recorremos el jsonArray buscando los nombres en cada casilla
+            for(int i=0;i<=jsonArray.length();i++){
+                JSONObject itemObj = jsonArray.getJSONObject(i);
+                String name = itemObj.getString("Nombre");
+                Log.d("addItemsFormJson", "json "+ name);
+                //los anyadimos al viewItem
+                Sensores sensores= new Sensores(name);
+                viewItems.add(sensores);
+            }
+        } catch ( JSONException e) {
+
+        }
+    }
+
+
 }
