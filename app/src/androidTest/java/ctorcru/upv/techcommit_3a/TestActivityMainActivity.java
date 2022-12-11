@@ -89,7 +89,7 @@ public class TestActivityMainActivity {
      * @brief Test realizado con un usuario existente en la base de datos
      */
     @Test
-    public void comprobarRegistroCorrecto() {
+    public void comprobarInicioSesionCorrecto() {
         //Comprobamos que la actividad se muestra
         onView(isDisplayed());
         //Escribimos un correo válido
@@ -104,9 +104,7 @@ public class TestActivityMainActivity {
         onView(withId(R.id.botonIniciarSesion)).perform(click());
         //Comprobamos que se muestra la actividad de mis dispositivos
         onView(withId(R.id.content_mis_dispositivos)).check(matches(isDisplayed()));
-
         CerrarSesion();
-
     }
 
     /**
@@ -115,7 +113,7 @@ public class TestActivityMainActivity {
      * @brief Test realizado con un usuario no existente en la base de datos
      */
     @Test
-    public void comprobarRegistroIncorrecto() {
+    public void comprobarInicioSesionIncorrecto() {
         //Comprobamos que la actividad se muestra
         onView(isDisplayed());
         //Escribimos un correo no válido

@@ -54,28 +54,6 @@ public class TestActivity_Pagina_Registro {
         onView(withId(R.id.ActivityPreLoginRegistro)).check(matches(isDisplayed()));
     }
 
-
-    /**
-     * Comprueba que al pulsar los edit text se muestra el teclado
-     */
-    @Test
-    public void comprobarEditText() {
-        //Comprobamos que la actividad se muestra
-        onView(isDisplayed());
-        //Hacemos click en el edit text de nombre
-        onView(withId(R.id.text_nombre)).perform(click()).check(matches(supportsInputMethods()));
-        closeSoftKeyboard();
-        //Hacemos click en el edit text de correo
-        onView(withId(R.id.correo2)).perform(click()).check(matches(supportsInputMethods()));
-        closeSoftKeyboard();
-        //Hacemos click en el edit text de contraseña
-        onView(withId(R.id.contrasena2)).perform(click()).check(matches(supportsInputMethods()));
-        closeSoftKeyboard();
-        //Hacemos click en el edit text de confirmar contraseña
-        onView(withId(R.id.verificarContrasenya)).perform(click()).check(matches(supportsInputMethods()));
-        closeSoftKeyboard();
-    }
-
     /**
      * Comprueba que se puede pulsar el botón de registro (Este test se modificará cuando se implemente el registro)
      */
