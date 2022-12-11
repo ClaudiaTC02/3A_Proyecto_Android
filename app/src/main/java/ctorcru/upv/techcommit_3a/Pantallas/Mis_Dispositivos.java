@@ -298,18 +298,6 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
         startActivity(i);
     }
 
-    public void Alerta(String titulo, String mensaje){
-        cerrarSesioon = new AlertDialog.Builder(Mis_Dispositivos.this);
-        cerrarSesioon.setTitle("Cerrar Sesión");
-        cerrarSesioon.setMessage("¿Estás seguro de que quieres cerrar sesión?");
-        cerrarSesioon.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                cerrarSesion(null);
-            }
-        });
-    }
-
     //getInstance
     public Mis_Dispositivos() {
         myContext =  this;

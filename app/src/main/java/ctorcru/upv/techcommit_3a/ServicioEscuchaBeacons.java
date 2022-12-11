@@ -18,13 +18,14 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import ctorcru.upv.techcommit_3a.Modelo.TramaIBeacon;
 import ctorcru.upv.techcommit_3a.Modelo.Utilidades;
-import ctorcru.upv.techcommit_3a.Pantallas.MainActivity;
 import ctorcru.upv.techcommit_3a.Pantallas.Mis_Dispositivos;
 
 /**
@@ -39,6 +40,9 @@ public class ServicioEscuchaBeacons extends Service {
     private static final int CODIGO_PETICION_PERMISOS = 11223344;
     private BluetoothLeScanner elEscanner;
     private ScanCallback callbackDelEscaneo = null;
+    public Integer minorMuestra;
+    public Float minorDecimal;
+    public Float minorValorReal;
     public static String UUID;
     public static Integer minor;
     public static String nombre;
@@ -133,6 +137,14 @@ public class ServicioEscuchaBeacons extends Service {
         if(nombre != null && nombre.equals("GTI-3ARoberto")){
             fechaHora = Calendar.getInstance().getTime();
             Log.d(ETIQUETA_LOG, " Momento de encuentro con EPSG-ROBERTO-PRO: " + fechaHora);
+
+            minorMuestra = Utilidades.bytesToInt(tib.getMinor());
+            //minorrr a float con 5 decimales
+            DecimalFormat df = new DecimalFormat("#.#####");
+            df.setRoundingMode(RoundingMode.CEILING);
+            minorDecimal = Float.parseFloat(df.format(minorMuestra));
+            minorValorReal = minorDecimal/10000;
+            Log.d(ETIQUETA_LOG, "Valor en ppm recibido recibido = " + minorValorReal);
         }
         //----------------------------------------------------
 
