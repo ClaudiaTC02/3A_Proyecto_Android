@@ -47,6 +47,12 @@ public class ServicioEscuchaBeacons extends Service {
     public static Integer minor;
     public static String nombre;
     public static Date fechaHora;
+    public int contador = 0;
+
+
+    public int getCounterValue() {
+        return contador;
+    }
 
     // ------------------------------------------------------------------------------------------
     /** Función que devuelve la UUID del dispositivo
@@ -135,6 +141,7 @@ public class ServicioEscuchaBeacons extends Service {
 
         //Si el nombre del beacon recibido es el que se busca, se muestra la información en el LogCat (por el momento)
         if(nombre != null && nombre.equals("GTI-3ARoberto")){
+            contador++;
             fechaHora = Calendar.getInstance().getTime();
             Log.d(ETIQUETA_LOG, " Momento de encuentro con EPSG-ROBERTO-PRO: " + fechaHora);
 
@@ -261,6 +268,8 @@ public class ServicioEscuchaBeacons extends Service {
 
         }
     } // ()
+
+
 
     // --------------------------------------------------------------
     // --------------------------------------------------------------

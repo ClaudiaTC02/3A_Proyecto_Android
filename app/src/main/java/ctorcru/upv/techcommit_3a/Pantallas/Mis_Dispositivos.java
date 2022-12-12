@@ -1,12 +1,18 @@
 package ctorcru.upv.techcommit_3a.Pantallas;
 
 import android.app.Activity;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.bluetooth.BluetoothAdapter;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.Menu;
 import android.view.View;
@@ -21,6 +27,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NotificationCompat;
 import androidx.core.view.GravityCompat;
 
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -28,7 +35,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import org.json.JSONException;
 
-import ctorcru.upv.techcommit_3a.Logica.Logica;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
 import ctorcru.upv.techcommit_3a.Modelo.Usuario;
 import ctorcru.upv.techcommit_3a.R;
 import ctorcru.upv.techcommit_3a.ServicioEscuchaBeacons;
@@ -73,6 +83,8 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         // ----------------------------------------------------------
+
+
 
         // ----------------------------------------------------------
         //Enlazamos los objetos con los elementos
@@ -133,7 +145,7 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
             @Override
             public void onClick(View view) {
                 Toast.makeText(getApplicationContext(), "La búsqueda comenzará", Toast.LENGTH_SHORT).show();
-                startService(new Intent(Mis_Dispositivos.this, ServicioEscuchaBeacons.class));
+                    startService(new Intent(Mis_Dispositivos.this, ServicioEscuchaBeacons.class));
             }
         });
 
@@ -153,6 +165,20 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
             }
         });
         // ----------------------------------------------------------
+
+        // Crear una nueva instancia de ScheduledExecutorService
+        ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
+
+        // Programar la tarea para que se ejecute cada segundo
+        executor.scheduleAtFixedRate(new Runnable() {
+            @Override
+            public void run() {
+                // Llamar a la función aquí
+               comprobarEstadoBluetooth();
+            }
+        }, 0, 1, TimeUnit.SECONDS);
+
+
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -335,5 +361,62 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
     public static Mis_Dispositivos getInstance() {
         return myContext;
     }
+
+
+
+    // ---------------------------------------------------------------------------------------------
+    /**
+     * @brief Esta función se encarga de lanzar una notificación.
+     **/
+    public void lanzarNotificacion(){
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, "notify_001");
+        Intent ii = new Intent(this, Mis_Dispositivos.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, ii, 0);
+
+        NotificationCompat.BigTextStyle bigText = new NotificationCompat.BigTextStyle();
+        bigText.bigText("El bluetooth está desactivado. Activalo para poder iniciar el servicio.");
+        bigText.setBigContentTitle("Aviso");
+        bigText.setSummaryText("Texto de la notificación");
+
+        mBuilder.setContentIntent(pendingIntent);
+        mBuilder.setSmallIcon(R.drawable.ic_sensor);
+        mBuilder.setContentTitle("Aviso");
+        mBuilder.setContentText("El bluetooth está desactivado. Activalo para poder iniciar el servicio.");
+        mBuilder.setPriority(Notification.PRIORITY_MIN);
+        mBuilder.setStyle(bigText);
+
+        NotificationManager mNotificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        // === Removed some obsoletes
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            String channelId = "your_channel_id";
+            NotificationChannel channel = new NotificationChannel(
+                    channelId,
+                    "Channel human readable title",
+                    NotificationManager.IMPORTANCE_HIGH);
+            mNotificationManager.createNotificationChannel(channel);
+            mBuilder.setChannelId(channelId);
+        }
+
+        mNotificationManager.notify(0, mBuilder.build());
+
+    }
+
+    public void comprobarEstadoBluetooth(){
+        BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        if (mBluetoothAdapter == null) {
+            // El dispositivo no tiene Bluetooth
+                lanzarNotificacion();
+        } else {
+            if (!mBluetoothAdapter.isEnabled()) {
+                // Bluetooth está deshabilitado, se puede pedir al usuario que lo habilite
+                lanzarNotificacion();
+            } else {
+                // Bluetooth está habilitado
+            }
+        }
+    }
+
 
 }
