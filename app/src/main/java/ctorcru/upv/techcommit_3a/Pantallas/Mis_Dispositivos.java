@@ -399,11 +399,8 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
             mNotificationManager.createNotificationChannel(channel);
             mBuilder.setChannelId(channelId);
         }
-
         mNotificationManager.notify(0, mBuilder.build());
-
     }
-
     // ---------------------------------------------------------------------------------------------
     /**
      * @brief Esta función se encarga de comprobar si el bluetooth está activado.
@@ -423,6 +420,4 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
             }
         }
     }
-
-
 }

@@ -171,17 +171,15 @@ public class ServicioEscuchaBeacons extends Service {
             }
         }
         //----------------------------------------------------
-        if (tib.getTxPower() < 13) {
+        if (tib.getTxPower() < 0) {
             //Acceder a un textView y mostrar el valor de txPower
             pocaConexion.setVisibility(View.VISIBLE);
         }
-        else if (tib.getTxPower() > 13) {
+        else if (tib.getTxPower() > 0) {
             //Acceder a un textView y mostrar el valor de txPower
             mediaConexion.setVisibility(View.VISIBLE);
         }
-
     } // ()
-
 
     // --------------------------------------------------------------
     // --------------------------------------------------------------
@@ -299,9 +297,6 @@ public class ServicioEscuchaBeacons extends Service {
     public void calcularDistancia( int txPower) {
 
     } // ()
-
-
-
     // --------------------------------------------------------------
     // --------------------------------------------------------------
     // --------------------------------------------------------------
@@ -310,7 +305,6 @@ public class ServicioEscuchaBeacons extends Service {
         inicializarBlueTooth();
         super.onCreate();
     }
-
     @Override
     public int onStartCommand(Intent intent, int flags, int IdProceso) {
         //El START_STICKY es para que el servicio se reinicie si se destruye

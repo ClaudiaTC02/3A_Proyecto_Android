@@ -114,6 +114,7 @@
             android:layout_height="30dp"
             android:visibility="invisible"
             android:layout_marginStart="10dp"
+            app:tint="#FF0000"
             app:layout_constraintBottom_toBottomOf="@+id/textView4"
             app:layout_constraintStart_toEndOf="@+id/textView4"
             app:layout_constraintTop_toTopOf="@+id/textView4"
@@ -138,6 +139,7 @@
             android:layout_height="30dp"
             android:visibility="invisible"
             android:layout_marginStart="10dp"
+            app:tint="#FF9800"
             app:layout_constraintBottom_toBottomOf="@+id/textView4"
             app:layout_constraintStart_toEndOf="@+id/textView4"
             app:layout_constraintTop_toTopOf="@+id/textView4"
@@ -150,12 +152,12 @@
             android:layout_height="30dp"
             android:layout_marginStart="10dp"
             android:visibility="invisible"
+            app:tint="#4CAF50"
             app:layout_constraintBottom_toBottomOf="@+id/textView4"
             app:layout_constraintStart_toEndOf="@+id/textView4"
             app:layout_constraintTop_toTopOf="@+id/textView4"
             app:srcCompat="@drawable/totalconex">
         </ImageView>
-
         <ImageView
             android:id="@+id/baseconexion"
             android:layout_width="30dp"
@@ -164,7 +166,8 @@
             app:layout_constraintBottom_toBottomOf="@+id/textView4"
             app:layout_constraintStart_toEndOf="@+id/textView4"
             app:layout_constraintTop_toTopOf="@+id/textView4"
-            app:srcCompat="@drawable/conexionbase">
+            app:srcCompat="@drawable/conexionbase"
+            >
         </ImageView>
 
         <ImageView
@@ -215,6 +218,4 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView6" />
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
