@@ -118,11 +118,11 @@ public class TestActivityMainActivity {
         onView(isDisplayed());
         //Escribimos un correo no válido
         onView(withId(R.id.correo)).perform(click()).check(matches(supportsInputMethods()));
-        onView(withId(R.id.correo)).perform(typeText("hola"));
+        onView(withId(R.id.correo)).perform(typeText("prueba@prueba.com"));
         closeSoftKeyboard();
         //Escribimos una contraseña no válida
         onView(withId(R.id.contrasenya)).perform(click()).check(matches(supportsInputMethods()));
-        onView(withId(R.id.contrasenya)).perform(typeText("1234"));
+        onView(withId(R.id.contrasenya)).perform(typeText("12345"));
         closeSoftKeyboard();
         //Hacemos click en el botón de registro
         onView(withId(R.id.botonIniciarSesion)).perform(click());
