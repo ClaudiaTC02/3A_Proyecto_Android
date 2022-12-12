@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.IBinder;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
@@ -267,6 +268,12 @@ public class ServicioEscuchaBeacons extends Service {
             Log.d(ETIQUETA_LOG, " inicializarBlueTooth(): parece que YA tengo los permisos necesarios !!!!");
 
         }
+    } // ()
+
+    // --------------------------------------------------------------
+    // Cálculo de distancia del dispositivo BTLE a partir de txPower
+    public void calcularDistancia( int txPower) {
+
     } // ()
 
 

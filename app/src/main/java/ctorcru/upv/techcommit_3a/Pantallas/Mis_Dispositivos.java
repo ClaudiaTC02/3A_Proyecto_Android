@@ -367,6 +367,7 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
     // ---------------------------------------------------------------------------------------------
     /**
      * @brief Esta función se encarga de lanzar una notificación.
+     * Diseño de la notificación: https://developer.android.com/guide/topics/ui/notifiers/notifications.html
      **/
     public void lanzarNotificacion(){
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, "notify_001");
@@ -376,7 +377,7 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
         NotificationCompat.BigTextStyle bigText = new NotificationCompat.BigTextStyle();
         bigText.bigText("El bluetooth está desactivado. Activalo para poder iniciar el servicio.");
         bigText.setBigContentTitle("Aviso");
-        bigText.setSummaryText("Texto de la notificación");
+        bigText.setSummaryText("Incidencia Bluetooth");
 
         mBuilder.setContentIntent(pendingIntent);
         mBuilder.setSmallIcon(R.drawable.ic_sensor);
@@ -403,6 +404,11 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
 
     }
 
+    // ---------------------------------------------------------------------------------------------
+    /**
+     * @brief Esta función se encarga de comprobar si el bluetooth está activado.
+     * Diseño de la función: https://developer.android.com/guide/topics/connectivity/bluetooth.html
+     **/
     public void comprobarEstadoBluetooth(){
         BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         if (mBluetoothAdapter == null) {
