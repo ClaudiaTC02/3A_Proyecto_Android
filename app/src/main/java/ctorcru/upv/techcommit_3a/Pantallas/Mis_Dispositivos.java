@@ -69,6 +69,7 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
     Toolbar toolbar=null;
     public static Activity fa;
     private AlertDialog.Builder cerrarSesioon;
+    public ImageView sinsenal;
 
 
 
@@ -98,6 +99,7 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
         ImagenMisDispositivos = findViewById(R.id.ImagenMisDispositivos);
         botonCerrarSesion = findViewById(R.id.cerrar_sesion);
         nombreUsuario = findViewById(R.id.txtNombreh);
+        sinsenal = findViewById(R.id.sinconexion);
         datosUsuario= getIntent().getStringExtra("infoUsuario");
         String userpref= preferencias.getString("allinfoUser","");
 
