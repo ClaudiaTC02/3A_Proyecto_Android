@@ -13,6 +13,9 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.IBinder;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -49,6 +52,12 @@ public class ServicioEscuchaBeacons extends Service {
     public static String nombre;
     public static Date fechaHora;
     public int contador = 0;
+    public ImageView sinConexion;
+    public ImageView pocaConexion;
+    public ImageView mediaConexion;
+    public ImageView buenaConexion;
+    public ImageView sinsenal;
+
 
 
     public int getCounterValue() {
@@ -101,6 +110,10 @@ public class ServicioEscuchaBeacons extends Service {
      @param ScanResult resultado
      */
     private void mostrarInformacionDispositivoBTLE(ScanResult resultado ) {
+        pocaConexion = Mis_Dispositivos.getInstance().findViewById(R.id.pocaconexion);
+        mediaConexion = Mis_Dispositivos.getInstance().findViewById(R.id.mediaconexion);
+        buenaConexion = Mis_Dispositivos.getInstance().findViewById(R.id.totalconexion);
+        sinsenal = Mis_Dispositivos.getInstance().findViewById(R.id.sinconexion);
 
         //Se obtiene la información del dispositivo BTLE
         BluetoothDevice bluetoothDevice = resultado.getDevice();
@@ -142,22 +155,56 @@ public class ServicioEscuchaBeacons extends Service {
 
         //Si el nombre del beacon recibido es el que se busca, se muestra la información en el LogCat (por el momento)
         if(nombre != null && nombre.equals("GTI-3ARoberto")){
-            contador++;
+            //contador++;
             fechaHora = Calendar.getInstance().getTime();
             Log.d(ETIQUETA_LOG, " Momento de encuentro con EPSG-ROBERTO-PRO: " + fechaHora);
 
             minorMuestra = Utilidades.bytesToInt(tib.getMinor());
-            //minorrr a float con 5 decimales
+            //minor a float con 5 decimales
             DecimalFormat df = new DecimalFormat("#.#####");
             df.setRoundingMode(RoundingMode.CEILING);
             minorDecimal = Float.parseFloat(df.format(minorMuestra));
             minorValorReal = minorDecimal/10000;
             Log.d(ETIQUETA_LOG, "Valor en ppm recibido recibido = " + minorValorReal);
+
+            int rssis = rssi;
+            Log.d(ETIQUETA_LOG, "rssi Roberto= " + rssis);
+            if (rssis >= -84) {
+                Log.d("distancia", "Buena conexión");
+                //Acceder a un textView y mostrar el valor de txPower
+                buenaConexion.setVisibility(View.VISIBLE);
+                mediaConexion.setVisibility(View.INVISIBLE);
+                pocaConexion.setVisibility(View.INVISIBLE);
+                sinsenal.setVisibility(View.INVISIBLE);
+            }
+            else if (rssis > -92) {
+                Log.d("distancia", "Media conexión");
+                //Acceder a un textView y mostrar el valor de txPower
+                buenaConexion.setVisibility(View.INVISIBLE);
+                mediaConexion.setVisibility(View.VISIBLE);
+                pocaConexion.setVisibility(View.INVISIBLE);
+                sinsenal.setVisibility(View.INVISIBLE);
+            }
+            else if(rssis > -100) {
+                Log.d("distancia", "Poca conexión");
+                //Acceder a un textView y mostrar el valor de txPower
+                buenaConexion.setVisibility(View.INVISIBLE);
+                mediaConexion.setVisibility(View.INVISIBLE);
+                pocaConexion.setVisibility(View.VISIBLE);
+                sinsenal.setVisibility(View.INVISIBLE);
+            }
+            else {
+                Log.d("distancia", "Sin señal");
+                //Acceder a un textView y mostrar el valor de txPower
+                buenaConexion.setVisibility(View.INVISIBLE);
+                mediaConexion.setVisibility(View.INVISIBLE);
+                pocaConexion.setVisibility(View.INVISIBLE);
+                sinsenal.setVisibility(View.VISIBLE);
+            }
         }
         //----------------------------------------------------
 
     } // ()
-
 
     // --------------------------------------------------------------
     // --------------------------------------------------------------
@@ -275,9 +322,6 @@ public class ServicioEscuchaBeacons extends Service {
     public void calcularDistancia( int txPower) {
 
     } // ()
-
-
-
     // --------------------------------------------------------------
     // --------------------------------------------------------------
     // --------------------------------------------------------------
@@ -286,7 +330,6 @@ public class ServicioEscuchaBeacons extends Service {
         inicializarBlueTooth();
         super.onCreate();
     }
-
     @Override
     public int onStartCommand(Intent intent, int flags, int IdProceso) {
         //El START_STICKY es para que el servicio se reinicie si se destruye
