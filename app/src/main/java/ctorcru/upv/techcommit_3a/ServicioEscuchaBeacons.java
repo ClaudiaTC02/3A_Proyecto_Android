@@ -13,6 +13,9 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.IBinder;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -49,6 +52,11 @@ public class ServicioEscuchaBeacons extends Service {
     public static String nombre;
     public static Date fechaHora;
     public int contador = 0;
+    public ImageView sinConexion;
+    public ImageView pocaConexion;
+    public ImageView mediaConexion;
+    public ImageView buenaConexion;
+
 
 
     public int getCounterValue() {
@@ -101,6 +109,8 @@ public class ServicioEscuchaBeacons extends Service {
      @param ScanResult resultado
      */
     private void mostrarInformacionDispositivoBTLE(ScanResult resultado ) {
+        pocaConexion = Mis_Dispositivos.getInstance().findViewById(R.id.pocaconexion);
+        mediaConexion = Mis_Dispositivos.getInstance().findViewById(R.id.mediaconexion);
 
         //Se obtiene la información del dispositivo BTLE
         BluetoothDevice bluetoothDevice = resultado.getDevice();
@@ -142,19 +152,33 @@ public class ServicioEscuchaBeacons extends Service {
 
         //Si el nombre del beacon recibido es el que se busca, se muestra la información en el LogCat (por el momento)
         if(nombre != null && nombre.equals("GTI-3ARoberto")){
-            contador++;
+            //contador++;
             fechaHora = Calendar.getInstance().getTime();
             Log.d(ETIQUETA_LOG, " Momento de encuentro con EPSG-ROBERTO-PRO: " + fechaHora);
 
             minorMuestra = Utilidades.bytesToInt(tib.getMinor());
-            //minorrr a float con 5 decimales
+            //minor a float con 5 decimales
             DecimalFormat df = new DecimalFormat("#.#####");
             df.setRoundingMode(RoundingMode.CEILING);
             minorDecimal = Float.parseFloat(df.format(minorMuestra));
             minorValorReal = minorDecimal/10000;
             Log.d(ETIQUETA_LOG, "Valor en ppm recibido recibido = " + minorValorReal);
+
+            int txPower = tib.getTxPower();
+            Log.d(ETIQUETA_LOG, "txPower Roberto= " + txPower);
+            if (txPower == 0) {
+                Toast.makeText(this, "Hola", Toast.LENGTH_SHORT).show();
+            }
         }
         //----------------------------------------------------
+        if (tib.getTxPower() < 13) {
+            //Acceder a un textView y mostrar el valor de txPower
+            pocaConexion.setVisibility(View.VISIBLE);
+        }
+        else if (tib.getTxPower() > 13) {
+            //Acceder a un textView y mostrar el valor de txPower
+            mediaConexion.setVisibility(View.VISIBLE);
+        }
 
     } // ()
 
