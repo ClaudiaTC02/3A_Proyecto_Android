@@ -49,6 +49,15 @@ public class Scanner_QR extends AppCompatActivity {
             });
 
             mCodeScanner.setDecodeCallback(new DecodeCallback() {
+                // ---------------------------------------------------------------------------------------------
+                // ---------------------------------------------------------------------------------------------
+
+                /**
+                 * @param result
+                 * Diseño: View --> irX() -->
+                 * @brief Esta funcion se ejecuta al decodificar el Qr escaneado y nos proporciona la informacion que contiene
+                 **/
+                // ---------------------------------------------------------------------------------------------
                 @Override
                 public void onDecoded(@NonNull @NotNull Result result) {
 
@@ -69,7 +78,14 @@ public class Scanner_QR extends AppCompatActivity {
 
         }
     }
+// ---------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
 
+    /**
+     * Diseño: View --> irX() -->
+     * @brief Esta funcion pide los permisos necesarios para utilizar la camara del dispositivo
+     **/
+    // ---------------------------------------------------------------------------------------------
     private void askPermission(){
 
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP){
@@ -171,6 +187,15 @@ public class Scanner_QR extends AppCompatActivity {
 
         super.onPause();
     }
+    // ---------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
+
+    /**
+     * @param view
+     * Diseño: View --> irX() -->
+     * @brief Esta funcion vuelve a la pagina del Qr añadiendo el codigo que ha escaneado
+     **/
+    // ---------------------------------------------------------------------------------------------
     public void VolverPagina_QR(View view) {
         Intent i = new Intent(this, Pagina_QR.class);
         i.putExtra("Codigo_QR",codigo);
