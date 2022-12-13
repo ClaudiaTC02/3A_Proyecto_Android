@@ -178,6 +178,15 @@ public class Pagina_Registro extends AppCompatActivity {
         dispositivo = dispositivo_;
     }
 
+    // ---------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
+
+    /**
+     * @param nombre, correo
+     * Diseño: View --> irX() -->
+     * @brief Esta funcion envia un correo para comunicar al usuario que el registro a sido exitoso
+     **/
+    // ---------------------------------------------------------------------------------------------
     protected void sendEmail(String nombre, String correo) {
         Log.i("Send email", "");
         String[] TO = {"davidlopez.gandia@gmail.com"};

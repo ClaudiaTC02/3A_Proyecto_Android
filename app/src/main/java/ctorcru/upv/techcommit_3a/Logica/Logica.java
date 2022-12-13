@@ -163,7 +163,6 @@ public class Logica {
                         }
                     }
                 });
-
     }
     public void buscarDispositivosDelUsuarioR(String correo){
         PeticionarioREST elPeticionarioREST = new PeticionarioREST();
