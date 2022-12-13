@@ -218,6 +218,11 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     cerrarSesion(null);
+                    SharedPreferences.Editor mEditor = preferencias.edit();
+                    mEditor.putString("usuarioIniciado", "ninguno");
+                    mEditor.putString("allinfoUser","ninguno");
+                    mEditor.putString("allinfosensores","ninguno");
+                    mEditor.apply();
                     finish();
                 }
             });
@@ -285,46 +290,18 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
 
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        try {
-            cargarDatos();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
 
-    }
-    @Override
-    public void onRestart() {
-        super.onRestart();
-        try {
-            cargarDatos();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-    }
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        try {
-            cargarDatos();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-    }
     public void cerrarSesion(View view){
         Log.d("cerrarSesion", "llego aqui");
         SharedPreferences.Editor mEditor = preferencias.edit();
         mEditor.putString("usuarioIniciado", "ninguno");
         mEditor.putString("allinfoUser","ninguno");
         mEditor.putString("allinfosensores","ninguno");
+        mEditor.putString("infoUsuario","ninguno");
         mEditor.apply();
         Intent i = new Intent(this, Pre_Login_Registro.class);
         startActivity(i);
+
     }
 
     //getInstance

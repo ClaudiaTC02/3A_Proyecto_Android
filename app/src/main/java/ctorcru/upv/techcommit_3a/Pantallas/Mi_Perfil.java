@@ -559,7 +559,9 @@ public class Mi_Perfil extends AppCompatActivity implements NavigationView.OnNav
         mEditor.putString("usuarioIniciado", "ninguno");
         mEditor.putString("allinfoUser","ninguno");
         mEditor.putString("allinfosensores","ninguno");
+        mEditor.putString("infoUsuario","ninguno");
         mEditor.apply();
+        Mis_Dispositivos.fa.finish();
         Intent i = new Intent(this, Pre_Login_Registro.class);
         startActivity(i);
     }

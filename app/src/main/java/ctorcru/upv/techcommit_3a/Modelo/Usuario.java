@@ -237,7 +237,7 @@ public class Usuario {
         //creamos un objeto json con el string que recibimos
         JSONObject obj = new JSONObject(txt);
         //recogemos sus respectivos datos
-        usariof.setId(obj.getString("id"));
+        //usariof.setId(obj.getString("id"));
         usariof.setNombre(obj.getString("Nombre"));
         usariof.setContrasena(obj.getString("Contrasena"));
         usariof.setCorreo(obj.getString("Correo"));
