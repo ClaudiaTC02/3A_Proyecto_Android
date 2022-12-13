@@ -199,7 +199,37 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
         }
     }
     // ---------------------------------------------------------------------------------------------
+    @Override
+    public void onResume() {
+        super.onResume();
+        try {
+            cargarDatos();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
+    }
+    @Override
+    public void onRestart() {
+        super.onRestart();
+        try {
+            cargarDatos();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        try {
+            cargarDatos();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
 
     // ---------------------------------------------------------------------------------------------
     /**

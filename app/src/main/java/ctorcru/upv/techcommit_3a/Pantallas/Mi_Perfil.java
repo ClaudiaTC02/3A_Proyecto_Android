@@ -339,6 +339,7 @@ public class Mi_Perfil extends AppCompatActivity implements NavigationView.OnNav
                             if(opciones[i].equals("Aceptar")){
                                 Mis_Dispositivos.fa.finish();
                                 Intent myIntent = new Intent(Mi_Perfil.this, Mi_Perfil.class);
+
                                 Mi_Perfil.this.startActivity(myIntent);
 
                                 Mi_Perfil.this.finish();
