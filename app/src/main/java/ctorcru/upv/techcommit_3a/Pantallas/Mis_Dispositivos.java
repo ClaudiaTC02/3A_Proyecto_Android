@@ -69,7 +69,7 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
     Toolbar toolbar=null;
     public static Activity fa;
     private AlertDialog.Builder cerrarSesioon;
-    public ImageView sinsenal;
+    public ImageView sinsenal,mediasenal,buenaSenal,malaSenal;
 
     private Button botonMaximoExcedido;
 
@@ -103,6 +103,9 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
         botonCerrarSesion = findViewById(R.id.cerrar_sesion);
         nombreUsuario = findViewById(R.id.txtNombreh);
         sinsenal = findViewById(R.id.sinconexion);
+        mediasenal = findViewById(R.id.mediaconexion);
+        buenaSenal = findViewById(R.id.totalconexion);
+        malaSenal = findViewById(R.id.pocaconexion);
         datosUsuario= getIntent().getStringExtra("infoUsuario");
         String userpref= preferencias.getString("allinfoUser","");
 
@@ -162,6 +165,10 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
             public void onClick(View view) {
                 Toast.makeText(getApplicationContext(), "La búsqueda se detendrá", Toast.LENGTH_SHORT).show();
                 stopService(new Intent(Mis_Dispositivos.this, ServicioEscuchaBeacons.class));
+                sinsenal.setVisibility(View.VISIBLE);
+                mediasenal.setVisibility(View.INVISIBLE);
+                buenaSenal.setVisibility(View.INVISIBLE);
+                malaSenal.setVisibility(View.INVISIBLE);
             }
         });
 
@@ -391,7 +398,7 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
      * @brief Esta función se encarga de lanzar una notificación.
      * Diseño de la notificación: https://developer.android.com/guide/topics/ui/notifiers/notifications.html
      **/
-    public void lanzarNotificacion(){
+    public void lanzarNotificacionSinConexionBluetooth(){
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, "notify_001");
         Intent ii = new Intent(this, Mis_Dispositivos.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, ii, 0);
@@ -461,6 +468,45 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
         mNotificationManager.notify(0, mBuilder.build());
     }
     // ---------------------------------------------------------------------------------------------
+
+
+    /**
+     * @brief Esta función se encarga de lanzar una notificación.
+     * Diseño de la notificación: https://developer.android.com/guide/topics/ui/notifiers/notifications.html
+     **/
+    public void lanzarNotificacionAltaDistanciaSensor(){
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, "notify_001");
+        Intent ii = new Intent(this, Mis_Dispositivos.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, ii, PendingIntent.FLAG_IMMUTABLE);
+
+        NotificationCompat.BigTextStyle bigText = new NotificationCompat.BigTextStyle();
+        bigText.bigText("El dispositivo está muy lejos. Es posible que se desconecte.");
+        bigText.setBigContentTitle("Aviso");
+        bigText.setSummaryText("Distancia entre el teléfono y el sensor");
+
+        mBuilder.setContentIntent(pendingIntent);
+        mBuilder.setSmallIcon(R.drawable.ic_sensor);
+        mBuilder.setContentTitle("Aviso");
+        mBuilder.setContentText("El dispositivo está muy lejos. Es posible que se desconecte.");
+        mBuilder.setPriority(Notification.PRIORITY_MIN);
+        mBuilder.setStyle(bigText);
+
+        NotificationManager mNotificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        // === Removed some obsoletes
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            String channelId = "your_channel_id";
+            NotificationChannel channel = new NotificationChannel(
+                    channelId,
+                    "Channel human readable title",
+                    NotificationManager.IMPORTANCE_HIGH);
+            mNotificationManager.createNotificationChannel(channel);
+            mBuilder.setChannelId(channelId);
+        }
+        mNotificationManager.notify(0, mBuilder.build());
+    }
+    // ---------------------------------------------------------------------------------------------
     /**
      * @brief Esta función se encarga de comprobar si el bluetooth está activado.
      * Diseño de la función: https://developer.android.com/guide/topics/connectivity/bluetooth.html
@@ -469,11 +515,11 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
         BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         if (mBluetoothAdapter == null) {
             // El dispositivo no tiene Bluetooth
-                lanzarNotificacion();
+                lanzarNotificacionSinConexionBluetooth();
         } else {
             if (!mBluetoothAdapter.isEnabled()) {
                 // Bluetooth está deshabilitado, se puede pedir al usuario que lo habilite
-                lanzarNotificacion();
+                lanzarNotificacionSinConexionBluetooth();
             } else {
                 // Bluetooth está habilitado
             }

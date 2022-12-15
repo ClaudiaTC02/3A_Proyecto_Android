@@ -70,12 +70,7 @@ public class ServicioEscuchaBeacons extends Service {
     public Double latitud;
     public Double longitud;
 
-
-
-
-
-
-
+    
     public int getCounterValue() {
         return contador;
     }
@@ -212,6 +207,7 @@ public class ServicioEscuchaBeacons extends Service {
                 mediaConexion.setVisibility(View.INVISIBLE);
                 pocaConexion.setVisibility(View.VISIBLE);
                 sinsenal.setVisibility(View.INVISIBLE);
+                Mis_Dispositivos.getInstance().lanzarNotificacionAltaDistanciaSensor();
             }
             else {
                 Log.d("distancia", "Sin señal");
@@ -227,7 +223,6 @@ public class ServicioEscuchaBeacons extends Service {
             }
         }
         //----------------------------------------------------
-
     } // ()
 
     // --------------------------------------------------------------
@@ -297,7 +292,6 @@ public class ServicioEscuchaBeacons extends Service {
         this.callbackDelEscaneo = null;
 
     } // ()
-
     // --------------------------------------------------------------
     // --------------------------------------------------------------
     @SuppressLint("MissingPermission")
@@ -341,12 +335,6 @@ public class ServicioEscuchaBeacons extends Service {
         }
     } // ()
 
-    // --------------------------------------------------------------
-    // Cálculo de distancia del dispositivo BTLE a partir de txPower
-    public void calcularDistancia( int txPower) {
-
-    } // ()
-    // --------------------------------------------------------------
     // --------------------------------------------------------------
     // --------------------------------------------------------------
     @Override
