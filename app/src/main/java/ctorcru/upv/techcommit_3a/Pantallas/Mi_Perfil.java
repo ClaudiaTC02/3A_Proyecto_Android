@@ -576,6 +576,7 @@ public class Mi_Perfil extends AppCompatActivity implements NavigationView.OnNav
     private void addItemsFromJSON() {
         //llamamos a la variable de sharedpreferences que llenamos al iniciar sesion con los nombres de los json de los nombres de los dispositivos
         jsonDataString=preferencias.getString("allinfosensores","");
+        Log.d("CodigoDispositivo", jsonDataString);
         //procedemos a quitar los [] sobrantes obtenidas en la peticion
         StringBuilder sb = new StringBuilder(jsonDataString);
         sb.deleteCharAt(jsonDataString.length() - 1);

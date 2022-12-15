@@ -159,7 +159,7 @@ public class Pagina_Registro extends AppCompatActivity {
                     "\"EsAdmin\":\""+0+"\"" +
                     "}";
             Log.d("cuerpoRegistro", cuerpo);
-            sendEmail(nombre.getText().toString(), correo.getText().toString());
+            //sendEmail(nombre.getText().toString(), correo.getText().toString());
             //MainActivity.getInstance().cambiarActivity(cuerpo);
             SharedPreferences.Editor mEditor = preferencias.edit();
             logica.buscarDispositivosDelUsuarioR(correo.getText().toString());
@@ -168,6 +168,8 @@ public class Pagina_Registro extends AppCompatActivity {
             Intent myIntent = new Intent(Pagina_Registro.this, Mis_Dispositivos.class);
             mEditor.putString("allinfoUser",cuerpo);
             mEditor.apply();
+            String nombreDispositivo = preferencias.getString("CodigoDispositivo", "ninguno");
+            Log.d("CodigoDispositivo", nombreDispositivo);
             myIntent.putExtra("infoUsuario",cuerpo);
             Pagina_Registro.this.startActivity(myIntent);
         }
