@@ -13,6 +13,22 @@ public class Medicion {
     // Atributos
     private String medida;
     private String fecha;
+
+
+
+    private String latitud;
+    private String longitud;
+    private String dispositivo;
+
+
+
+    public Medicion(String medida, String latitud, String longitud, String dispositivo) {
+        this.medida = medida;
+        this.fecha = fechaDB();
+        this.latitud = latitud;
+        this.longitud = longitud;
+        this.dispositivo = dispositivo;
+    }
     // ---------------------------------------------------------------------------------------------
     /**
      * @brief Constructor de la clase
@@ -24,6 +40,7 @@ public class Medicion {
     public Medicion(int medida) {
         this.medida =String.valueOf(medida);
         this.fecha = fechaDB();
+
     } //()
     // ---------------------------------------------------------------------------------------------
     /**
@@ -51,6 +68,43 @@ public class Medicion {
      * @return fechaActual
      * Diseño: --> fechaDB() --> String
      **/
+    // ---------------------------------------------------------------------------------------------
+    public String getLatitud() {
+        return latitud;
+    }
+
+    public void setLatitud(String latitud) {
+        this.latitud = latitud;
+    }
+
+    public String getLongitud() {
+        return longitud;
+    }
+
+    public void setLongitud(String longitud) {
+        this.longitud = longitud;
+    }
+
+    public String getDispositivo() {
+        return dispositivo;
+    }
+
+    public void setDispositivo(String dispositivo) {
+        this.dispositivo = dispositivo;
+    }
+
+    public String toJSON(){
+        String res = "{" +
+
+                "\"medida\":\""+this.getMedida()+"\", " +
+                "\"fecha\":\""+this.getFecha()+"\", "+
+                "\"latitud\":\""+this.getLatitud()+"\", "+
+                "\"longitud\":\""+this.getLongitud()+"\", "+
+                "\"dispositivo\":\""+this.getDispositivo()+"\", "+
+                "}";
+        return res;
+    }
+
     // ---------------------------------------------------------------------------------------------
     private String fechaDB(){
         Date fecha = new Date();

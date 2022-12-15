@@ -13,6 +13,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -31,6 +34,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import ctorcru.upv.techcommit_3a.Logica.Logica;
+import ctorcru.upv.techcommit_3a.Modelo.Medicion;
 import ctorcru.upv.techcommit_3a.Modelo.TramaIBeacon;
 import ctorcru.upv.techcommit_3a.Modelo.Utilidades;
 import ctorcru.upv.techcommit_3a.Pantallas.MainActivity;
@@ -62,6 +67,8 @@ public class ServicioEscuchaBeacons extends Service {
     public ImageView buenaConexion;
     public ImageView sinsenal;
     public String nombreDispositivo;
+    public Double latitud;
+    public Double longitud;
 
 
 
@@ -174,7 +181,12 @@ public class ServicioEscuchaBeacons extends Service {
             minorDecimal = Float.parseFloat(df.format(minorMuestra));
             minorValorReal = minorDecimal/10000;
             Log.d(ETIQUETA_LOG, "Valor en ppm recibido recibido = " + minorValorReal);
-
+            LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+            Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            longitud = location.getLongitude();
+            latitud = location.getLatitude();
+            Medicion medicion = new Medicion(bluetoothDevice.getName(),latitud.toString(),longitud.toString(),nombreDispositivo);
+            new Logica().insertarMedida(medicion);
             int rssis = rssi;
             Log.d(ETIQUETA_LOG, "rssi Roberto= " + rssis);
             if (rssis >= -84) {

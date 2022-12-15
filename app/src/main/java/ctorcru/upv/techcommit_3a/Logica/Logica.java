@@ -6,6 +6,7 @@ import android.widget.Toast;
 import java.util.Arrays;
 
 
+import ctorcru.upv.techcommit_3a.Modelo.Medicion;
 import ctorcru.upv.techcommit_3a.Pantallas.MainActivity;
 import ctorcru.upv.techcommit_3a.Modelo.Usuario;
 import ctorcru.upv.techcommit_3a.Pantallas.Mi_Perfil;
@@ -184,5 +185,22 @@ public class Logica {
                     }
                 });
 
+    }
+    public void insertarMedida(Medicion medicion){
+        PeticionarioREST elPeticionarioREST = new PeticionarioREST();
+        // 192.168.1.114 ip portatil
+        // 192.168.85.84 ip pc sobremesa
+        String nuevoEndpoint = new String(restEndpoint+"/medicion").replaceAll(" ","%20");
+        Log.d("PRUEBA", "publicarMediciones endpoint: "+nuevoEndpoint);
+        Log.d("PRUEBA",medicion.toJSON());
+        elPeticionarioREST.hacerPeticionREST("POST", nuevoEndpoint,
+                medicion.toJSON(),
+                new PeticionarioREST.RespuestaREST () {
+                    @Override
+                    public void callback(int codigo, String cuerpo) {
+                        Log.d ("PRUEBA",medicion.toJSON());
+                        Log.d ("PRUEBA","codigo respuesta: " + codigo + " <-> \n" + cuerpo);
+                    }
+                });
     }
 }
