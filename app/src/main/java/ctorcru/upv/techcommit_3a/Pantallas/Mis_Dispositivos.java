@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.Menu;
@@ -70,7 +71,7 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
     public static Activity fa;
     private AlertDialog.Builder cerrarSesioon;
     public ImageView sinsenal,mediasenal,buenaSenal,malaSenal;
-
+    boolean notificacionMostrada = false;
     private Button botonMaximoExcedido;
 
 
@@ -152,8 +153,11 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
         botonBusqueda.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                notificacionMostrada = false;
                 Toast.makeText(getApplicationContext(), "La búsqueda comenzará", Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(Mis_Dispositivos.this, ServicioEscuchaBeacons.class);
+                cambiarvalor();
+                comprobacion();
                 String nombreSensor = preferencias.getString("CodigoDispositivo","");
                 i.putExtra("nombreSensor", nombreSensor);
                     startService(i);
@@ -468,8 +472,6 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
         mNotificationManager.notify(0, mBuilder.build());
     }
     // ---------------------------------------------------------------------------------------------
-
-
     /**
      * @brief Esta función se encarga de lanzar una notificación.
      * Diseño de la notificación: https://developer.android.com/guide/topics/ui/notifiers/notifications.html
@@ -507,6 +509,46 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
         mNotificationManager.notify(0, mBuilder.build());
     }
     // ---------------------------------------------------------------------------------------------
+
+
+    // ---------------------------------------------------------------------------------------------
+    /**
+     * @brief Esta función se encarga de lanzar una notificación.
+     * Diseño de la notificación: https://developer.android.com/guide/topics/ui/notifiers/notifications.html
+     **/
+    public void lanzarNotificacionYaNoReciboBeacons(){
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, "notify_001");
+        Intent ii = new Intent(this, Mis_Dispositivos.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, ii, PendingIntent.FLAG_IMMUTABLE);
+
+        NotificationCompat.BigTextStyle bigText = new NotificationCompat.BigTextStyle();
+        bigText.bigText("Ha habido un problema con el dispositivo. Es posible que te hayas distanciado demasiado o que se haya averiado.");
+        bigText.setBigContentTitle("Aviso");
+        bigText.setSummaryText("Problema con el dispositivo");
+
+        mBuilder.setContentIntent(pendingIntent);
+        mBuilder.setSmallIcon(R.drawable.ic_sensor);
+        mBuilder.setContentTitle("Aviso");
+        mBuilder.setContentText("Ha habido un problema con el dispositivo. Es posible que te hayas distanciado demasiado o que se haya averiado.");
+        mBuilder.setPriority(Notification.PRIORITY_MIN);
+        mBuilder.setStyle(bigText);
+
+        NotificationManager mNotificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        // === Removed some obsoletes
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            String channelId = "your_channel_id";
+            NotificationChannel channel = new NotificationChannel(
+                    channelId,
+                    "Channel human readable title",
+                    NotificationManager.IMPORTANCE_HIGH);
+            mNotificationManager.createNotificationChannel(channel);
+            mBuilder.setChannelId(channelId);
+        }
+        mNotificationManager.notify(0, mBuilder.build());
+    }
+    // ---------------------------------------------------------------------------------------------
     /**
      * @brief Esta función se encarga de comprobar si el bluetooth está activado.
      * Diseño de la función: https://developer.android.com/guide/topics/connectivity/bluetooth.html
@@ -525,4 +567,87 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
             }
         }
     }
+
+
+
+
+    // ---------------------------------------------------------------------------------------------
+    /**
+     * @brief Esta función se encarga de lanzar una notificación.
+     * Diseño de la notificación: https://developer.android.com/guide/topics/ui/notifiers/notifications.html
+     **/
+    public void lanzarNotificacionDispositivoEncontrado(){
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, "notify_001");
+        Intent ii = new Intent(this, Mis_Dispositivos.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, ii, PendingIntent.FLAG_IMMUTABLE);
+
+        NotificationCompat.BigTextStyle bigText = new NotificationCompat.BigTextStyle();
+        bigText.bigText("La conexión con tu llavero se ha realizado con éxito.");
+        bigText.setBigContentTitle("Conexión establecida");
+        bigText.setSummaryText("Conexión con el dispositivo");
+
+        mBuilder.setContentIntent(pendingIntent);
+        mBuilder.setSmallIcon(R.drawable.ic_sensor);
+        mBuilder.setContentTitle("Conexión establecida");
+        mBuilder.setContentText("La conexión con tu llavero se ha realizado con éxito.");
+        mBuilder.setPriority(Notification.PRIORITY_MIN);
+        mBuilder.setStyle(bigText);
+
+        NotificationManager mNotificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        // === Removed some obsoletes
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            String channelId = "your_channel_id";
+            NotificationChannel channel = new NotificationChannel(
+                    channelId,
+                    "Channel human readable title",
+                    NotificationManager.IMPORTANCE_HIGH);
+            mNotificationManager.createNotificationChannel(channel);
+            mBuilder.setChannelId(channelId);
+        }
+        mNotificationManager.notify(0, mBuilder.build());
+    }
+    // ---------------------------------------------------------------------------------------------
+
+    // ---------------------------------------------------------------------------------------------
+    /**
+     * @brief Esta función se encarga de comprobar si el teléfono deja de recibir beacons tras un periodo de tiempo con Handler.
+     * Diseño de la función: https://developer.android.com/guide/topics/connectivity/bluetooth.html
+     **/
+    public void comprobacion(){
+        final Handler handler = new Handler();
+        final int delay = 10000; //milliseconds
+
+        handler.postDelayed(new Runnable(){
+            public void run(){
+                if(ServicioEscuchaBeacons.getInstance().contadorX==ServicioEscuchaBeacons.getInstance().contador){
+                    stopService(new Intent(Mis_Dispositivos.this, ServicioEscuchaBeacons.class));
+                    if (!notificacionMostrada) {
+                        Mis_Dispositivos.getInstance().lanzarNotificacionYaNoReciboBeacons();
+                        notificacionMostrada = true;
+                    }
+                    sinsenal.setVisibility(View.VISIBLE);
+                    buenaSenal.setVisibility(View.INVISIBLE);
+                    mediasenal.setVisibility(View.INVISIBLE);
+                    malaSenal.setVisibility(View.INVISIBLE);
+                }
+                handler.postDelayed(this, delay);
+            }
+        }, delay);
+    }
+
+    public void cambiarvalor(){
+        final Handler handler = new Handler();
+        final int delay = 9000; //milliseconds
+
+        handler.postDelayed(new Runnable(){
+            public void run(){
+                ServicioEscuchaBeacons.getInstance().contadorX=ServicioEscuchaBeacons.getInstance().contador;
+                handler.postDelayed(this, delay);
+            }
+        }, delay);
+    }
+
+
 }

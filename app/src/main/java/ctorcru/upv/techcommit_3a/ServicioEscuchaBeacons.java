@@ -16,6 +16,7 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Handler;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -58,9 +59,13 @@ public class ServicioEscuchaBeacons extends Service {
     public Float minorValorReal;
     public static String UUID;
     public static Integer minor;
+    boolean notificacionMostrada = false;
     public static String nombre;
     public static Date fechaHora;
     public int contador = 0;
+    public int contadorX;
+    private static ServicioEscuchaBeacons myContext;
+
     public ImageView sinConexion;
     public ImageView pocaConexion;
     public ImageView mediaConexion;
@@ -126,6 +131,7 @@ public class ServicioEscuchaBeacons extends Service {
         buenaConexion = Mis_Dispositivos.getInstance().findViewById(R.id.totalconexion);
         sinsenal = Mis_Dispositivos.getInstance().findViewById(R.id.sinconexion);
 
+
         //Se obtiene la información del dispositivo BTLE
         BluetoothDevice bluetoothDevice = resultado.getDevice();
 
@@ -163,12 +169,19 @@ public class ServicioEscuchaBeacons extends Service {
         Log.d(ETIQUETA_LOG, " minor  = " + Utilidades.bytesToHexString(tib.getMinor()) + "( " + Utilidades.bytesToInt(tib.getMinor()) + " ) ");
         Log.d(ETIQUETA_LOG, " txPower  = " + Integer.toHexString(tib.getTxPower()) + " ( " + tib.getTxPower() + " )");
         Log.d(ETIQUETA_LOG, " ----------------------------------------------------");
-        //Log.d("CodigoDispositivo",nombreDispositivo);
+//        Log.d("CodigoDispositivo",nombreDispositivo);
+//        Log.d(ETIQUETA_LOG, "nombreee = " + nombreDispositivo);
+
+
         //Si el nombre del beacon recibido es el que se busca, se muestra la información en el LogCat (por el momento)
-        if(nombre != null && nombre.equals(nombreDispositivo)){
+        if(nombre != null && nombre.equals("GTI-3ARoberto")){
+            if (!notificacionMostrada) {
+                Mis_Dispositivos.getInstance().lanzarNotificacionDispositivoEncontrado();
+                notificacionMostrada = true;
+            }
+            contador++;
             fechaHora = Calendar.getInstance().getTime();
             Log.d(ETIQUETA_LOG, " Momento de encuentro con EPSG-ROBERTO-PRO: " + fechaHora);
-
             minorMuestra = Utilidades.bytesToInt(tib.getMinor());
             //minor a float con 5 decimales
             DecimalFormat df = new DecimalFormat("#.#####");
@@ -221,9 +234,16 @@ public class ServicioEscuchaBeacons extends Service {
             if(minorValorReal > 1.8){
                 Mis_Dispositivos.getInstance().lanzarNotificacionMaximoExcedido();
             }
+
         }
+
+        Log.d(ETIQUETA_LOG, "Hola buenas" + contador);
+        Log.d(ETIQUETA_LOG, "Hola buenasX" + contadorX);
+
         //----------------------------------------------------
     } // ()
+
+
 
     // --------------------------------------------------------------
     // --------------------------------------------------------------
@@ -348,6 +368,8 @@ public class ServicioEscuchaBeacons extends Service {
         nombreDispositivo = intent.getExtras().getString("nombreSensor");
         //El START_STICKY es para que el servicio se reinicie si se destruye
         buscarEsteDispositivoBTLE( nombreDispositivo );
+        //cambiarvalor();
+        //comprobacion();
         return START_STICKY;
     }
 
@@ -361,4 +383,40 @@ public class ServicioEscuchaBeacons extends Service {
     public IBinder onBind(Intent intent) {
         return null;
     }
+
+    public void comprobacion(){
+        final Handler handler = new Handler();
+        final int delay = 10000; //milliseconds
+
+        handler.postDelayed(new Runnable(){
+            public void run(){
+                if(contadorX==contador){
+                    Mis_Dispositivos.getInstance().lanzarNotificacionYaNoReciboBeacons();
+                    detenerBusquedaDispositivosBTLE();
+                }
+                handler.postDelayed(this, delay);
+            }
+        }, delay);
+    }
+
+    public void cambiarvalor(){
+        final Handler handler = new Handler();
+        final int delay = 5000; //milliseconds
+
+        handler.postDelayed(new Runnable(){
+            public void run(){
+                contadorX=contador;
+                handler.postDelayed(this, delay);
+            }
+        }, delay);
+    }
+
+    public ServicioEscuchaBeacons() {
+        myContext =  this;
+    }
+
+    public static ServicioEscuchaBeacons getInstance() {
+        return myContext;
+    }
+
 }
