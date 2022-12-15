@@ -21,7 +21,7 @@ import ctorcru.upv.techcommit_3a.Pantallas.Pagina_Registro;
 // -----------------------------------------------------------------------------------------
 public class Logica {
     private static final String ETIQUETA_LOG = "Logica_REST";
-    private static final String restEndpoint = "http://192.168.137.1:8080";
+    private static final String restEndpoint = "http://192.168.43.233:8080";
 
     // ---------------------------------------------------------------------------------------------
     /**
@@ -117,7 +117,6 @@ public class Logica {
         PeticionarioREST elPeticionarioREST = new PeticionarioREST();
         //variable creada para almacenar la info que le pasaremos en el cuerpo
         String res = "{" +
-                "\"Id\":\""+usuario.getId()+"\", " +
                 "\"Nombre\":\""+usuario.getNombre()+"\", " +
                 "\"Contrasena\":\""+usuario.getContrasena()+"\", "+
                 "\"Correo\":\""+usuario.getCorreo()+"\", " +
@@ -161,6 +160,26 @@ public class Logica {
                             Log.d(ETIQUETA_LOG, "obtener nombres "+ cuerpo );
 
                             MainActivity.getInstance().obtenerNombresSensor(cuerpo);
+                        }
+                    }
+                });
+    }
+    public void buscarDispositivosDelUsuarioR(String correo){
+        PeticionarioREST elPeticionarioREST = new PeticionarioREST();
+        String Endpoint1 = new String(restEndpoint+"/buscarDispositivosUsuarioPorCorreo?Correo="+correo).replaceAll(" ","%20");//creamos el endpoint pasandole el correo
+        Log.d(ETIQUETA_LOG, "obtener id de los sensores en "+Endpoint1);
+        elPeticionarioREST.hacerPeticionREST("GET", Endpoint1,
+                null,
+                new PeticionarioREST.RespuestaREST () {
+                    @Override
+                    public void callback(int codigo, String cuerpo) {
+                        Log.d(ETIQUETA_LOG, "codigo respuesta: " + codigo + " <-> \n" + cuerpo);
+
+                        if (codigo == 200 && !cuerpo.isEmpty()) {
+                            Log.d(ETIQUETA_LOG, "obtener nombres "+ cuerpo );
+
+
+                            Pagina_Registro.getInstance().obtenerNombresSensor(cuerpo);
                         }
                     }
                 });

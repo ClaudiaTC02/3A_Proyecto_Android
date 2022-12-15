@@ -1,7 +1,7 @@
 package ctorcru.upv.techcommit_3a.Modelo;
 /**
  * @brief Esta clase se encarga de montar el objeto que administrará los dispositivos pertenencientes al usuario
- * Autora: Enrique Ferre Carbonell
+ * Autor: Enrique Ferre Carbonell
  * Archivo: Sensores.java
  **/
 // ---------------------------------------------------------------------------------------------

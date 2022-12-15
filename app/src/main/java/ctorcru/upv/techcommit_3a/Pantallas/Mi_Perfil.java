@@ -339,6 +339,7 @@ public class Mi_Perfil extends AppCompatActivity implements NavigationView.OnNav
                             if(opciones[i].equals("Aceptar")){
                                 Mis_Dispositivos.fa.finish();
                                 Intent myIntent = new Intent(Mi_Perfil.this, Mi_Perfil.class);
+
                                 Mi_Perfil.this.startActivity(myIntent);
 
                                 Mi_Perfil.this.finish();
@@ -559,7 +560,9 @@ public class Mi_Perfil extends AppCompatActivity implements NavigationView.OnNav
         mEditor.putString("usuarioIniciado", "ninguno");
         mEditor.putString("allinfoUser","ninguno");
         mEditor.putString("allinfosensores","ninguno");
+        mEditor.putString("infoUsuario","ninguno");
         mEditor.apply();
+        Mis_Dispositivos.fa.finish();
         Intent i = new Intent(this, Pre_Login_Registro.class);
         startActivity(i);
     }

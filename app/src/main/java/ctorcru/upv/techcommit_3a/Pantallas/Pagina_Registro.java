@@ -39,6 +39,7 @@ public class Pagina_Registro extends AppCompatActivity {
     private String usuario;
     private static Pagina_Registro myContext;
     private  String codigo;
+    private Logica logica= new Logica();
 
     // ---------------------------------------------------------------------------------------------
     /**
@@ -77,6 +78,7 @@ public class Pagina_Registro extends AppCompatActivity {
         preferencias = getSharedPreferences("label", 0);
         Intent intent = getIntent();
         codigo = intent.getStringExtra("Codigo_QR");
+
         // ----------------------------------------------------------
         //Añadimos los listeners a los botones
         flecha_atras.setOnClickListener(new View.OnClickListener() {
@@ -150,11 +152,17 @@ public class Pagina_Registro extends AppCompatActivity {
 
             new Logica().insertarUsuario_Dispositivo(correo.getText().toString(), codigo);
 
-            String cuerpo = "3;"+nombre.getText().toString()+";"+contraseña.getText().toString()+";"+correo.getText().toString()+";";
+            String cuerpo = "{" +
+                    "\"Nombre\":\""+nombre.getText().toString()+"\", " +
+                    "\"Contrasena\":\""+contraseña.getText().toString()+"\", "+
+                    "\"Correo\":\""+correo.getText().toString()+"\", " +
+                    "\"EsAdmin\":\""+0+"\"" +
+                    "}";
             Log.d("cuerpoRegistro", cuerpo);
             sendEmail(nombre.getText().toString(), correo.getText().toString());
             //MainActivity.getInstance().cambiarActivity(cuerpo);
             SharedPreferences.Editor mEditor = preferencias.edit();
+            logica.buscarDispositivosDelUsuarioR(correo.getText().toString());
             mEditor.putString("usuarioIniciado", cuerpo);
             mEditor.putString("CodigoDispositivo",codigo);
             Intent myIntent = new Intent(Pagina_Registro.this, Mis_Dispositivos.class);
@@ -175,6 +183,14 @@ public class Pagina_Registro extends AppCompatActivity {
      **/
     // ---------------------------------------------------------------------------------------------
     protected void sendEmail(String nombre, String correo) {
+
+    }
+
+    public void obtenerNombresSensor(String cuerpo) {
+        SharedPreferences.Editor mEditor = preferencias.edit();
+        Log.d("obtenerNombre", "le paso "+ cuerpo);
+        mEditor.putString("allinfosensores",cuerpo);
+        mEditor.apply();
 
     }
 }
