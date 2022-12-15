@@ -147,7 +147,10 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
             @Override
             public void onClick(View view) {
                 Toast.makeText(getApplicationContext(), "La búsqueda comenzará", Toast.LENGTH_SHORT).show();
-                    startService(new Intent(Mis_Dispositivos.this, ServicioEscuchaBeacons.class));
+                Intent i = new Intent(Mis_Dispositivos.this, ServicioEscuchaBeacons.class);
+                String nombreSensor = preferencias.getString("CodigoDispositivo","");
+                i.putExtra("nombreSensor", nombreSensor);
+                    startService(i);
             }
         });
 

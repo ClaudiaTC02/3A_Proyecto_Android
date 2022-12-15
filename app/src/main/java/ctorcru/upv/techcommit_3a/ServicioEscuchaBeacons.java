@@ -9,9 +9,12 @@ import android.bluetooth.le.BluetoothLeScanner;
 import android.bluetooth.le.ScanCallback;
 import android.bluetooth.le.ScanFilter;
 import android.bluetooth.le.ScanResult;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.IBinder;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -30,6 +33,7 @@ import java.util.List;
 
 import ctorcru.upv.techcommit_3a.Modelo.TramaIBeacon;
 import ctorcru.upv.techcommit_3a.Modelo.Utilidades;
+import ctorcru.upv.techcommit_3a.Pantallas.MainActivity;
 import ctorcru.upv.techcommit_3a.Pantallas.Mis_Dispositivos;
 
 /**
@@ -57,6 +61,11 @@ public class ServicioEscuchaBeacons extends Service {
     public ImageView mediaConexion;
     public ImageView buenaConexion;
     public ImageView sinsenal;
+    public String nombreDispositivo;
+
+
+
+
 
 
 
@@ -152,10 +161,9 @@ public class ServicioEscuchaBeacons extends Service {
         Log.d(ETIQUETA_LOG, " minor  = " + Utilidades.bytesToHexString(tib.getMinor()) + "( " + Utilidades.bytesToInt(tib.getMinor()) + " ) ");
         Log.d(ETIQUETA_LOG, " txPower  = " + Integer.toHexString(tib.getTxPower()) + " ( " + tib.getTxPower() + " )");
         Log.d(ETIQUETA_LOG, " ----------------------------------------------------");
-
+        //Log.d("CodigoDispositivo",nombreDispositivo);
         //Si el nombre del beacon recibido es el que se busca, se muestra la información en el LogCat (por el momento)
-        if(nombre != null && nombre.equals("GTI-3ARoberto")){
-            //contador++;
+        if(nombre != null && nombre.equals(nombreDispositivo)){
             fechaHora = Calendar.getInstance().getTime();
             Log.d(ETIQUETA_LOG, " Momento de encuentro con EPSG-ROBERTO-PRO: " + fechaHora);
 
@@ -329,11 +337,13 @@ public class ServicioEscuchaBeacons extends Service {
     public void onCreate() {
         inicializarBlueTooth();
         super.onCreate();
+
     }
     @Override
     public int onStartCommand(Intent intent, int flags, int IdProceso) {
+        nombreDispositivo = intent.getExtras().getString("nombreSensor");
         //El START_STICKY es para que el servicio se reinicie si se destruye
-        buscarEsteDispositivoBTLE( "GTI-3ARoberto" );
+        buscarEsteDispositivoBTLE( nombreDispositivo );
         return START_STICKY;
     }
 

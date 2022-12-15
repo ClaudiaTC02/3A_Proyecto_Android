@@ -160,23 +160,20 @@ public class Pagina_Registro extends AppCompatActivity {
                     "\"EsAdmin\":\""+0+"\"" +
                     "}";
             Log.d("cuerpoRegistro", cuerpo);
-            sendEmail(nombre.getText().toString(), correo.getText().toString());
+            //sendEmail(nombre.getText().toString(), correo.getText().toString());
             //MainActivity.getInstance().cambiarActivity(cuerpo);
             SharedPreferences.Editor mEditor = preferencias.edit();
             logica.buscarDispositivosDelUsuarioR(correo.getText().toString());
             mEditor.putString("usuarioIniciado", cuerpo);
+            mEditor.putString("CodigoDispositivo",codigo);
             Intent myIntent = new Intent(Pagina_Registro.this, Mis_Dispositivos.class);
             mEditor.putString("allinfoUser",cuerpo);
             mEditor.apply();
+            String nombreDispositivo = preferencias.getString("CodigoDispositivo", "ninguno");
+            Log.d("CodigoDispositivo", nombreDispositivo);
             myIntent.putExtra("infoUsuario",cuerpo);
             Pagina_Registro.this.startActivity(myIntent);
         }
-    }
-    public void recogerrIdUsuario(String usuario_){
-        usuario = usuario_;
-    }
-    public void recogerrIdDispositivo(String dispositivo_){
-        dispositivo = dispositivo_;
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -189,25 +186,7 @@ public class Pagina_Registro extends AppCompatActivity {
      **/
     // ---------------------------------------------------------------------------------------------
     protected void sendEmail(String nombre, String correo) {
-        Log.i("Send email", "");
-        String[] TO = {"davidlopez.gandia@gmail.com"};
-        String[] CC = {""};
-        Intent emailIntent = new Intent(Intent.ACTION_SEND);
 
-        emailIntent.setData(Uri.parse("mailto:"));
-        emailIntent.setType("text/plain");
-        emailIntent.putExtra(Intent.EXTRA_EMAIL, TO);
-        emailIntent.putExtra(Intent.EXTRA_CC, CC);
-        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Your subject");
-        emailIntent.putExtra(Intent.EXTRA_TEXT, "Email message goes here");
-
-        try {
-            startActivity(Intent.createChooser(emailIntent, "Send mail..."));
-            finish();
-
-        } catch (android.content.ActivityNotFoundException ex) {
-            Toast.makeText(Pagina_Registro.this, "There is no email client installed.", Toast.LENGTH_SHORT).show();
-        }
     }
 
     public void obtenerNombresSensor(String cuerpo) {
