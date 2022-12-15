@@ -10,6 +10,7 @@ import android.bluetooth.le.ScanCallback;
 import android.bluetooth.le.ScanFilter;
 import android.bluetooth.le.ScanResult;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.IBinder;
 import android.util.Log;
@@ -47,6 +48,7 @@ public class ServicioEscuchaBeacons extends Service {
     public static Integer minor;
     public static String nombre;
     public static Date fechaHora;
+    private SharedPreferences preferencias;
 
     // ------------------------------------------------------------------------------------------
     /** Función que devuelve la UUID del dispositivo
@@ -132,9 +134,10 @@ public class ServicioEscuchaBeacons extends Service {
         Log.d(ETIQUETA_LOG, " minor  = " + Utilidades.bytesToHexString(tib.getMinor()) + "( " + Utilidades.bytesToInt(tib.getMinor()) + " ) ");
         Log.d(ETIQUETA_LOG, " txPower  = " + Integer.toHexString(tib.getTxPower()) + " ( " + tib.getTxPower() + " )");
         Log.d(ETIQUETA_LOG, " ----------------------------------------------------");
-
+        String nombreDispositivo = preferencias.getString("CodigoDispositivo", "ninguno");
+        Log.d("CodigoDispositivo",nombreDispositivo);
         //Si el nombre del beacon recibido es el que se busca, se muestra la información en el LogCat (por el momento)
-        if(nombre != null && nombre.equals("GTI-3ARoberto")){
+        if(nombre != null && nombre.equals(nombreDispositivo)){
             fechaHora = Calendar.getInstance().getTime();
             Log.d(ETIQUETA_LOG, " Momento de encuentro con EPSG-ROBERTO-PRO: " + fechaHora);
 
