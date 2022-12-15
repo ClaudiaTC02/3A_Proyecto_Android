@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 
+import java.util.Locale;
 import  java.util.Properties;
 
 import ctorcru.upv.techcommit_3a.Logica.Logica;
@@ -150,12 +151,12 @@ public class Pagina_Registro extends AppCompatActivity {
 
             Log.d("prueba",codigo);
 
-            new Logica().insertarUsuario_Dispositivo(correo.getText().toString(), codigo);
+            new Logica().insertarUsuario_Dispositivo(correo.getText().toString().toLowerCase(Locale.ROOT), codigo);
 
             String cuerpo = "{" +
                     "\"Nombre\":\""+nombre.getText().toString()+"\", " +
                     "\"Contrasena\":\""+contraseña.getText().toString()+"\", "+
-                    "\"Correo\":\""+correo.getText().toString()+"\", " +
+                    "\"Correo\":\""+correo.getText().toString().toLowerCase(Locale.ROOT)+"\", " +
                     "\"EsAdmin\":\""+0+"\"" +
                     "}";
             Log.d("cuerpoRegistro", cuerpo);

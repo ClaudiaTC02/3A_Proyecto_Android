@@ -148,6 +148,9 @@ public class MainActivity extends AppCompatActivity {
         } else{
             new Logica().buscarUsuario(new Usuario(correo.getText().toString(),contraseya.getText().toString()));
             logica.buscarDispositivosDelUsuario(correo.getText().toString());
+            // Esto es para evitar iniciar sesión
+            /*Intent myIntent = new Intent(MainActivity.this, Mis_Dispositivos.class);
+            MainActivity.this.startActivity(myIntent);*/
         }
     }
 

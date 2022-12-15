@@ -37,6 +37,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import ctorcru.upv.techcommit_3a.Logica.Logica;
 import ctorcru.upv.techcommit_3a.Modelo.RecyclerAdapter;
@@ -77,7 +78,8 @@ public class Mi_Perfil extends AppCompatActivity implements NavigationView.OnNav
     private String userpref;
 
     String correo;
-
+    private  int enable=0;
+    private  int comprov=0;
     //constructores
     /**
      * @brief Constructor de la clase
@@ -110,7 +112,8 @@ public class Mi_Perfil extends AppCompatActivity implements NavigationView.OnNav
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         // ----------------------------------------------------------
-
+        enable=0;
+        comprov=0;
 
         //-----------------------------------------------------------
         //Botón que tenemos disponible para realizar alguna opción. De momento no se utiliza
@@ -203,6 +206,7 @@ public class Mi_Perfil extends AppCompatActivity implements NavigationView.OnNav
                     confirmarcontrasena.setVisibility(View.VISIBLE);
                     contrasenaPerfil.setEnabled(true);
                     confirmarcontrasena.setEnabled(true);
+                    enable++;
                 }else{
                     //si no coinciden hacemos altar una alerta
                     oldcontrasena.setText("");
@@ -315,13 +319,79 @@ public class Mi_Perfil extends AppCompatActivity implements NavigationView.OnNav
                 String txtconfirmcontra = confirmarcontrasena.getText().toString();
 
 
+                String txtCorreo  =correoPerfil.getText().toString();
+                if(txtCorreo.contains(".com")||txtCorreo.contains(".es")||txtCorreo.contains(".us") || txtCorreo.contains(".uk")){
+                    comprov++;
+                }
+
                 //si las dos contrasenyas coinciden
-                if(txtcontrasena.equals(txtconfirmcontra)){
+                if(nombrePerfil.getText().toString().matches("") || correoPerfil.getText().toString().matches("")
+                        || txtcontrasena.matches("") ||!correoPerfil.getText().toString().contains("@") || !txtcontrasena.matches(txtconfirmcontra) || comprov==0){
+                    //hasta que las contrasenyas no coincidan saltará una alerta
+                    btnEditar.setVisibility(View.GONE);
+                    nombrePerfil.setEnabled(true);
+                    correoPerfil.setEnabled(true);
+                    correoPerfil.setEnabled(true);
+                    contrasenaPerfil.setEnabled(true);
+                    btnactualizar.setVisibility(View.VISIBLE);
+                    confirmarcontrasena.setVisibility(View.VISIBLE);
+                    if(enable==0){
+                        confirmarcontrasena.setVisibility(View.INVISIBLE);
+                        contrasenaPerfil.setEnabled(false);
+                    }
+                    String error="";
+                    String to="";
+                    // ahora sus respectivas alertas
+                    if(nombrePerfil.getText().toString().matches("")){
+                        error="";
+                        error=error+"el campo del nombre esta vacío";
+                        to="";
+                        to=to+"Porfavor rellene el campo Nombre de usario";
+                        crearAlerta(error,to);
+                    }else if(correoPerfil.getText().toString().matches("")){
+                        error="";
+                        error=error+"Correo electrónico esta vacío";
+                        to="";
+                        to=to+"Porfavor rellene el campo Correo";
+                        crearAlerta(error,to);
+                    }
+                    else if(txtcontrasena.matches("")){
+                        error="";
+                        error=error+"el campo de la Contraseña nueva esta vacío";
+                        to="";
+                        to=to+"Porfavor rellene el campo de la contraseña";
+                        crearAlerta(error,to);
+                    }
+                    else if(!correoPerfil.getText().toString().contains("@") ){
+                        error="";
+                        error=error+"el correo introducido no es valido, debe contener @";
+                        to="";
+                        to=to+"Porfavor rellene el campo correctamente";
+                        crearAlerta(error,to);
+                    }
+                    else if(comprov==0 ){
+                        error="";
+                        error=error+"el correo introducido no es valido, debe contener un dominio correcto";
+                        to="";
+                        to=to+"Porfavor rellene el campo correctamente";
+                        crearAlerta(error,to);
+                    }
+                    else if(!txtcontrasena.matches(txtconfirmcontra) ){
+                        error="";
+                        error=error+"las contraseñas no coinciden";
+                        to="";
+                        to=to+"Porfavor revise las contraseñas";
+                        crearAlerta(error,to);
+                    }
+
+
+                }else if(txtcontrasena.equals(txtconfirmcontra)){
+
                     //texto donde almacenaremos el resultado de la contraenya
                     String confirmacion="";
                     confirmacion = confirmacion +  txtconfirmcontra;
                     //llenamos el usuario con los cambios de atributos
-                    Usuario actualizado= new Usuario(id,nombrePerfil.getText().toString(),correoPerfil.getText().toString(),confirmacion);
+                    Usuario actualizado= new Usuario(id,nombrePerfil.getText().toString(),correoPerfil.getText().toString().toLowerCase(Locale.ROOT),confirmacion);
                     //actualizado.setFoto(dtosdef.getFoto());
                     actualizado.setEsAdmin(dtosdef.getEsAdmin());
 
@@ -344,30 +414,6 @@ public class Mi_Perfil extends AppCompatActivity implements NavigationView.OnNav
 
                                 Mi_Perfil.this.finish();
 
-                                dialogInterface.dismiss();
-                            }
-                        }
-                    });
-                    alertOpciones.show();
-
-
-                }else{
-                    //hasta que las contrasenyas no coincidan saltará una alerta
-                    btnEditar.setVisibility(View.GONE);
-                    nombrePerfil.setEnabled(true);
-                    correoPerfil.setEnabled(true);
-                    correoPerfil.setEnabled(true);
-                    contrasenaPerfil.setEnabled(true);
-                    btnactualizar.setVisibility(View.VISIBLE);
-                    confirmarcontrasena.setVisibility(View.VISIBLE);
-                    final  CharSequence[] opciones={"Aceptar"};
-                    final AlertDialog.Builder alertOpciones = new AlertDialog.Builder(Mi_Perfil.this);
-                    alertOpciones.setTitle("Error al actualizar usuario, las contraseñas deben coincidir");
-                    alertOpciones.setItems(opciones, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            if(opciones[i].equals("Aceptar")){
-                                Toast.makeText(getApplicationContext(),"Compruebe las contraseñas",Toast.LENGTH_SHORT).show();
                                 dialogInterface.dismiss();
                             }
                         }
@@ -601,6 +647,30 @@ public class Mi_Perfil extends AppCompatActivity implements NavigationView.OnNav
         } catch ( JSONException e) {
 
         }
+    }
+    private void crearAlerta(String error, String toaest){
+        final  CharSequence[] opciones={"Aceptar"};
+        final AlertDialog.Builder alertOpciones = new AlertDialog.Builder(Mi_Perfil.this);
+        alertOpciones.setTitle("Error al actualizar usuario, "+ error);
+        String finalTo =toaest;
+        alertOpciones.setItems(opciones, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                if(opciones[i].equals("Aceptar")){
+                    Toast.makeText(getApplicationContext(), finalTo,Toast.LENGTH_SHORT).show();
+                    if(enable!=0){
+                        contrasenaPerfil.setText("");
+                        confirmarcontrasena.setText("");
+                    }
+                    if(comprov==0){
+                        correoPerfil.setText("");
+                    }
+
+                    dialogInterface.dismiss();
+                }
+            }
+        });
+        alertOpciones.show();
     }
 
 

@@ -71,6 +71,8 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
     private AlertDialog.Builder cerrarSesioon;
     public ImageView sinsenal;
 
+    private Button botonMaximoExcedido;
+
 
 
 
@@ -95,6 +97,7 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
             e.printStackTrace();
         }
         botonBusqueda = findViewById(R.id.botonBusqueda);
+        botonMaximoExcedido = findViewById(R.id.maximoexcedido);
         botonDetenerBusqueda = findViewById(R.id.botonDetenerBusqueda);
         ImagenMisDispositivos = findViewById(R.id.ImagenMisDispositivos);
         botonCerrarSesion = findViewById(R.id.cerrar_sesion);
@@ -167,6 +170,13 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
             public void onClick(View view) {
                 Toast.makeText(getApplicationContext(), "Imagen del dispositivo", Toast.LENGTH_SHORT).show();
 
+            }
+        });
+        botonMaximoExcedido.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(), "Simulador de notificación", Toast.LENGTH_SHORT).show();
+                lanzarNotificacionMaximoExcedido();
             }
         });
         // ----------------------------------------------------------
@@ -395,6 +405,43 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
         mBuilder.setSmallIcon(R.drawable.ic_sensor);
         mBuilder.setContentTitle("Aviso");
         mBuilder.setContentText("El bluetooth está desactivado. Activalo para poder iniciar el servicio.");
+        mBuilder.setPriority(Notification.PRIORITY_MIN);
+        mBuilder.setStyle(bigText);
+
+        NotificationManager mNotificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        // === Removed some obsoletes
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            String channelId = "your_channel_id";
+            NotificationChannel channel = new NotificationChannel(
+                    channelId,
+                    "Channel human readable title",
+                    NotificationManager.IMPORTANCE_HIGH);
+            mNotificationManager.createNotificationChannel(channel);
+            mBuilder.setChannelId(channelId);
+        }
+        mNotificationManager.notify(0, mBuilder.build());
+    }
+    // ---------------------------------------------------------------------------------------------
+    /**
+     * @brief Esta función se encarga de lanzar una notificación.
+     * Diseño de la notificación: https://developer.android.com/guide/topics/ui/notifiers/notifications.html
+     **/
+    public void lanzarNotificacionMaximoExcedido(){
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, "notify_001");
+        Intent ii = new Intent(this, Mis_Dispositivos.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, ii, PendingIntent.FLAG_IMMUTABLE);
+
+        NotificationCompat.BigTextStyle bigText = new NotificationCompat.BigTextStyle();
+        bigText.bigText("Estás midiendo mucha cantidad de CO2");
+        bigText.setBigContentTitle("Aviso");
+        bigText.setSummaryText("Límite de C02 Excedido");
+
+        mBuilder.setContentIntent(pendingIntent);
+        mBuilder.setSmallIcon(R.drawable.ic_sensor);
+        mBuilder.setContentTitle("Aviso");
+        mBuilder.setContentText("Estás midiendo mucha cantidad de CO2");
         mBuilder.setPriority(Notification.PRIORITY_MIN);
         mBuilder.setStyle(bigText);
 
