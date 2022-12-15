@@ -209,6 +209,10 @@ public class ServicioEscuchaBeacons extends Service {
                 pocaConexion.setVisibility(View.INVISIBLE);
                 sinsenal.setVisibility(View.VISIBLE);
             }
+            // Comprobar si el límite es excedido
+            if(minorValorReal > 1.8){
+                Mis_Dispositivos.getInstance().lanzarNotificacionMaximoExcedido();
+            }
         }
         //----------------------------------------------------
 
