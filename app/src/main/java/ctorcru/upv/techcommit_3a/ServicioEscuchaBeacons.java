@@ -191,9 +191,16 @@ public class ServicioEscuchaBeacons extends Service {
             Log.d(ETIQUETA_LOG, "Valor en ppm recibido recibido = " + minorValorReal);
             LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
             Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            longitud = location.getLongitude();
-            latitud = location.getLatitude();
-            Medicion medicion = new Medicion(bluetoothDevice.getName(),latitud.toString(),longitud.toString(),nombreDispositivo);
+            try{
+                longitud = location.getLongitude();
+                latitud = location.getLatitude();
+            }catch(Exception e) {
+                longitud = 0.0;
+                latitud = 0.0;
+            }
+
+
+            Medicion medicion = new Medicion(minorValorReal.toString(),latitud.toString(),longitud.toString(),nombreDispositivo);
             Log.d("medidaParaBD",medicion.toJSON());
             new Logica().insertarMedida(medicion);
             int rssis = rssi;
