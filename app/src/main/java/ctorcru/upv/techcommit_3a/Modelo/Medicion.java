@@ -100,7 +100,7 @@ public class Medicion {
                 "\"fecha\":\""+this.getFecha()+"\", "+
                 "\"latitud\":\""+this.getLatitud()+"\", "+
                 "\"longitud\":\""+this.getLongitud()+"\", "+
-                "\"dispositivo\":\""+this.getDispositivo()+"\", "+
+                "\"dispositivo\":\""+this.getDispositivo()+"\""+
                 "}";
         return res;
     }
