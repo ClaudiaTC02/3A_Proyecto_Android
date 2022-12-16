@@ -194,6 +194,7 @@ public class ServicioEscuchaBeacons extends Service {
             longitud = location.getLongitude();
             latitud = location.getLatitude();
             Medicion medicion = new Medicion(bluetoothDevice.getName(),latitud.toString(),longitud.toString(),nombreDispositivo);
+            Log.d("medidaParaBD",medicion.toJSON());
             new Logica().insertarMedida(medicion);
             int rssis = rssi;
             Log.d(ETIQUETA_LOG, "rssi Roberto= " + rssis);

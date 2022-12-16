@@ -14,8 +14,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import ctorcru.upv.techcommit_3a.Logica.Logica;
 
+import ctorcru.upv.techcommit_3a.Modelo.Sensores;
 import ctorcru.upv.techcommit_3a.Modelo.Usuario;
 import ctorcru.upv.techcommit_3a.R;
 // -----------------------------------------------------------------------------------------
@@ -37,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageView flecha_atras,ImagenLogo;
     private SharedPreferences preferencias;
     private Logica logica= new Logica();
+    private String jsonDataString;
     // ---------------------------------------------------------------------------------------------
     // Métodos para coger el contexto de esta actividad
     // ---------------------------------------------------------------------------------------------
@@ -183,6 +189,33 @@ public class MainActivity extends AppCompatActivity {
         mEditor.putString("allinfosensores",cuerpo);
         mEditor.apply();
 
+        jsonDataString=preferencias.getString("allinfosensores","");
+        Log.d("CodigoDispositivo", jsonDataString);
+        //procedemos a quitar los [] sobrantes obtenidas en la peticion
+        StringBuilder sb = new StringBuilder(jsonDataString);
+        sb.deleteCharAt(jsonDataString.length() - 1);
+        sb.deleteCharAt(0);
+        //almacenamos el resultado de la eliminacion en una variable
+        String res1= sb.toString();
+        String res2= res1.replace("],[",",");//quitamos lo restante de la cadena para poder convertirse enun jsonArray
+
+        Log.d("addItemsFormJson", "jsona "+ res2);
+        try {
+            //convertimos elstring definitivamente limpio en un jsonArray
+            JSONArray jsonArray= new JSONArray(res2);
+            //recorremos el jsonArray buscando los nombres en cada casilla
+            for(int i=0;i<=jsonArray.length();i++){
+                JSONObject itemObj = jsonArray.getJSONObject(i);
+                String name = itemObj.getString("Nombre");
+                Log.d("addItemsFormJson", "json "+ name);
+                //los anyadimos al viewItem
+                mEditor.putString("CodigoDispositivo",name);
+                mEditor.apply();
+                Log.d("CodigoDispositivo",name);
+            }
+        } catch ( JSONException e) {
+
+        }
     }
 
     // ---------------------------------------------------------------------------------------------
