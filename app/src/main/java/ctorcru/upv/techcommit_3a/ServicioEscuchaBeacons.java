@@ -174,7 +174,7 @@ public class ServicioEscuchaBeacons extends Service {
 
 
         //Si el nombre del beacon recibido es el que se busca, se muestra la información en el LogCat (por el momento)
-        if(nombre != null && nombre.equals(nombreDispositivo)){
+        if(nombre != null && nombre.equals("GTI-3ARoberto")){
             if (!notificacionMostrada) {
                 Mis_Dispositivos.getInstance().lanzarNotificacionDispositivoEncontrado();
                 notificacionMostrada = true;
@@ -242,7 +242,6 @@ public class ServicioEscuchaBeacons extends Service {
             if(minorValorReal > 1.8){
                 Mis_Dispositivos.getInstance().lanzarNotificacionMaximoExcedido();
             }
-
         }
 
         Log.d(ETIQUETA_LOG, "Hola buenas" + contador);

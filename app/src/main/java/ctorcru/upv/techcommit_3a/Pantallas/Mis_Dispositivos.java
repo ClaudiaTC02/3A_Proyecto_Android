@@ -445,14 +445,14 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, ii, PendingIntent.FLAG_IMMUTABLE);
 
         NotificationCompat.BigTextStyle bigText = new NotificationCompat.BigTextStyle();
-        bigText.bigText("Estás midiendo mucha cantidad de CO2");
+        bigText.bigText("Estás midiendo mucha cantidad de Ozono");
         bigText.setBigContentTitle("Aviso");
-        bigText.setSummaryText("Límite de C02 Excedido");
+        bigText.setSummaryText("Límite de Ozono Excedido");
 
         mBuilder.setContentIntent(pendingIntent);
         mBuilder.setSmallIcon(R.drawable.ic_sensor);
         mBuilder.setContentTitle("Aviso");
-        mBuilder.setContentText("Estás midiendo mucha cantidad de CO2");
+        mBuilder.setContentText("Estás midiendo mucha cantidad de Ozono");
         mBuilder.setPriority(Notification.PRIORITY_MIN);
         mBuilder.setStyle(bigText);
 
@@ -522,14 +522,14 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, ii, PendingIntent.FLAG_IMMUTABLE);
 
         NotificationCompat.BigTextStyle bigText = new NotificationCompat.BigTextStyle();
-        bigText.bigText("Ha habido un problema con el dispositivo. Es posible que te hayas distanciado demasiado o que se haya averiado.");
+        bigText.bigText("Has dejado de recibir información de tu dispositivo.");
         bigText.setBigContentTitle("Aviso");
-        bigText.setSummaryText("Problema con el dispositivo");
+        bigText.setSummaryText("Conexión con el dispositivo");
 
         mBuilder.setContentIntent(pendingIntent);
         mBuilder.setSmallIcon(R.drawable.ic_sensor);
         mBuilder.setContentTitle("Aviso");
-        mBuilder.setContentText("Ha habido un problema con el dispositivo. Es posible que te hayas distanciado demasiado o que se haya averiado.");
+        mBuilder.setContentText("Has dejado de recibir información de tu dispositivo.");
         mBuilder.setPriority(Notification.PRIORITY_MIN);
         mBuilder.setStyle(bigText);
 
@@ -639,7 +639,7 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
 
     public void cambiarvalor(){
         final Handler handler = new Handler();
-        final int delay = 9000; //milliseconds
+        final int delay = 9500; //milliseconds
 
         handler.postDelayed(new Runnable(){
             public void run(){
