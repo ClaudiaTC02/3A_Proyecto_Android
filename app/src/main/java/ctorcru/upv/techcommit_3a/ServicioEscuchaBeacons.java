@@ -340,26 +340,6 @@ public class ServicioEscuchaBeacons extends Service {
         Log.d(ETIQUETA_LOG, " inicializarBlueTooth(): obtenemos escaner btle ");
         this.elEscanner = bta.getBluetoothLeScanner();
 
-        //Si el escaner es nulo, es que el dispositivo no tiene bluetooth
-        if ( this.elEscanner == null ) {
-            Log.d(ETIQUETA_LOG, " inicializarBlueTooth(): Socorro: NO hemos obtenido escaner btle  !!!!");
-
-        }
-        Log.d(ETIQUETA_LOG, " inicializarBlueTooth(): voy a perdir permisos (si no los tuviera) !!!!");
-
-        // Pedimos permisos para acceder al bluetooth si no los tuviéramos
-        if (
-                ContextCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH) != PackageManager.PERMISSION_GRANTED
-                        || ContextCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_ADMIN) != PackageManager.PERMISSION_GRANTED
-                        || ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-        )
-        {
-            ActivityCompat.requestPermissions(Mis_Dispositivos.getInstance(), new String[]{Manifest.permission.BLUETOOTH, Manifest.permission.BLUETOOTH_ADMIN, Manifest.permission.ACCESS_FINE_LOCATION}, 0);
-        }
-        else {
-            Log.d(ETIQUETA_LOG, " inicializarBlueTooth(): parece que YA tengo los permisos necesarios !!!!");
-
-        }
     } // ()
 
     // --------------------------------------------------------------
