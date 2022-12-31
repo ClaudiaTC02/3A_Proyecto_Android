@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/Inicio"
+        android:orderInCategory="100"
+        android:title="Inicio"
+        android:icon="@drawable/inicio_icono"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/vacio"
+        android:orderInCategory="100"
+        android:title=""
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/Mi_Perfil"
+        android:orderInCategory="100"
+        android:title="Mi Perfil"
+        android:icon="@drawable/usuario_icono"
+        app:showAsAction="never" />
+</menu>

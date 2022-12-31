@@ -19,6 +19,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
@@ -76,6 +78,8 @@ public class Mi_Perfil extends AppCompatActivity implements NavigationView.OnNav
     private  Usuario dtosdef= new Usuario();
     private static Mi_Perfil myContext;
     private String userpref;
+    FloatingActionButton fab;
+    BottomNavigationView bottomNavigationView;
 
     String correo;
     private  int enable=0;
@@ -107,6 +111,12 @@ public class Mi_Perfil extends AppCompatActivity implements NavigationView.OnNav
         preferencias = getSharedPreferences("label", 0);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mi_perfil);
+
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setBackground(null);
+        bottomNavigationView.getMenu().getItem(1).setEnabled(false);
+        bottomNavigationView.setSelectedItemId(R.id.Mi_Perfil);
+        fab = findViewById(R.id.fab);
         // ----------------------------------------------------------
         //Aquí creamos la barra de navegación
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -116,25 +126,21 @@ public class Mi_Perfil extends AppCompatActivity implements NavigationView.OnNav
         comprov=0;
 
         //-----------------------------------------------------------
-        //Botón que tenemos disponible para realizar alguna opción. De momento no se utiliza
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                .setAction("Action", null).show());
+        bottomNavigationView.getMenu().getItem(0).setOnMenuItemClickListener(item -> {
+            Intent intent2 = new Intent(Mi_Perfil.this, Mis_Dispositivos.class);
+            startActivity(intent2);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            return true;
+        });
+
+        fab.setOnClickListener(v -> {
+            Intent intent = new Intent(Mi_Perfil.this, Vista_Mapa.class);
+            startActivity(intent);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        });
         //-----------------------------------------------------------
 
         // ----------------------------------------------------------
-        //Aquí creamos el menú lateral
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
-        // ----------------------------------------------------------
-
-        // ----------------------------------------------------------
-        //Aquí creamos la navegación entre las diferentes pantallas
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
 
         //llamamos a la función cargardatos---------------------------
         try {

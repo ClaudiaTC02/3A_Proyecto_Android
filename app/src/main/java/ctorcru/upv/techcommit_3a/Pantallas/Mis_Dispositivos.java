@@ -24,6 +24,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
@@ -68,7 +70,6 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
     private Button botonCerrarSesion;
     private static Mis_Dispositivos myContext;
     private Button botonDetenerBusqueda;
-    private ImageView ImagenMisDispositivos;
     DrawerLayout drawer;
     NavigationView navigationView;
     Toolbar toolbar=null;
@@ -78,9 +79,11 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
     boolean notificacionMostrada = false;
     private Button botonMaximoExcedido;
 
+    //ImageView donde se mostrará la imagen del tiempo
+    FloatingActionButton fab;
+    BottomNavigationView bottomNavigationView;
 
-
-
+    // -----------------------------------------------------------------------------------------
     @Override
     protected void onCreate(Bundle savedInstanceState){
         preferencias = getSharedPreferences("label", 0);
@@ -91,9 +94,6 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         // ----------------------------------------------------------
-
-
-
         // ----------------------------------------------------------
         //Enlazamos los objetos con los elementos
         try {
@@ -104,7 +104,6 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
         botonBusqueda = findViewById(R.id.botonBusqueda);
         botonMaximoExcedido = findViewById(R.id.maximoexcedido);
         botonDetenerBusqueda = findViewById(R.id.botonDetenerBusqueda);
-        ImagenMisDispositivos = findViewById(R.id.ImagenMisDispositivos);
         botonCerrarSesion = findViewById(R.id.cerrar_sesion);
         nombreUsuario = findViewById(R.id.txtNombreh);
         sinsenal = findViewById(R.id.sinconexion);
@@ -113,6 +112,12 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
         malaSenal = findViewById(R.id.pocaconexion);
         datosUsuario= getIntent().getStringExtra("infoUsuario");
         String userpref= preferencias.getString("allinfoUser","");
+
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setBackground(null);
+        bottomNavigationView.getMenu().getItem(1).setEnabled(false);
+        bottomNavigationView.setSelectedItemId(R.id.Inicio);
+        fab = findViewById(R.id.fab);
 
         try {
             dtosdef= infoUsuario.JsonToString(userpref);
@@ -131,25 +136,20 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
         // ----------------------------------------------------------
 
         //-----------------------------------------------------------
-        //Botón que tenemos disponible para realizar alguna opción. De momento no se utiliza
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                .setAction("Action", null).show());
+
+        bottomNavigationView.getMenu().getItem(2).setOnMenuItemClickListener(item -> {
+            Intent intent2 = new Intent(Mis_Dispositivos.this, Mi_Perfil.class);
+            startActivity(intent2);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            return true;
+        });
+
+        fab.setOnClickListener(v -> {
+            Intent intent = new Intent(Mis_Dispositivos.this, Vista_Mapa.class);
+            startActivity(intent);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        });
         //-----------------------------------------------------------
-
-        // ----------------------------------------------------------
-        //Aquí creamos el menú lateral
-        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
-
-        // ----------------------------------------------------------
-        //Aquí creamos la navegación entre las diferentes pantallas
-        navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-        // ----------------------------------------------------------
-
 
 
         // ----------------------------------------------------------
@@ -180,13 +180,6 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
             }
         });
 
-        ImagenMisDispositivos.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "Imagen del dispositivo", Toast.LENGTH_SHORT).show();
-
-            }
-        });
         botonMaximoExcedido.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -238,12 +231,7 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
+        //No hacemos nada
     }
     // ---------------------------------------------------------------------------------------------
     @Override
