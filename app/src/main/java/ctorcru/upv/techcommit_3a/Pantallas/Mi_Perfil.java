@@ -48,126 +48,167 @@ import ctorcru.upv.techcommit_3a.Modelo.Usuario;
 import ctorcru.upv.techcommit_3a.R;
 // -----------------------------------------------------------------------------------------
 /**
- * @brief Aquí se encuentra el código que configura la funcionalidad de la app
+ * @brief Aquí se encuentra el código de la pantalla de Mi Perfil
  * Autora: Roberto Matilla Augustinus
  * Archivo: Mi_Perfil.java
  **/
 // -----------------------------------------------------------------------------------------
 
-public class Mi_Perfil extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class Mi_Perfil extends AppCompatActivity  {
+
+    // -----------------------------------------------------------------------------------------
+    // DECLARACIONES DE VARIABLES
+    // -------------------------------------------------------------------
+    //Declaración de variables de la pantalla
     private EditText nombrePerfil,correoPerfil;
-    //Objetos visibles en la aplicación
     private EditText contrasenaPerfil,oldcontrasena;
     private EditText confirmarcontrasena;
     private TextView  tusdispositivos;
     private SharedPreferences preferencias;
     private Button btnactualizar,btnComprov,btnCancelar,btnCerrarSesion;
     private ImageView btnEditar;
-    //para el recyclerview
+    private  int enable=0;
+    private  int comprov=0;
+    String correo;
+    // -------------------------------------------------------------------
+
+    // -------------------------------------------------------------------
+    //Declaración de variables para el recycler view
     private RecyclerView mRecyclerView;
     private List<Object> viewItems= new ArrayList<>();
     private  RecyclerView.Adapter mAdapter;
     private  RecyclerView.LayoutManager layoutManager;
     private String jsonDataString;
-    //alertas
+    // -------------------------------------------------------------------
+
+    // -------------------------------------------------------------------
+    //Declaración de variables para las alertas
     private AlertDialog.Builder cerrarSesioon;
     private AlertDialog.Builder editar;
+    // -------------------------------------------------------------------
 
-    //variables creadas para interaccionar con las clases
+    // -------------------------------------------------------------------
+    //Declaración de variables para interaccionar con las clases
     private Usuario infoUsuario = new Usuario();
     private  Usuario dtosdef= new Usuario();
     private static Mi_Perfil myContext;
     private String userpref;
     FloatingActionButton fab;
     BottomNavigationView bottomNavigationView;
+    // -------------------------------------------------------------------
+    // -----------------------------------------------------------------------------------------
 
-    String correo;
-    private  int enable=0;
-    private  int comprov=0;
-    //constructores
+    // -----------------------------------------------------------------------------------------
+    // -------------------------------------------------------------------
+    //Constructor de la clase
     /**
      * @brief Constructor de la clase
      * @return objeto MainActivity
      * Diseño: --> MainActivity() --> MainActivity
      **/
-    // ---------------------------------------------------------------------------------------------
+    // -----------------------------
     public Mi_Perfil() {
         myContext =  this;
     }
-    // ---------------------------------------------------------------------------------------------
+    // -------------------------------------------------------------------
+    // -----------------------------------------------------------------------------------------
+
+    // -----------------------------------------------------------------------------------------
+    // -------------------------------------------------------------------
+    //Método para obtener el contexto de la clase
     /**
      * @brief Método que devuelve el contexto de la actividad
      * @return myContext
      * Diseño: --> MainActivity() --> MainActivity
      **/
-    // ---------------------------------------------------------------------------------------------
+    // -----------------------------
     public static Mi_Perfil getInstance() {
         return myContext;
     }
+    // -------------------------------------------------------------------
+    // -----------------------------------------------------------------------------------------
 
+
+
+    // -------------------------------------------------------------------
+    //MÉTODO ONCREATE
     @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState){
+        //-----------------------------------------------
+        //Preferencias
         preferencias = getSharedPreferences("label", 0);
+        //-----------------------------------------------
+
+        //-----------------------------------------------
+        //Llamada al método onCreate de la clase padre
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mi_perfil);
+        enable=0;
+        comprov=0;
+        //-----------------------------------------------
 
+        //-----------------------------------------------
+        //Declaración de variables para el BottomNavigationView
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setBackground(null);
         bottomNavigationView.getMenu().getItem(1).setEnabled(false);
         bottomNavigationView.setSelectedItemId(R.id.Mi_Perfil);
         fab = findViewById(R.id.fab);
-        // ----------------------------------------------------------
-        //Aquí creamos la barra de navegación
+        //-----------------------------------------------
+
+        //-----------------------------------------------
+        //Declaración de variables para el Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        // ----------------------------------------------------------
-        enable=0;
-        comprov=0;
+        //-----------------------------------------------
 
-        //-----------------------------------------------------------
+        //-----------------------------------------------
+        //Acciones del BottomNavigationView
         bottomNavigationView.getMenu().getItem(0).setOnMenuItemClickListener(item -> {
             Intent intent2 = new Intent(Mi_Perfil.this, Mis_Dispositivos.class);
             startActivity(intent2);
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             return true;
         });
-
         fab.setOnClickListener(v -> {
             Intent intent = new Intent(Mi_Perfil.this, Vista_Mapa.class);
             startActivity(intent);
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         });
-        //-----------------------------------------------------------
+        //-----------------------------------------------
 
-        // ----------------------------------------------------------
-
-        //llamamos a la función cargardatos---------------------------
+        //-----------------------------------------------
+        //Llamada al método para cargar los datos del usuario
         try {
             cargarDatos();
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        //-----------------------------------------------
 
-        // ----------------------------------------------------------
+        //-----------------------------------------------
         //Enlazamos los objetos con los elementos
         String id= dtosdef.getId();
         String contra=dtosdef.getContrasena();
+        //-----------------------------------------------
 
-        //asociamos al objeto de tipo usuario la asignación del nuevo usuario
+        //-----------------------------------------------
+        //Asociamos al objeto de tipo usuario la asignación del nuevo usuario
         try {
             dtosdef= infoUsuario.JsonToString(userpref);
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        //-----------------------------------------------
 
-        //asignamos sus respectivas variables los editext y lo que contendrán
+        //-----------------------------------------------
+        //Asignamos sus respectivas variables los editext y lo que contendrán
         nombrePerfil = findViewById(R.id.perfilnombre);
         nombrePerfil.setText(dtosdef.getNombre());
         correoPerfil = findViewById(R.id.perfilcorreo);
         correoPerfil.setText(dtosdef.getCorreo());
-
         contrasenaPerfil = findViewById(R.id.perfilcontrasena);
         contrasenaPerfil.setText(dtosdef.getContrasena());
         btnEditar= findViewById(R.id.btnEditar);
@@ -176,7 +217,9 @@ public class Mi_Perfil extends AppCompatActivity implements NavigationView.OnNav
         oldcontrasena = findViewById(R.id.editOldContra);
         btnComprov=(Button)findViewById(R.id.btnComprov);
         btnCancelar=(Button)findViewById(R.id.btnCancel);
+        //-----------------------------------------------
 
+        //-----------------------------------------------
         //Asociamos el texview y le agregamos el span bajo él
         TextView txtTitulo = (TextView)findViewById(R.id.textView13);
         TextView textInfoDIspositivo = (TextView)findViewById(R.id.tusdispositivos);
@@ -184,21 +227,22 @@ public class Mi_Perfil extends AppCompatActivity implements NavigationView.OnNav
         content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
         txtTitulo.setText(content);
         textInfoDIspositivo.setPaintFlags(textInfoDIspositivo.getPaintFlags() |   android.graphics.Paint.UNDERLINE_TEXT_FLAG);
+        //-----------------------------------------------
 
-        //para el recyclerview
+        //-----------------------------------------------
+        //Para el recyclerview
         mRecyclerView= (RecyclerView) findViewById(R.id.my_recycler_view);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(layoutManager);
-
-
         mRecyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(layoutManager);
-
         mAdapter = new RecyclerAdapter(this, viewItems);
         mRecyclerView.setAdapter(mAdapter);
+        //-----------------------------------------------
 
-        //si pulsamos el botón comprobar contrasenya
+        //-----------------------------------------------
+        //Si pulsamos el botón comprobar contraseña
         btnComprov.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -232,9 +276,10 @@ public class Mi_Perfil extends AppCompatActivity implements NavigationView.OnNav
                 }
             }
         });
-        //fin onClick()btnCoprov---------------------------------------------------------------------------------------------------
+        //-----------------------------------------------
 
-        //si pulsamos el boton cancelar la edición del perfil
+        //-----------------------------------------------
+        //Si pulsamos el boton cancelar la edición del perfil
         btnCancelar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -263,10 +308,10 @@ public class Mi_Perfil extends AppCompatActivity implements NavigationView.OnNav
 
             }
         });
-        //fin onClick() btnCancelar---------------------------------------------------------------------------------------------------
+        //-----------------------------------------------
 
-
-        //si pulsamos el boton editar
+        //-----------------------------------------------
+        //Si pulsamos el boton editar
         btnEditar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -305,9 +350,10 @@ public class Mi_Perfil extends AppCompatActivity implements NavigationView.OnNav
                 editar.show();
             }
         });
-        //fin onClick() btnEditar---------------------------------------------------------------------------------------------------
+        //-----------------------------------------------
 
-        //pulsamos el boton actualizar
+        //-----------------------------------------------
+        //Pulsamos el boton actualizar
         btnactualizar = (Button) findViewById(R.id.btnActualizarP);
         btnactualizar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -428,70 +474,33 @@ public class Mi_Perfil extends AppCompatActivity implements NavigationView.OnNav
                 }
             }
         });
-
-
-
+        //-----------------------------------------------
         addItemsFromJSON();
-
-
-
     }
+    //-----------------------------------------------
 
-
-
-    // ---------------------------------------------------------------------------------------------
+    //-----------------------------------------------
     /**
-     * @brief La funcion onBackPressed() se encarga de cerrar el menú lateral si está abierto dando atrás
-     **/
-    // ---------------------------------------------------------------------------------------------
-
-
-
+     * @brief La funcion onBackPressed() se encarga de no poder volver atras en la aplicacion
+     */
+    //-----------------------------------------------
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
+        //No hacemos nada
     }
-    // ---------------------------------------------------------------------------------------------
-    // ---------------------------------------------------------------------------------------------
-    /**
-     * @brief Esta función se encarga de crear las opciones del menú lateral
-     * @param menu
-     * @return true
-     **/
-    // ---------------------------------------------------------------------------------------------
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.mis__dispositivos, menu);
-        return true;
-    }
-    // ---------------------------------------------------------------------------------------------
+    //-----------------------------------------------
 
-
-    // ---------------------------------------------------------------------------------------------
+    //-----------------------------------------------
     /**
      * @brief Esta función se encarga de poder seleccionar las opciones del menú lateral y saber la seleccionada
      * @param item
      * @return true
      **/
-    // ---------------------------------------------------------------------------------------------
+    //-----------------------------------------------
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
-
         if (id == R.id.cerrar_sesion) {
             cerrarSesioon = new AlertDialog.Builder(this);
             cerrarSesioon.setTitle("Cerrar Sesión");
@@ -513,56 +522,16 @@ public class Mi_Perfil extends AppCompatActivity implements NavigationView.OnNav
         }
         return super.onOptionsItemSelected(item);
     }
-    // ---------------------------------------------------------------------------------------------
+    //-----------------------------------------------
 
-
-    // ---------------------------------------------------------------------------------------------
-    /**
-     * @brief Esta función se encarga de saber que opción hemos elegido para dirigirnos a la pantalla correspondiente
-     * @param item
-     * @return true
-     **/
-    // ---------------------------------------------------------------------------------------------
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        //Aquí se añaden tantas opciones como actividades tengamos
-        switch (id){
-            case R.id.nav_Mis_Dispositivos:
-                Intent intent = new Intent(this, Mis_Dispositivos.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                startActivity(intent);
-                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                break;
-            case R.id.nav_Mi_Perfil:
-                Intent intent2 = new Intent(this, Mi_Perfil.class);
-                intent2.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                startActivity(intent2);
-                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                break;
-            case R.id.nav_Mapa:
-                Intent intent3 = new Intent(this, Vista_Mapa.class);
-                intent3.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                startActivity(intent3);
-                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                break;
-
-        }
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-
-    }
-
-    // ---------------------------------------------------------------------------------------------
+    //-----------------------------------------------
     /**
      * @brief Esta función se encarga de recibir la info del usuario actualizado
      * @param res
      * @return 0
      **/
-    // ---------------------------------------------------------------------------------------------
+    //-----------------------------------------------
+    //Recibimos la respuesta del servidor
     public void actualizarUsuario(String res) {
         //De la función logica obtenemos el json y actualizamos las preferencias para que se actualicen los paramtros en la aplicacion
         SharedPreferences.Editor mEditor = preferencias.edit();
@@ -572,23 +541,28 @@ public class Mi_Perfil extends AppCompatActivity implements NavigationView.OnNav
         usuario.putString("usuarioIniciado", res);
         usuario.apply();
     }
-    // ---------------------------------------------------------------------------------------------
+    //-----------------------------------------------
+
+
+    //-----------------------------------------------
     /**
      * @brief Esta función se encarga de cargar los datos en la activity
      * @return 0
      **/
-    // ---------------------------------------------------------------------------------------------
+    //-----------------------------------------------
     private void cargarDatos() throws JSONException{
         userpref= preferencias.getString("allinfoUser","");
         dtosdef= infoUsuario.JsonToString(userpref);
 
     }
-    // ---------------------------------------------------------------------------------------------
+    //-----------------------------------------------
+
+    //-----------------------------------------------
     /**
      * @brief Esta función se encarga de llamar a cargar datos en caso de que el usuario regrese de habrla dejado en segundo plano
      * @return 0
      **/
-    // ---------------------------------------------------------------------------------------------
+    //-----------------------------------------------
     @Override
     public void onResume() {
         super.onResume();
@@ -597,15 +571,16 @@ public class Mi_Perfil extends AppCompatActivity implements NavigationView.OnNav
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
     }
-    // ---------------------------------------------------------------------------------------------
+    //-----------------------------------------------
+
+    //-----------------------------------------------
     /**
      * @brief Esta función se encarga de cerrar sesion
      * @param view
      * @return 0
      **/
-    // ---------------------------------------------------------------------------------------------
+    //-----------------------------------------------
     public void cerrarSesion(View view){
         Log.d("cerrarSesion", "llego aqui");
         SharedPreferences.Editor mEditor = preferencias.edit();
@@ -618,30 +593,31 @@ public class Mi_Perfil extends AppCompatActivity implements NavigationView.OnNav
         Intent i = new Intent(this, Pre_Login_Registro.class);
         startActivity(i);
     }
+    //-----------------------------------------------
 
-    // ---------------------------------------------------------------------------------------------
+    //-----------------------------------------------
     /**
      * @brief Esta función se encarga de cargar los datos al recyclerview
      * @return 0
      **/
-    // ---------------------------------------------------------------------------------------------
+    //-----------------------------------------------
     private void addItemsFromJSON() {
-        //llamamos a la variable de sharedpreferences que llenamos al iniciar sesion con los nombres de los json de los nombres de los dispositivos
+        //Llamamos a la variable de sharedpreferences que llenamos al iniciar sesion con los nombres de los json de los nombres de los dispositivos
         jsonDataString=preferencias.getString("allinfosensores","");
         Log.d("CodigoDispositivo", jsonDataString);
-        //procedemos a quitar los [] sobrantes obtenidas en la peticion
+        //Procedemos a quitar los [] sobrantes obtenidas en la peticion
         StringBuilder sb = new StringBuilder(jsonDataString);
         sb.deleteCharAt(jsonDataString.length() - 1);
         sb.deleteCharAt(0);
-        //almacenamos el resultado de la eliminacion en una variable
+        //Almacenamos el resultado de la eliminacion en una variable
         String res1= sb.toString();
         String res2= res1.replace("],[",",");//quitamos lo restante de la cadena para poder convertirse enun jsonArray
 
         Log.d("addItemsFormJson", "jsona "+ res2);
         try {
-            //convertimos elstring definitivamente limpio en un jsonArray
+            //Convertimos elstring definitivamente limpio en un jsonArray
             JSONArray jsonArray= new JSONArray(res2);
-            //recorremos el jsonArray buscando los nombres en cada casilla
+            //Recorremos el jsonArray buscando los nombres en cada casilla
             for(int i=0;i<=jsonArray.length();i++){
                 JSONObject itemObj = jsonArray.getJSONObject(i);
                 String name = itemObj.getString("Nombre");
@@ -654,6 +630,13 @@ public class Mi_Perfil extends AppCompatActivity implements NavigationView.OnNav
 
         }
     }
+    //-----------------------------------------------
+
+    //-----------------------------------------------
+    /**
+     * @brief Esta función se encarga de crear una alerta
+     * @return 0
+     **/
     private void crearAlerta(String error, String toaest){
         final  CharSequence[] opciones={"Aceptar"};
         final AlertDialog.Builder alertOpciones = new AlertDialog.Builder(Mi_Perfil.this);
@@ -678,6 +661,5 @@ public class Mi_Perfil extends AppCompatActivity implements NavigationView.OnNav
         });
         alertOpciones.show();
     }
-
-
+    //-----------------------------------------------
 }
