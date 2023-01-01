@@ -330,7 +330,7 @@ public class ServicioEscuchaBeacons extends Service {
      @endverbatim
      @brief Diseño: // void --------> inicializarBlueTooth --------> void
      */
-    private void inicializarBlueTooth() {
+    public void inicializarBlueTooth() {
         Log.d(ETIQUETA_LOG, " inicializarBlueTooth(): obtenemos adaptador BT ");
         BluetoothAdapter bta = BluetoothAdapter.getDefaultAdapter();
         Log.d(ETIQUETA_LOG, " inicializarBlueTooth(): habilitamos adaptador BT ");

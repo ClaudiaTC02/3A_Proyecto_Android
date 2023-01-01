@@ -100,6 +100,7 @@ public class Mis_Dispositivos extends AppCompatActivity {
         setContentView(R.layout.activity_mis_dispositivos);
         ScrollView scrollView = findViewById(R.id.scroll);
         ConstraintLayout container = findViewById(R.id.contenedor);
+        ServicioEscuchaBeacons servicioEscuchaBeacons = new ServicioEscuchaBeacons();
 
 // Obtenemos la posición del contenedor en la pantalla
         int[] location = new int[2];
@@ -230,7 +231,7 @@ public class Mis_Dispositivos extends AppCompatActivity {
                 // Llamar a la función aquí
                comprobarEstadoBluetooth();
             }
-        }, 0, 1, TimeUnit.SECONDS);
+        }, 0, 10, TimeUnit.SECONDS);
 
         //-----------------------------------------------
         // Pedimos permisos para acceder al bluetooth si no los tuviéramos
@@ -243,10 +244,8 @@ public class Mis_Dispositivos extends AppCompatActivity {
                         || ContextCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED
         )
         {
-            ActivityCompat.requestPermissions(Mis_Dispositivos.getInstance(), new String[]{Manifest.permission.BLUETOOTH, Manifest.permission.BLUETOOTH_ADMIN, Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.BLUETOOTH_SCAN,Manifest.permission.BLUETOOTH_ADVERTISE,Manifest.permission.BLUETOOTH_CONNECT}, 0);
-        }
-        else {
-            Log.d("PERMISOS", "Ya teníamos permisos");
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.BLUETOOTH, Manifest.permission.BLUETOOTH_ADMIN, Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.BLUETOOTH_SCAN,Manifest.permission.BLUETOOTH_ADVERTISE,Manifest.permission.BLUETOOTH_CONNECT}, 0);
+            servicioEscuchaBeacons.inicializarBlueTooth();
         }
         //-----------------------------------------------
     }
