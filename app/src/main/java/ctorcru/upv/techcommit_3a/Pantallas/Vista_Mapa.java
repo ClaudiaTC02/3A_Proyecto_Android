@@ -37,24 +37,32 @@ import ctorcru.upv.techcommit_3a.R;
 // -----------------------------------------------------------------------------------------
 
 public class Vista_Mapa extends AppCompatActivity  {
-
+    // -----------------------------------------------------------------------------------------
+    // DECLARACIONES DE VARIABLES
+    // -------------------------------------------------------------------
     private SharedPreferences preferencias;
     private AlertDialog.Builder cerrarSesioon;
     FloatingActionButton fab;
     BottomNavigationView bottomNavigationView;
 
+    // -------------------------------------------------------------------
+    //MÉTODO ONCREATE
     @Override
     protected void onCreate(Bundle savedInstanceState){
         preferencias = getSharedPreferences("label", 0);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vista_mapa);
+        //-----------------------------------------------
+        //Declaración de variables para el BottomNavigationView
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setBackground(null);
         bottomNavigationView.setSelectedItemId(R.id.vacio);
         bottomNavigationView.getMenu().getItem(1).setEnabled(false);
         fab = findViewById(R.id.fab);
+        //-----------------------------------------------
 
-
+        //-----------------------------------------------
+        //Acciones del BottomNavigationView
         bottomNavigationView.setOnItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.Inicio:
@@ -70,12 +78,13 @@ public class Vista_Mapa extends AppCompatActivity  {
             }
             return true;
         });
+        //-----------------------------------------------
 
-        // ----------------------------------------------------------
+        //-----------------------------------------------
         //Aquí creamos la barra de navegación
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        // ----------------------------------------------------------
+        //-----------------------------------------------
     }
     // ---------------------------------------------------------------------------------------------
     /**
@@ -92,8 +101,7 @@ public class Vista_Mapa extends AppCompatActivity  {
 
     // ---------------------------------------------------------------------------------------------
 
-//    // ---------------------------------------------------------------------------------------------
-//
+    // ---------------------------------------------------------------------------------------------
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -112,11 +120,7 @@ public class Vista_Mapa extends AppCompatActivity  {
     // ---------------------------------------------------------------------------------------------
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
         if (id == R.id.cerrar_sesion) {
             cerrarSesioon = new AlertDialog.Builder(this);
             cerrarSesioon.setTitle("Cerrar Sesión");
@@ -149,4 +153,5 @@ public class Vista_Mapa extends AppCompatActivity  {
         Intent i = new Intent(this, Pre_Login_Registro.class);
         startActivity(i);
     }
+    // ---------------------------------------------------------------------------------------------
 }
