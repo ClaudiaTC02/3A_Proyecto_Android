@@ -15,12 +15,14 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +34,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
@@ -92,10 +95,25 @@ public class Mis_Dispositivos extends AppCompatActivity {
         preferencias = getSharedPreferences("label", 0);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mis_dispositivos);
+        ScrollView scrollView = findViewById(R.id.scroll);
+        ConstraintLayout container = findViewById(R.id.contenedor);
+
+// Obtenemos la posición del contenedor en la pantalla
+        int[] location = new int[2];
+        container.getLocationOnScreen(location);
+        int containerTop = location[1];
+
+// Establecemos el margen superior del ScrollView en la posición del contenedor
+        ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) scrollView.getLayoutParams();
+        params.topMargin = containerTop;
+        scrollView.setLayoutParams(params);
+
         // ----------------------------------------------------------
         //Aquí creamos la barra de navegación
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        //getSupportActionBar().hide();
+
         // ----------------------------------------------------------
         // ----------------------------------------------------------
         //Enlazamos los objetos con los elementos
@@ -107,7 +125,7 @@ public class Mis_Dispositivos extends AppCompatActivity {
         //-----------------------------------------------
         //Asignamos sus respectivas variables los editext y lo que contendrán
         botonBusqueda = findViewById(R.id.botonBusqueda);
-        botonMaximoExcedido = findViewById(R.id.maximoexcedido);
+        //botonMaximoExcedido = findViewById(R.id.maximoexcedido);
         botonDetenerBusqueda = findViewById(R.id.botonDetenerBusqueda);
         botonCerrarSesion = findViewById(R.id.cerrar_sesion);
         nombreUsuario = findViewById(R.id.txtNombreh);
@@ -137,7 +155,7 @@ public class Mis_Dispositivos extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        nombreUsuario.setText("Hola "+ dtosdef.getNombre()+", bienvenido a TechCommit");
+        nombreUsuario.setText("Hola "+ dtosdef.getNombre()+", Te damos la bienvenida a TechCommit");
         fa = this;
         //-----------------------------------------------
 
@@ -186,13 +204,13 @@ public class Mis_Dispositivos extends AppCompatActivity {
             }
         });
 
-        botonMaximoExcedido.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "Simulador de notificación", Toast.LENGTH_SHORT).show();
-                lanzarNotificacionMaximoExcedido();
-            }
-        });
+//        botonMaximoExcedido.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Toast.makeText(getApplicationContext(), "Simulador de notificación", Toast.LENGTH_SHORT).show();
+//                lanzarNotificacionMaximoExcedido();
+//            }
+//        });
         //-----------------------------------------------
 
         //-----------------------------------------------
@@ -275,12 +293,12 @@ public class Mis_Dispositivos extends AppCompatActivity {
      **/
     // ---------------------------------------------------------------------------------------------
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.mis__dispositivos, menu);
-        return true;
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        // Inflate the menu; this adds items to the action bar if it is present.
+//        getMenuInflater().inflate(R.menu.mis__dispositivos, menu);
+//        return true;
+//    }
     // ---------------------------------------------------------------------------------------------
 
 
@@ -608,6 +626,11 @@ public class Mis_Dispositivos extends AppCompatActivity {
         }, delay);
     }
     // ---------------------------------------------------------------------------------------------
-
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.mis__dispositivos, menu);
+        return true;
+    }
 
 }

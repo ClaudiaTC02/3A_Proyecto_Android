@@ -11,14 +11,25 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:layout_marginTop="55dp"
             android:layout_height="match_parent">
 
-        <com.google.android.material.card.MaterialCardView
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:layout_marginBottom="37dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <com.google.android.material.card.MaterialCardView
             android:id="@+id/materialCardView"
             style="@style/MyCardView"
             android:layout_width="match_parent"
-            android:layout_height="230dp"
-            android:layout_marginTop="55dp"
+            android:layout_height="110dp"
             app:cardBackgroundColor="#59a8a8"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -31,85 +42,36 @@
 
                         <TextView
                             android:id="@+id/txtNombreh"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
                             android:layout_marginTop="10dp"
                             android:fontFamily="@font/varela_round"
                             android:text="Hola ,Bienvenido"
+                            android:textAlignment="center"
                             android:textColor="@color/white"
                             android:textSize="25dp"
                             android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
-
-                        <TextView
-                            android:id="@+id/comentarioDespNombre"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginEnd="10dp"
-                            android:fontFamily="@font/varela_round"
-                            android:text="Conecta con tu dispositivo y comienza a compartir tus datos de Ozono."
-                            android:textAlignment="viewStart"
-                            android:textColor="@color/white"
-                            android:textSize="18dp"
-                            android:textStyle="bold"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/txtNombreh" />
-
-                        <Button
-                            android:id="@+id/botonDetenerBusqueda"
-                            android:layout_width="150dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="15dp"
-                            android:backgroundTint="#9eb4b4"
-                            android:fontFamily="@font/varela_round"
-                            android:text="Detener"
-                            android:textAllCaps="false"
-                            android:textColor="@color/white"
-                            android:textStyle="bold"
-                            app:cornerRadius="12dp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.5"
-                            app:layout_constraintStart_toEndOf="@+id/botonBusqueda"
-                            app:layout_constraintTop_toBottomOf="@+id/comentarioDespNombre" />
-
-                        <Button
-                            android:id="@+id/botonBusqueda"
-                            android:layout_width="150dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="15dp"
-                            android:backgroundTint="@color/white"
-                            android:fontFamily="@font/varela_round"
-                            android:text="Iniciar"
-                            android:textAllCaps="false"
-                            android:textColor="#59a8a8"
-                            android:textStyle="bold"
-                            app:cornerRadius="12dp"
-                            app:layout_constraintEnd_toStartOf="@+id/botonDetenerBusqueda"
-                            app:layout_constraintHorizontal_bias="0.5"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/comentarioDespNombre" />
-
                 </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
-            android:layout_marginTop="30dp"
-            android:fontFamily="@font/varela_round"
-            android:text="Mi dispositivo"
-            android:textColor="#59a8a8"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/materialCardView" />
+
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/varela_round"
+                    android:text="Información general"
+                    android:textColor="#4E4D4D"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/materialCardView" />
 
 
         <ImageView
@@ -130,6 +92,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginStart="10dp"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="@+id/textView4"
             app:layout_constraintStart_toEndOf="@+id/textView4"
             app:layout_constraintTop_toTopOf="@+id/textView4"
@@ -163,15 +126,148 @@
             app:srcCompat="@drawable/totalconex">
         </ImageView>
 
-                <Button
-                    android:id="@+id/maximoexcedido"
-                    android:layout_width="wrap_content"
+<!--                <Button-->
+<!--                    android:id="@+id/maximoexcedido"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Maximo excedido"-->
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/textView4" />-->
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/contenedor"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Maximo excedido"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView4" />
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                    app:layout_constraintTop_toBottomOf="@+id/textView4">
+
+                        <ScrollView
+                            android:id="@+id/scroll"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                                <androidx.constraintlayout.widget.ConstraintLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginTop="10dp"
+                                    android:foregroundTint="#CF2020"
+                                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                                    tools:context=".Pantallas.Mis_Dispositivos"
+                                    tools:showIn="@layout/activity_mis_dispositivos">
+
+                                        <com.google.android.material.card.MaterialCardView
+                                            android:id="@+id/CardviewSi"
+                                            style="@style/WidgetsInicio"
+                                            android:layout_width="150dp"
+                                            android:layout_height="180dp"
+                                            android:layout_marginTop="18dp"
+                                            app:cardBackgroundColor="#2A484A4A"
+                                            app:cardElevation="0dp"
+                                            app:layout_constraintEnd_toStartOf="@+id/CardviewOzono"
+                                            app:layout_constraintHorizontal_bias="0.5"
+                                            app:layout_constraintStart_toStartOf="parent"
+                                            app:layout_constraintTop_toBottomOf="@+id/CardviewGrados">
+
+                                        </com.google.android.material.card.MaterialCardView>
+
+                                        <com.google.android.material.card.MaterialCardView
+                                            android:id="@+id/CardviewOzono"
+                                            style="@style/WidgetsInicio"
+                                            android:layout_width="150dp"
+                                            android:layout_height="100dp"
+                                            android:layout_marginTop="18dp"
+                                            app:cardBackgroundColor="#2A484A4A"
+                                            app:layout_constraintEnd_toEndOf="parent"
+                                            app:cardElevation="0dp"
+                                            app:layout_constraintHorizontal_bias="0.5"
+                                            app:layout_constraintStart_toEndOf="@+id/CardviewSi"
+                                            app:layout_constraintTop_toBottomOf="@+id/CardviewAire">
+
+                                        </com.google.android.material.card.MaterialCardView>
+
+                                        <com.google.android.material.card.MaterialCardView
+                                            android:id="@+id/CardviewGrados"
+                                            style="@style/WidgetsInicio"
+                                            android:layout_width="150dp"
+                                            android:layout_height="150dp"
+                                            android:layout_marginTop="18dp"
+                                            app:cardBackgroundColor="#2A484A4A"
+                                            app:cardElevation="0dp"
+                                            app:layout_constraintEnd_toStartOf="@+id/CardviewAire"
+                                            app:layout_constraintHorizontal_bias="0.5"
+                                            app:layout_constraintStart_toStartOf="parent"
+                                            app:layout_constraintTop_toBottomOf="@+id/CardviewInfoDispositivo">
+
+                                        </com.google.android.material.card.MaterialCardView>
+
+                                        <com.google.android.material.card.MaterialCardView
+                                            android:id="@+id/CardviewInfoDispositivo"
+                                            style="@style/WidgetsInicio"
+                                            app:cardElevation="0dp"
+                                            android:layout_width="0dp"
+                                            android:layout_height="140dp"
+                                            app:cardBackgroundColor="#2A484A4A"
+                                            app:layout_constraintEnd_toEndOf="@+id/CardviewAire"
+                                            app:layout_constraintStart_toStartOf="@+id/CardviewGrados"
+                                            app:layout_constraintTop_toTopOf="parent">
+
+                                        </com.google.android.material.card.MaterialCardView>
+
+                                        <com.google.android.material.card.MaterialCardView
+                                            android:id="@+id/CardviewAire"
+                                            style="@style/WidgetsInicio"
+                                            android:layout_width="150dp"
+                                            android:layout_height="230dp"
+                                            android:layout_marginTop="18dp"
+                                            app:cardBackgroundColor="#2A484A4A"
+                                            app:cardElevation="0dp"
+                                            app:layout_constraintEnd_toEndOf="parent"
+                                            app:layout_constraintHorizontal_bias="0.5"
+                                            app:layout_constraintStart_toEndOf="@+id/CardviewGrados"
+                                            app:layout_constraintTop_toBottomOf="@+id/CardviewInfoDispositivo">
+
+                                        </com.google.android.material.card.MaterialCardView>
+
+                                        <com.google.android.material.card.MaterialCardView
+                                            android:id="@+id/CardviewDis"
+                                            style="@style/WidgetsInicio"
+                                            android:layout_width="0dp"
+                                            android:layout_height="80dp"
+                                            android:layout_marginTop="18dp"
+                                            app:cardBackgroundColor="#2A484A4A"
+                                            app:cardElevation="0dp"
+                                            app:layout_constraintEnd_toEndOf="@+id/CardviewOzono"
+                                            app:layout_constraintStart_toStartOf="@+id/CardviewSi"
+                                            app:layout_constraintTop_toBottomOf="@+id/CardviewSi">
+
+                                        </com.google.android.material.card.MaterialCardView>
+
+
+                                        <com.google.android.material.card.MaterialCardView
+                                            android:id="@+id/EspacioFinal"
+                                            android:layout_width="0dp"
+                                            android:layout_height="300dp"
+                                            android:layout_marginTop="18dp"
+                                            android:visibility="invisible"
+                                            app:layout_constraintEnd_toEndOf="@+id/CardviewOzono"
+                                            app:layout_constraintStart_toStartOf="@+id/CardviewSi"
+                                            app:layout_constraintTop_toBottomOf="@+id/CardviewDis">
+
+                                        </com.google.android.material.card.MaterialCardView>
+
+
+                                </androidx.constraintlayout.widget.ConstraintLayout>
+                        </ScrollView>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.bottomappbar.BottomAppBar
@@ -209,4 +305,43 @@
             android:scaleType="centerInside"
             app:borderWidth="0dp"
             app:layout_anchor="@id/bottom_app_bar" />
+
+
+
+
+        <Button
+            android:id="@+id/botonDetenerBusqueda"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:backgroundTint="#9eb4b4"
+            android:fontFamily="@font/varela_round"
+            android:text="Detener"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:visibility="invisible"
+            app:cornerRadius="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/botonBusqueda"
+            app:layout_constraintTop_toBottomOf="@+id/comentarioDespNombre" />
+
+        <Button
+            android:id="@+id/botonBusqueda"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:backgroundTint="@color/white"
+            android:fontFamily="@font/varela_round"
+            android:text="Iniciar"
+            android:visibility="invisible"
+            android:textAllCaps="false"
+            android:textColor="#59a8a8"
+            android:textStyle="bold"
+            app:cornerRadius="12dp"
+            app:layout_constraintEnd_toStartOf="@+id/botonDetenerBusqueda"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/comentarioDespNombre" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

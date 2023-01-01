@@ -81,9 +81,11 @@ public class Vista_Mapa extends AppCompatActivity  {
         //-----------------------------------------------
 
         //-----------------------------------------------
+        // ----------------------------------------------------------
         //Aquí creamos la barra de navegación
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        //getSupportActionBar().hide();
         //-----------------------------------------------
     }
     // ---------------------------------------------------------------------------------------------

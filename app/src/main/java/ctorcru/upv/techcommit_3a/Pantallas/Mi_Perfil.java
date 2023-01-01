@@ -158,9 +158,11 @@ public class Mi_Perfil extends AppCompatActivity  {
         //-----------------------------------------------
 
         //-----------------------------------------------
-        //Declaración de variables para el Toolbar
+        // ----------------------------------------------------------
+        //Aquí creamos la barra de navegación
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        //getSupportActionBar().hide();
         //-----------------------------------------------
 
         //-----------------------------------------------

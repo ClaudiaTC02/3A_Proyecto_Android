@@ -9,7 +9,7 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Ajustes</string>
-    <string name="title_activity_mis_dispositivos">Mis dispositivos</string>
+    <string name="title_activity_mis_dispositivos">Inicio</string>
     <string name="title_activity_mi_perfil">Mi Perfil</string>
     <string name="title_activity_vista_mapa">Mapa</string>
     <string name="bienvenido">¡Bienvenido!</string>

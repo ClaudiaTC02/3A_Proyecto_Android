@@ -28,6 +28,9 @@
     <style name="MyCardView" parent="@style/Widget.MaterialComponents.CardView">
         <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.MaterialCardView.Cut</item>
     </style>
+    <style name="WidgetsInicio" parent="@style/Widget.MaterialComponents.CardView">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay2.MaterialCardView.Cut</item>
+    </style>
     <style name="MyCardViewI" parent="@style/Widget.MaterialComponents.CardView">
         <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.MaterialCardView.CutI</item>
     </style>
@@ -38,6 +41,14 @@
         <item name="cornerSizeBottomLeft">30dp</item>
         <item name="cornerSizeTopRight">0dp</item>
         <item name="cornerSizeTopLeft">0dp</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay2.MaterialCardView.Cut" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeBottomRight">30dp</item>
+        <item name="cornerSizeBottomLeft">30dp</item>
+        <item name="cornerSizeTopRight">30dp</item>
+        <item name="cornerSizeTopLeft">30dp</item>
     </style>
     <style name="ShapeAppearanceOverlay.MaterialCardView.CutI" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <item name="cornerFamily">rounded</item>
