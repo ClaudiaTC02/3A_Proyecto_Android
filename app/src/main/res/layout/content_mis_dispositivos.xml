@@ -65,7 +65,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/varela_round"
-                    android:text="Información general"
+                    android:text="Información general de hoy"
                     android:textColor="#4E4D4D"
                     android:textSize="20dp"
                     android:textStyle="bold"
@@ -197,12 +197,39 @@
                                             android:layout_width="150dp"
                                             android:layout_height="150dp"
                                             android:layout_marginTop="18dp"
-                                            app:cardBackgroundColor="#2A484A4A"
+                                            app:cardBackgroundColor="#4B65B3B3"
                                             app:cardElevation="0dp"
                                             app:layout_constraintEnd_toStartOf="@+id/CardviewAire"
                                             app:layout_constraintHorizontal_bias="0.5"
                                             app:layout_constraintStart_toStartOf="parent"
                                             app:layout_constraintTop_toBottomOf="@+id/CardviewInfoDispositivo">
+
+                                                <androidx.constraintlayout.widget.ConstraintLayout
+                                                    android:layout_width="match_parent"
+                                                    android:layout_height="match_parent">
+
+                                                        <TextView
+                                                            android:id="@+id/temperature_text_view"
+                                                            android:layout_width="wrap_content"
+                                                            android:layout_height="wrap_content"
+                                                            android:text="grados"
+                                                            android:textSize="25sp"
+                                                            android:textStyle="bold"
+                                                            android:textColor="@color/white"
+                                                            app:layout_constraintEnd_toEndOf="@+id/weather_icon"
+                                                            app:layout_constraintStart_toStartOf="@+id/weather_icon"
+                                                            app:layout_constraintTop_toBottomOf="@+id/weather_icon" />
+
+                                                        <ImageView
+                                                            android:id="@+id/weather_icon"
+                                                            android:layout_width="95dp"
+                                                            android:layout_height="95dp"
+                                                            android:layout_marginTop="10dp"
+                                                            app:layout_constraintEnd_toEndOf="parent"
+                                                            app:layout_constraintStart_toStartOf="parent"
+                                                            app:layout_constraintTop_toTopOf="parent" />
+
+                                                </androidx.constraintlayout.widget.ConstraintLayout>
 
                                         </com.google.android.material.card.MaterialCardView>
 
@@ -252,7 +279,7 @@
                                         <com.google.android.material.card.MaterialCardView
                                             android:id="@+id/EspacioFinal"
                                             android:layout_width="0dp"
-                                            android:layout_height="300dp"
+                                            android:layout_height="250dp"
                                             android:layout_marginTop="18dp"
                                             android:visibility="invisible"
                                             app:layout_constraintEnd_toEndOf="@+id/CardviewOzono"
