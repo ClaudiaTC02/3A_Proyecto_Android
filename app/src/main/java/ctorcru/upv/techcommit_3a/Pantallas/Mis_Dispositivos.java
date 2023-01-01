@@ -59,8 +59,10 @@ import ctorcru.upv.techcommit_3a.ServicioEscuchaBeacons;
 
 
 
-public class Mis_Dispositivos extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    //variables y elementos para la vinculación del usuario
+public class Mis_Dispositivos extends AppCompatActivity {
+    // -----------------------------------------------------------------------------------------
+    // DECLARACIONES DE VARIABLES
+    // -------------------------------------------------------------------
     private String datosUsuario;
     private Usuario infoUsuario = new Usuario();
     private  Usuario dtosdef= new Usuario();
@@ -78,12 +80,13 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
     public ImageView sinsenal,mediasenal,buenaSenal,malaSenal;
     boolean notificacionMostrada = false;
     private Button botonMaximoExcedido;
-
-    //ImageView donde se mostrará la imagen del tiempo
     FloatingActionButton fab;
     BottomNavigationView bottomNavigationView;
+    // -------------------------------------------------------------------
 
-    // -----------------------------------------------------------------------------------------
+
+    // -------------------------------------------------------------------
+    //MÉTODO ONCREATE
     @Override
     protected void onCreate(Bundle savedInstanceState){
         preferencias = getSharedPreferences("label", 0);
@@ -101,6 +104,8 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        //-----------------------------------------------
+        //Asignamos sus respectivas variables los editext y lo que contendrán
         botonBusqueda = findViewById(R.id.botonBusqueda);
         botonMaximoExcedido = findViewById(R.id.maximoexcedido);
         botonDetenerBusqueda = findViewById(R.id.botonDetenerBusqueda);
@@ -112,7 +117,10 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
         malaSenal = findViewById(R.id.pocaconexion);
         datosUsuario= getIntent().getStringExtra("infoUsuario");
         String userpref= preferencias.getString("allinfoUser","");
+        //-----------------------------------------------
 
+        //-----------------------------------------------
+        //Declaración de variables para el BottomNavigationView
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setBackground(null);
         bottomNavigationView.getMenu().getItem(1).setEnabled(false);
@@ -129,14 +137,12 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
         nombreUsuario.setText("Hola "+ dtosdef.getNombre()+", bienvenido a TechCommit");
         fa = this;
+        //-----------------------------------------------
 
-        // ----------------------------------------------------------
-
-        //-----------------------------------------------------------
-
+        //-----------------------------------------------
+        //Acciones del BottomNavigationView
         bottomNavigationView.getMenu().getItem(2).setOnMenuItemClickListener(item -> {
             Intent intent2 = new Intent(Mis_Dispositivos.this, Mi_Perfil.class);
             startActivity(intent2);
@@ -149,10 +155,10 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
             startActivity(intent);
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         });
-        //-----------------------------------------------------------
+        //-----------------------------------------------
 
 
-        // ----------------------------------------------------------
+        //-----------------------------------------------
         //Indicamos los listeners de los botones
         botonBusqueda.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -187,8 +193,9 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
                 lanzarNotificacionMaximoExcedido();
             }
         });
-        // ----------------------------------------------------------
+        //-----------------------------------------------
 
+        //-----------------------------------------------
         // Crear una nueva instancia de ScheduledExecutorService
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
 
@@ -201,7 +208,7 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
             }
         }, 0, 1, TimeUnit.SECONDS);
 
-        // ----------------------------------------------------------
+        //-----------------------------------------------
         // Pedimos permisos para acceder al bluetooth si no los tuviéramos
         if (
                 ContextCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH) != PackageManager.PERMISSION_GRANTED
@@ -210,8 +217,6 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
                         || ContextCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_SCAN) != PackageManager.PERMISSION_GRANTED
                         || ContextCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_ADVERTISE) != PackageManager.PERMISSION_GRANTED
                         || ContextCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED
-
-
         )
         {
             ActivityCompat.requestPermissions(Mis_Dispositivos.getInstance(), new String[]{Manifest.permission.BLUETOOTH, Manifest.permission.BLUETOOTH_ADMIN, Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.BLUETOOTH_SCAN,Manifest.permission.BLUETOOTH_ADVERTISE,Manifest.permission.BLUETOOTH_CONNECT}, 0);
@@ -219,8 +224,7 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
         else {
             Log.d("PERMISOS", "Ya teníamos permisos");
         }
-
-
+        //-----------------------------------------------
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -228,7 +232,6 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
      * @brief La funcion onBackPressed() se encarga de cerrar el menú lateral si está abierto dando atrás
      **/
     // ---------------------------------------------------------------------------------------------
-
     @Override
     public void onBackPressed() {
         //No hacemos nada
@@ -263,9 +266,7 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
     }
-
     // ---------------------------------------------------------------------------------------------
     /**
      * @brief Esta función se encarga de crear las opciones del menú lateral
@@ -293,16 +294,7 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
-
         if (id == R.id.cerrar_sesion) {
             cerrarSesioon = new AlertDialog.Builder(this);
             cerrarSesioon.setTitle("Cerrar Sesión");
@@ -333,57 +325,15 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
     // ---------------------------------------------------------------------------------------------
 
 
-
-    // ---------------------------------------------------------------------------------------------
-    /**
-     * @brief Esta función se encarga de saber que opción hemos elegido para dirigirnos a la pantalla correspondiente
-     * @param item
-     * @return true
-     **/
-    // ---------------------------------------------------------------------------------------------
-
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-
-        //Aquí se añaden tantas opciones como actividades tengamos
-        switch (id){
-            case R.id.nav_Mis_Dispositivos:
-                Intent intent = new Intent(this, Mis_Dispositivos.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                startActivity(intent);
-                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                break;
-            case R.id.nav_Mi_Perfil:
-                Intent intent2 = new Intent(this, Mi_Perfil.class);
-                intent2.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                intent2.putExtra("id",dtosdef.getId());
-                startActivity(intent2);
-                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                break;
-            case R.id.nav_Mapa:
-                Intent intent3 = new Intent(this, Vista_Mapa.class);
-                intent3.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                startActivity(intent3);
-                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                break;
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-
-    }
     // ---------------------------------------------------------------------------------------------
     private void cargarDatos()throws JSONException{
         String userpref= preferencias.getString("allinfoUser","");
         Usuario dtosdef;
         dtosdef= infoUsuario.JsonToString(userpref);
-
-
     }
+    // ---------------------------------------------------------------------------------------------
 
-
+    // ---------------------------------------------------------------------------------------------
     public void cerrarSesion(View view){
         Log.d("cerrarSesion", "llego aqui");
         SharedPreferences.Editor mEditor = preferencias.edit();
@@ -394,8 +344,8 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
         mEditor.apply();
         Intent i = new Intent(this, Pre_Login_Registro.class);
         startActivity(i);
-
     }
+    // ---------------------------------------------------------------------------------------------
 
     //getInstance
     public Mis_Dispositivos() {
@@ -579,9 +529,6 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
         }
     }
 
-
-
-
     // ---------------------------------------------------------------------------------------------
     /**
      * @brief Esta función se encarga de lanzar una notificación.
@@ -648,6 +595,7 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
         }, delay);
     }
 
+    // ---------------------------------------------------------------------------------------------
     public void cambiarvalor(){
         final Handler handler = new Handler();
         final int delay = 9500; //milliseconds
@@ -659,6 +607,7 @@ public class Mis_Dispositivos extends AppCompatActivity implements NavigationVie
             }
         }, delay);
     }
+    // ---------------------------------------------------------------------------------------------
 
 
 }

@@ -490,6 +490,13 @@ public class Mi_Perfil extends AppCompatActivity  {
     }
     //-----------------------------------------------
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.mis__dispositivos, menu);
+        return true;
+    }
+
     //-----------------------------------------------
     /**
      * @brief Esta función se encarga de poder seleccionar las opciones del menú lateral y saber la seleccionada
