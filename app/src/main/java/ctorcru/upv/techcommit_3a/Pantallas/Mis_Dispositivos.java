@@ -12,10 +12,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.Menu;
@@ -30,15 +31,12 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
-import androidx.core.view.GravityCompat;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
@@ -49,6 +47,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import ctorcru.upv.techcommit_3a.Modelo.DatosClimaOWM;
 import ctorcru.upv.techcommit_3a.Modelo.Usuario;
 import ctorcru.upv.techcommit_3a.R;
 import ctorcru.upv.techcommit_3a.ServicioEscuchaBeacons;
@@ -85,6 +84,10 @@ public class Mis_Dispositivos extends AppCompatActivity {
     private Button botonMaximoExcedido;
     FloatingActionButton fab;
     BottomNavigationView bottomNavigationView;
+    // TextView donde se mostrará la temperatura
+    TextView temperatureTextView;
+    // ImageView donde se mostrará la imagen del tiempo
+    ImageView weatherIconImageView;
     // -------------------------------------------------------------------
 
 
@@ -128,6 +131,8 @@ public class Mis_Dispositivos extends AppCompatActivity {
         //botonMaximoExcedido = findViewById(R.id.maximoexcedido);
         botonDetenerBusqueda = findViewById(R.id.botonDetenerBusqueda);
         botonCerrarSesion = findViewById(R.id.cerrar_sesion);
+        temperatureTextView = findViewById(R.id.temperature_text_view);
+        weatherIconImageView = findViewById(R.id.weather_icon);
         nombreUsuario = findViewById(R.id.txtNombreh);
         sinsenal = findViewById(R.id.sinconexion);
         mediasenal = findViewById(R.id.mediaconexion);
@@ -144,6 +149,7 @@ public class Mis_Dispositivos extends AppCompatActivity {
         bottomNavigationView.getMenu().getItem(1).setEnabled(false);
         bottomNavigationView.setSelectedItemId(R.id.Inicio);
         fab = findViewById(R.id.fab);
+        requestLocationPermission();
 
         try {
             dtosdef= infoUsuario.JsonToString(userpref);
@@ -631,6 +637,61 @@ public class Mis_Dispositivos extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.mis__dispositivos, menu);
         return true;
+    }
+
+    // ---------------------------------------------------------------------------------------------
+    private void getDeviceLocation() {
+        // Obtener la ubicación del dispositivo
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+        // Obtener la última ubicación conocida del dispositivo
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+        // Si no se encontró ninguna ubicación conocida, utilizar el proveedor de red
+        if (lastKnownLocation == null) {
+            lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+        }
+
+        // Si todavía no se encontró ninguna ubicación, mostrar un mensaje de error
+        if (lastKnownLocation == null) {
+            Toast.makeText(this, "No se pudo obtener la ubicación del dispositivo", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+// Obtener la latitud y longitud de la ubicación
+        double latitude = lastKnownLocation.getLatitude();
+        double longitude = lastKnownLocation.getLongitude();
+
+// Crear una instancia de la clase Logica
+        DatosClimaOWM datosClimaOWM = new DatosClimaOWM();
+
+// Obtener la información meteorológica y mostrarla en la interfaz de usuario
+        datosClimaOWM.getWeather(latitude, longitude, temperatureTextView, weatherIconImageView);
+    }
+
+    private static final int REQUEST_LOCATION_PERMISSION = 1;
+    private void requestLocationPermission() {
+        // Verificar si ya se han concedido los permisos de ubicación
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            // Solicitar los permisos de ubicación al usuario
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    REQUEST_LOCATION_PERMISSION);
+        } else {
+            // Si ya se han concedido los permisos, obtener la ubicación del dispositivo
+            getDeviceLocation();
+        }
     }
 
 }
