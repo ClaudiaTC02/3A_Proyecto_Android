@@ -87,7 +87,7 @@ public class Mis_Dispositivos extends AppCompatActivity {
     // TextView donde se mostrará la temperatura
     TextView temperatureTextView;
     // ImageView donde se mostrará la imagen del tiempo
-    ImageView weatherIconImageView;
+    ImageView weatherIconImageView,infoicono;
     // -------------------------------------------------------------------
 
 
@@ -138,6 +138,7 @@ public class Mis_Dispositivos extends AppCompatActivity {
         mediasenal = findViewById(R.id.mediaconexion);
         buenaSenal = findViewById(R.id.totalconexion);
         malaSenal = findViewById(R.id.pocaconexion);
+        infoicono = findViewById(R.id.info_icon);
         datosUsuario= getIntent().getStringExtra("infoUsuario");
         String userpref= preferencias.getString("allinfoUser","");
         //-----------------------------------------------
@@ -195,6 +196,23 @@ public class Mis_Dispositivos extends AppCompatActivity {
                 String nombreSensor = preferencias.getString("CodigoDispositivo","");
                 i.putExtra("nombreSensor", nombreSensor);
                     startService(i);
+            }
+        });
+
+        infoicono.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Abrir un popup con la información de donde se obtiene la temperatura
+                AlertDialog.Builder builder = new AlertDialog.Builder(Mis_Dispositivos.this);
+                builder.setTitle("Información de la temperatura");
+                builder.setMessage("La información mostrada ha sido proporcionada por OpenWeatherMap.");
+                builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                builder.show();
             }
         });
 
