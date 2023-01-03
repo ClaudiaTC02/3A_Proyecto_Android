@@ -6,6 +6,7 @@ import android.widget.TextView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Calendar;
 import java.util.concurrent.ExecutionException;
 
 import ctorcru.upv.techcommit_3a.R;
@@ -64,14 +65,26 @@ public class DatosClimaOWM {
             String weatherCondition = jsonObject.getJSONArray("weather").getJSONObject(0).getString("main");
 
             int weatherIconId = 0;
+            // Obtener la hora actual
+            int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
 
             // Seleccionar la imagen adecuada para la condición meteorológica
             switch (weatherCondition) {
                 case "Clear":
-                    weatherIconId = R.drawable.sol;
+                    if (hour >= 18 || hour < 6) {
+                        weatherIconId = R.drawable.luna;
+                    } else {
+                        // Si es de día, mostrar la imagen del sol
+                        weatherIconId = R.drawable.sol;
+                    }
                     break;
                 case "Clouds":
-                    weatherIconId = R.drawable.nube;
+                    if (hour >= 18 || hour < 6) {
+                        weatherIconId = R.drawable.lunanublado;
+                    } else {
+                        // Si es de día, mostrar la imagen del sol
+                        weatherIconId = R.drawable.nube;
+                    }
                     break;
                 case "Rain":
                     weatherIconId = R.drawable.lluvia;
