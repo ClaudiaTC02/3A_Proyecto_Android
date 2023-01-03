@@ -1,6 +1,5 @@
 package ctorcru.upv.techcommit_3a;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Service;
 import android.bluetooth.BluetoothAdapter;
@@ -11,23 +10,16 @@ import android.bluetooth.le.ScanFilter;
 import android.bluetooth.le.ScanResult;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Handler;
 import android.os.IBinder;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
@@ -39,7 +31,6 @@ import ctorcru.upv.techcommit_3a.Logica.Logica;
 import ctorcru.upv.techcommit_3a.Modelo.Medicion;
 import ctorcru.upv.techcommit_3a.Modelo.TramaIBeacon;
 import ctorcru.upv.techcommit_3a.Modelo.Utilidades;
-import ctorcru.upv.techcommit_3a.Pantallas.MainActivity;
 import ctorcru.upv.techcommit_3a.Pantallas.Mis_Dispositivos;
 
 /**
@@ -70,11 +61,11 @@ public class ServicioEscuchaBeacons extends Service {
     public ImageView pocaConexion;
     public ImageView mediaConexion;
     public ImageView buenaConexion;
-    public TextView detener;
-    public TextView mensajeSiConectado;
-    public TextView mensajeNoConectado;
-    public TextView botonConectar;
-    public TextView botonConectando;
+    public TextView EbotonDetenerBusqueda;
+    public TextView EmensajeSiConectado;
+    public TextView SmensajeNoConectado;
+    public TextView SbotonConectar;
+    public TextView RbotonConectando;
     public ImageView sinsenal;
     public String nombreDispositivo;
     public Double latitud;
@@ -135,11 +126,11 @@ public class ServicioEscuchaBeacons extends Service {
         mediaConexion = Mis_Dispositivos.getInstance().findViewById(R.id.mediaconexion);
         buenaConexion = Mis_Dispositivos.getInstance().findViewById(R.id.totalconexion);
         sinsenal = Mis_Dispositivos.getInstance().findViewById(R.id.sinconexion);
-        detener = Mis_Dispositivos.getInstance().findViewById(R.id.botonDetenerBusqueda);
-        mensajeSiConectado = Mis_Dispositivos.getInstance().findViewById(R.id.mensajeSiConectado);
-        mensajeNoConectado = Mis_Dispositivos.getInstance().findViewById(R.id.mensajeNoConectado);
-        botonConectar = Mis_Dispositivos.getInstance().findViewById(R.id.botonBusqueda);
-        botonConectando = Mis_Dispositivos.getInstance().findViewById(R.id.botonConectando);
+        EbotonDetenerBusqueda = Mis_Dispositivos.getInstance().findViewById(R.id.EbotonDetenerBusqueda);
+        EmensajeSiConectado = Mis_Dispositivos.getInstance().findViewById(R.id.EmensajeSiConectado);
+        SmensajeNoConectado = Mis_Dispositivos.getInstance().findViewById(R.id.SmensajeNoConectado);
+        SbotonConectar = Mis_Dispositivos.getInstance().findViewById(R.id.SbotonBusqueda);
+        RbotonConectando = Mis_Dispositivos.getInstance().findViewById(R.id.RbotonConectando);
 
         //Se obtiene la información del dispositivo BTLE
         BluetoothDevice bluetoothDevice = resultado.getDevice();
@@ -187,11 +178,11 @@ public class ServicioEscuchaBeacons extends Service {
             if (!notificacionMostrada) {
                 Mis_Dispositivos.getInstance().lanzarNotificacionDispositivoEncontrado();
                 notificacionMostrada = true;
-                detener.setVisibility(View.VISIBLE);
-                mensajeSiConectado.setVisibility(View.VISIBLE);
-                mensajeNoConectado.setVisibility(View.INVISIBLE);
-                botonConectar.setVisibility(View.INVISIBLE);
-                botonConectando.setVisibility(View.INVISIBLE);
+                EbotonDetenerBusqueda.setVisibility(View.VISIBLE);
+                EmensajeSiConectado.setVisibility(View.VISIBLE);
+                SmensajeNoConectado.setVisibility(View.INVISIBLE);
+                SbotonConectar.setVisibility(View.INVISIBLE);
+                RbotonConectando.setVisibility(View.INVISIBLE);
             }
             contador++;
             fechaHora = Calendar.getInstance().getTime();
