@@ -73,59 +73,6 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/materialCardView" />
 
-
-        <ImageView
-            android:id="@+id/pocaconexion"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:visibility="invisible"
-            android:layout_marginStart="10dp"
-            app:tint="#FF0000"
-            app:layout_constraintBottom_toBottomOf="@+id/textView4"
-            app:layout_constraintStart_toEndOf="@+id/textView4"
-            app:layout_constraintTop_toTopOf="@+id/textView4"
-            app:srcCompat="@drawable/pocaconex">
-        </ImageView>
-
-        <ImageView
-            android:id="@+id/sinconexion"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="10dp"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="@+id/textView4"
-            app:layout_constraintStart_toEndOf="@+id/textView4"
-            app:layout_constraintTop_toTopOf="@+id/textView4"
-            android:src="@drawable/sinconex"
-            >
-        </ImageView>
-
-        <ImageView
-            android:id="@+id/mediaconexion"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:visibility="invisible"
-            android:layout_marginStart="10dp"
-            app:tint="#FF9800"
-            app:layout_constraintBottom_toBottomOf="@+id/textView4"
-            app:layout_constraintStart_toEndOf="@+id/textView4"
-            app:layout_constraintTop_toTopOf="@+id/textView4"
-            app:srcCompat="@drawable/semiconex">
-        </ImageView>
-
-        <ImageView
-            android:id="@+id/totalconexion"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="10dp"
-            android:visibility="invisible"
-            app:tint="#4CAF50"
-            app:layout_constraintBottom_toBottomOf="@+id/textView4"
-            app:layout_constraintStart_toEndOf="@+id/textView4"
-            app:layout_constraintTop_toTopOf="@+id/textView4"
-            app:srcCompat="@drawable/totalconex">
-        </ImageView>
-
 <!--                <Button-->
 <!--                    android:id="@+id/maximoexcedido"-->
 <!--                    android:layout_width="wrap_content"-->
@@ -295,6 +242,7 @@
                                                             android:layout_width="0dp"
                                                             android:layout_height="wrap_content"
                                                             android:layout_marginStart="10dp"
+                                                            android:visibility="visible"
                                                             android:layout_marginEnd="20dp"
                                                             android:text="Tu llavero TechCommit no está conectado a tu teléfono."
                                                             app:layout_constraintBottom_toBottomOf="@+id/imageView4"
@@ -308,11 +256,23 @@
                                                             android:layout_height="wrap_content"
                                                             android:layout_marginStart="10dp"
                                                             android:layout_marginEnd="20dp"
+                                                            android:layout_marginTop="5dp"
                                                             android:visibility="invisible"
                                                             android:text="Tu llavero TechCommit está conectado."
                                                             app:layout_constraintEnd_toEndOf="parent"
                                                             app:layout_constraintStart_toEndOf="@+id/imageView4"
                                                             app:layout_constraintTop_toTopOf="@+id/imageView4" />
+
+
+                                                        <TextView
+                                                            android:id="@+id/EmensajeDistancia"
+                                                            android:layout_width="0dp"
+                                                            android:layout_height="wrap_content"
+                                                            android:text="Distancia actual:"
+                                                            android:visibility="invisible"
+                                                            android:layout_marginTop="10dp"
+                                                            app:layout_constraintStart_toStartOf="@+id/EmensajeSiConectado"
+                                                            app:layout_constraintTop_toBottomOf="@id/EmensajeSiConectado" />
 
                                                         <TextView
                                                             android:id="@+id/SbotonBusqueda"
@@ -358,6 +318,43 @@
                                                             android:textStyle="bold"
                                                             app:layout_constraintEnd_toEndOf="@+id/SbotonBusqueda"
                                                             app:layout_constraintTop_toTopOf="@+id/SbotonBusqueda" />
+
+
+                                                        <TextView
+                                                            android:id="@+id/pocaconexion"
+                                                            android:layout_width="0dp"
+                                                            android:layout_height="wrap_content"
+                                                            android:text="Alta"
+                                                            android:visibility="invisible"
+                                                            android:textColor="#FF0000"
+                                                            android:layout_marginStart="5dp"
+                                                            app:layout_constraintStart_toEndOf="@+id/EmensajeDistancia"
+                                                            app:layout_constraintTop_toTopOf="@+id/EmensajeDistancia"
+                                                            />
+
+                                                        <TextView
+                                                            android:id="@+id/mediaconexion"
+                                                            android:layout_width="0dp"
+                                                            android:layout_height="wrap_content"
+                                                            android:text="Media"
+                                                            android:visibility="invisible"
+                                                            android:textColor="#DA6F11"
+                                                            android:layout_marginStart="5dp"
+                                                            app:layout_constraintStart_toEndOf="@+id/EmensajeDistancia"
+                                                            app:layout_constraintTop_toTopOf="@+id/EmensajeDistancia">
+                                                        </TextView>
+
+                                                        <TextView
+                                                            android:id="@+id/totalconexion"
+                                                            android:layout_width="0dp"
+                                                            android:layout_height="wrap_content"
+                                                            android:text="Buena"
+                                                            android:visibility="invisible"
+                                                            android:textColor="#4CAF50"
+                                                            android:layout_marginStart="5dp"
+                                                            app:layout_constraintStart_toEndOf="@+id/EmensajeDistancia"
+                                                            app:layout_constraintTop_toTopOf="@+id/EmensajeDistancia">
+                                                        </TextView>
 
                                                 </androidx.constraintlayout.widget.ConstraintLayout>
 

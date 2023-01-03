@@ -56,17 +56,7 @@ public class ServicioEscuchaBeacons extends Service {
     public int contador = 0;
     public int contadorX;
     private static ServicioEscuchaBeacons myContext;
-
-    public ImageView sinConexion;
-    public ImageView pocaConexion;
-    public ImageView mediaConexion;
-    public ImageView buenaConexion;
-    public TextView EbotonDetenerBusqueda;
-    public TextView EmensajeSiConectado;
-    public TextView SmensajeNoConectado;
-    public TextView SbotonConectar;
-    public TextView RbotonConectando;
-    public ImageView sinsenal;
+    public TextView pocaConexion, mediaConexion, buenaConexion, EbotonDetenerBusqueda,EmensajeSiConectado,SmensajeNoConectado,EmensajeDistancia,SbotonConectar,RbotonConectando;
     public String nombreDispositivo;
     public Double latitud;
     public Double longitud;
@@ -125,12 +115,12 @@ public class ServicioEscuchaBeacons extends Service {
         pocaConexion = Mis_Dispositivos.getInstance().findViewById(R.id.pocaconexion);
         mediaConexion = Mis_Dispositivos.getInstance().findViewById(R.id.mediaconexion);
         buenaConexion = Mis_Dispositivos.getInstance().findViewById(R.id.totalconexion);
-        sinsenal = Mis_Dispositivos.getInstance().findViewById(R.id.sinconexion);
         EbotonDetenerBusqueda = Mis_Dispositivos.getInstance().findViewById(R.id.EbotonDetenerBusqueda);
         EmensajeSiConectado = Mis_Dispositivos.getInstance().findViewById(R.id.EmensajeSiConectado);
         SmensajeNoConectado = Mis_Dispositivos.getInstance().findViewById(R.id.SmensajeNoConectado);
         SbotonConectar = Mis_Dispositivos.getInstance().findViewById(R.id.SbotonBusqueda);
         RbotonConectando = Mis_Dispositivos.getInstance().findViewById(R.id.RbotonConectando);
+        EmensajeDistancia = Mis_Dispositivos.getInstance().findViewById(R.id.EmensajeDistancia);
 
         //Se obtiene la información del dispositivo BTLE
         BluetoothDevice bluetoothDevice = resultado.getDevice();
@@ -180,6 +170,7 @@ public class ServicioEscuchaBeacons extends Service {
                 notificacionMostrada = true;
                 EbotonDetenerBusqueda.setVisibility(View.VISIBLE);
                 EmensajeSiConectado.setVisibility(View.VISIBLE);
+                EmensajeDistancia.setVisibility(View.VISIBLE);
                 SmensajeNoConectado.setVisibility(View.INVISIBLE);
                 SbotonConectar.setVisibility(View.INVISIBLE);
                 RbotonConectando.setVisibility(View.INVISIBLE);
@@ -216,7 +207,6 @@ public class ServicioEscuchaBeacons extends Service {
                 buenaConexion.setVisibility(View.VISIBLE);
                 mediaConexion.setVisibility(View.INVISIBLE);
                 pocaConexion.setVisibility(View.INVISIBLE);
-                sinsenal.setVisibility(View.INVISIBLE);
             }
             else if (rssis > -92) {
                 Log.d("distancia", "Media conexión");
@@ -224,7 +214,6 @@ public class ServicioEscuchaBeacons extends Service {
                 buenaConexion.setVisibility(View.INVISIBLE);
                 mediaConexion.setVisibility(View.VISIBLE);
                 pocaConexion.setVisibility(View.INVISIBLE);
-                sinsenal.setVisibility(View.INVISIBLE);
             }
             else if(rssis > -100) {
                 Log.d("distancia", "Poca conexión");
@@ -232,7 +221,6 @@ public class ServicioEscuchaBeacons extends Service {
                 buenaConexion.setVisibility(View.INVISIBLE);
                 mediaConexion.setVisibility(View.INVISIBLE);
                 pocaConexion.setVisibility(View.VISIBLE);
-                sinsenal.setVisibility(View.INVISIBLE);
                 Mis_Dispositivos.getInstance().lanzarNotificacionAltaDistanciaSensor();
             }
             else {
@@ -241,7 +229,6 @@ public class ServicioEscuchaBeacons extends Service {
                 buenaConexion.setVisibility(View.INVISIBLE);
                 mediaConexion.setVisibility(View.INVISIBLE);
                 pocaConexion.setVisibility(View.INVISIBLE);
-                sinsenal.setVisibility(View.VISIBLE);
             }
             // Comprobar si el límite es excedido
             if(minorValorReal > 1.8){

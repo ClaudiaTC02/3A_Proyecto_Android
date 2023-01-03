@@ -74,6 +74,7 @@ public class Mis_Dispositivos extends AppCompatActivity {
     private TextView RbotonConectando;
     private TextView SmensajeNoConectado;
     private TextView EmensajeSiConectado;
+    private TextView EmensajeDistancia;
     private Button botonCerrarSesion;
     private static Mis_Dispositivos myContext;
     public TextView EbotonDetenerBusqueda;
@@ -82,7 +83,7 @@ public class Mis_Dispositivos extends AppCompatActivity {
     Toolbar toolbar=null;
     public static Activity fa;
     private AlertDialog.Builder cerrarSesioon;
-    public ImageView sinsenal,mediasenal,buenaSenal,malaSenal;
+    public TextView mediasenal,buenaSenal,malaSenal;
     boolean notificacionMostrada = false;
     private Button botonMaximoExcedido;
     FloatingActionButton fab;
@@ -138,10 +139,10 @@ public class Mis_Dispositivos extends AppCompatActivity {
         EbotonDetenerBusqueda = findViewById(R.id.EbotonDetenerBusqueda);
         SmensajeNoConectado = findViewById(R.id.SmensajeNoConectado);
         EmensajeSiConectado = findViewById(R.id.EmensajeSiConectado);
+        EmensajeDistancia = findViewById(R.id.EmensajeDistancia);
         temperatureTextView = findViewById(R.id.temperature_text_view);
         weatherIconImageView = findViewById(R.id.weather_icon);
         nombreUsuario = findViewById(R.id.txtNombreh);
-        sinsenal = findViewById(R.id.sinconexion);
         mediasenal = findViewById(R.id.mediaconexion);
         buenaSenal = findViewById(R.id.totalconexion);
         malaSenal = findViewById(R.id.pocaconexion);
@@ -236,6 +237,7 @@ public class Mis_Dispositivos extends AppCompatActivity {
                 RbotonConectando.setVisibility(View.INVISIBLE);
                 EbotonDetenerBusqueda.setVisibility(View.INVISIBLE);
                 EmensajeSiConectado.setVisibility(View.INVISIBLE);
+                EmensajeDistancia.setVisibility(View.INVISIBLE);
             }
         });
 
