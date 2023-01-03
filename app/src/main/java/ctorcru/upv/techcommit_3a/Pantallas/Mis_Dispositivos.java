@@ -70,10 +70,12 @@ public class Mis_Dispositivos extends AppCompatActivity {
     private  Usuario dtosdef= new Usuario();
     private SharedPreferences preferencias;
     private TextView nombreUsuario;
-    private Button botonBusqueda;
+    private TextView botonBusqueda;
+    private TextView botonConectando;
+    private TextView mensajeNoConectado;
     private Button botonCerrarSesion;
     private static Mis_Dispositivos myContext;
-    private Button botonDetenerBusqueda;
+    public TextView botonDetenerBusqueda;
     DrawerLayout drawer;
     NavigationView navigationView;
     Toolbar toolbar=null;
@@ -132,6 +134,8 @@ public class Mis_Dispositivos extends AppCompatActivity {
         //botonMaximoExcedido = findViewById(R.id.maximoexcedido);
         botonDetenerBusqueda = findViewById(R.id.botonDetenerBusqueda);
         botonCerrarSesion = findViewById(R.id.cerrar_sesion);
+        botonConectando = findViewById(R.id.botonConectando);
+        mensajeNoConectado = findViewById(R.id.mensajeNoConectado);
         temperatureTextView = findViewById(R.id.temperature_text_view);
         weatherIconImageView = findViewById(R.id.weather_icon);
         nombreUsuario = findViewById(R.id.txtNombreh);
@@ -190,11 +194,14 @@ public class Mis_Dispositivos extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 notificacionMostrada = false;
-                Toast.makeText(getApplicationContext(), "La búsqueda comenzará", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "La conexión va a comenzar.", Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(Mis_Dispositivos.this, ServicioEscuchaBeacons.class);
                 cambiarvalor();
+                botonBusqueda.setVisibility(View.INVISIBLE);
+                botonConectando.setVisibility(View.VISIBLE);
                 comprobacion();
                 String nombreSensor = preferencias.getString("CodigoDispositivo","");
+
                 i.putExtra("nombreSensor", nombreSensor);
                     startService(i);
             }
@@ -220,12 +227,12 @@ public class Mis_Dispositivos extends AppCompatActivity {
         botonDetenerBusqueda.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "La búsqueda se detendrá", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "La conexión se ha detenido", Toast.LENGTH_SHORT).show();
                 stopService(new Intent(Mis_Dispositivos.this, ServicioEscuchaBeacons.class));
-                sinsenal.setVisibility(View.VISIBLE);
-                mediasenal.setVisibility(View.INVISIBLE);
-                buenaSenal.setVisibility(View.INVISIBLE);
-                malaSenal.setVisibility(View.INVISIBLE);
+                botonBusqueda.setVisibility(View.VISIBLE);
+                mensajeNoConectado.setVisibility(View.VISIBLE);
+                botonDetenerBusqueda.setVisibility(View.INVISIBLE);
+                botonConectando.setVisibility(View.INVISIBLE);
             }
         });
 
@@ -626,10 +633,9 @@ public class Mis_Dispositivos extends AppCompatActivity {
                         Mis_Dispositivos.getInstance().lanzarNotificacionYaNoReciboBeacons();
                         notificacionMostrada = true;
                     }
-                    sinsenal.setVisibility(View.VISIBLE);
-                    buenaSenal.setVisibility(View.INVISIBLE);
-                    mediasenal.setVisibility(View.INVISIBLE);
-                    malaSenal.setVisibility(View.INVISIBLE);
+                    botonBusqueda.setVisibility(View.VISIBLE);
+                    botonDetenerBusqueda.setVisibility(View.INVISIBLE);
+                    botonConectando.setVisibility(View.INVISIBLE);
                 }
                 handler.postDelayed(this, delay);
             }
