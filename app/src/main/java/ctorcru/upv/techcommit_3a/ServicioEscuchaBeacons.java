@@ -74,6 +74,7 @@ public class ServicioEscuchaBeacons extends Service {
     public TextView mensajeSiConectado;
     public TextView mensajeNoConectado;
     public TextView botonConectar;
+    public TextView botonConectando;
     public ImageView sinsenal;
     public String nombreDispositivo;
     public Double latitud;
@@ -138,6 +139,7 @@ public class ServicioEscuchaBeacons extends Service {
         mensajeSiConectado = Mis_Dispositivos.getInstance().findViewById(R.id.mensajeSiConectado);
         mensajeNoConectado = Mis_Dispositivos.getInstance().findViewById(R.id.mensajeNoConectado);
         botonConectar = Mis_Dispositivos.getInstance().findViewById(R.id.botonBusqueda);
+        botonConectando = Mis_Dispositivos.getInstance().findViewById(R.id.botonConectando);
 
         //Se obtiene la información del dispositivo BTLE
         BluetoothDevice bluetoothDevice = resultado.getDevice();
@@ -189,6 +191,7 @@ public class ServicioEscuchaBeacons extends Service {
                 mensajeSiConectado.setVisibility(View.VISIBLE);
                 mensajeNoConectado.setVisibility(View.INVISIBLE);
                 botonConectar.setVisibility(View.INVISIBLE);
+                botonConectando.setVisibility(View.INVISIBLE);
             }
             contador++;
             fechaHora = Calendar.getInstance().getTime();

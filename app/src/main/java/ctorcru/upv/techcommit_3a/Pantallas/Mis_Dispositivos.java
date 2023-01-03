@@ -73,6 +73,7 @@ public class Mis_Dispositivos extends AppCompatActivity {
     private TextView botonBusqueda;
     private TextView botonConectando;
     private TextView mensajeNoConectado;
+    private TextView mensajeSiConectado;
     private Button botonCerrarSesion;
     private static Mis_Dispositivos myContext;
     public TextView botonDetenerBusqueda;
@@ -136,6 +137,7 @@ public class Mis_Dispositivos extends AppCompatActivity {
         botonCerrarSesion = findViewById(R.id.cerrar_sesion);
         botonConectando = findViewById(R.id.botonConectando);
         mensajeNoConectado = findViewById(R.id.mensajeNoConectado);
+        mensajeSiConectado = findViewById(R.id.mensajeSiConectado);
         temperatureTextView = findViewById(R.id.temperature_text_view);
         weatherIconImageView = findViewById(R.id.weather_icon);
         nombreUsuario = findViewById(R.id.txtNombreh);
@@ -233,6 +235,7 @@ public class Mis_Dispositivos extends AppCompatActivity {
                 mensajeNoConectado.setVisibility(View.VISIBLE);
                 botonDetenerBusqueda.setVisibility(View.INVISIBLE);
                 botonConectando.setVisibility(View.INVISIBLE);
+                mensajeSiConectado.setVisibility(View.INVISIBLE);
             }
         });
 
