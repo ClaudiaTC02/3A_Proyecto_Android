@@ -71,7 +71,7 @@ public class DatosClimaOWM {
             // Seleccionar la imagen adecuada para la condición meteorológica
             switch (weatherCondition) {
                 case "Clear":
-                    if (hour >= 18 || hour < 6) {
+                    if (hour >= 19 || hour < 6) {
                         weatherIconId = R.drawable.luna;
                     } else {
                         // Si es de día, mostrar la imagen del sol
@@ -79,7 +79,7 @@ public class DatosClimaOWM {
                     }
                     break;
                 case "Clouds":
-                    if (hour >= 18 || hour < 6) {
+                    if (hour >= 19 || hour < 6) {
                         weatherIconId = R.drawable.lunanublado;
                     } else {
                         // Si es de día, mostrar la imagen del sol
