@@ -70,16 +70,20 @@ public class Mis_Dispositivos extends AppCompatActivity {
     private  Usuario dtosdef= new Usuario();
     private SharedPreferences preferencias;
     private TextView nombreUsuario;
-    private Button botonBusqueda;
+    private TextView SbotonBusqueda;
+    private TextView RbotonConectando;
+    private TextView SmensajeNoConectado;
+    private TextView EmensajeSiConectado;
+    private TextView EmensajeDistancia;
     private Button botonCerrarSesion;
     private static Mis_Dispositivos myContext;
-    private Button botonDetenerBusqueda;
+    public TextView EbotonDetenerBusqueda;
     DrawerLayout drawer;
     NavigationView navigationView;
     Toolbar toolbar=null;
     public static Activity fa;
     private AlertDialog.Builder cerrarSesioon;
-    public ImageView sinsenal,mediasenal,buenaSenal,malaSenal;
+    public TextView mediasenal,buenaSenal,malaSenal;
     boolean notificacionMostrada = false;
     private Button botonMaximoExcedido;
     FloatingActionButton fab;
@@ -128,14 +132,17 @@ public class Mis_Dispositivos extends AppCompatActivity {
         }
         //-----------------------------------------------
         //Asignamos sus respectivas variables los editext y lo que contendrán
-        botonBusqueda = findViewById(R.id.botonBusqueda);
         //botonMaximoExcedido = findViewById(R.id.maximoexcedido);
-        botonDetenerBusqueda = findViewById(R.id.botonDetenerBusqueda);
+        SbotonBusqueda = findViewById(R.id.SbotonBusqueda);
         botonCerrarSesion = findViewById(R.id.cerrar_sesion);
+        RbotonConectando = findViewById(R.id.RbotonConectando);
+        EbotonDetenerBusqueda = findViewById(R.id.EbotonDetenerBusqueda);
+        SmensajeNoConectado = findViewById(R.id.SmensajeNoConectado);
+        EmensajeSiConectado = findViewById(R.id.EmensajeSiConectado);
+        EmensajeDistancia = findViewById(R.id.EmensajeDistancia);
         temperatureTextView = findViewById(R.id.temperature_text_view);
         weatherIconImageView = findViewById(R.id.weather_icon);
         nombreUsuario = findViewById(R.id.txtNombreh);
-        sinsenal = findViewById(R.id.sinconexion);
         mediasenal = findViewById(R.id.mediaconexion);
         buenaSenal = findViewById(R.id.totalconexion);
         malaSenal = findViewById(R.id.pocaconexion);
@@ -186,15 +193,18 @@ public class Mis_Dispositivos extends AppCompatActivity {
 
         //-----------------------------------------------
         //Indicamos los listeners de los botones
-        botonBusqueda.setOnClickListener(new View.OnClickListener() {
+        SbotonBusqueda.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 notificacionMostrada = false;
-                Toast.makeText(getApplicationContext(), "La búsqueda comenzará", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "La conexión va a comenzar.", Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(Mis_Dispositivos.this, ServicioEscuchaBeacons.class);
                 cambiarvalor();
+                SbotonBusqueda.setVisibility(View.INVISIBLE);
+                RbotonConectando.setVisibility(View.VISIBLE);
                 comprobacion();
                 String nombreSensor = preferencias.getString("CodigoDispositivo","");
+
                 i.putExtra("nombreSensor", nombreSensor);
                     startService(i);
             }
@@ -217,15 +227,17 @@ public class Mis_Dispositivos extends AppCompatActivity {
             }
         });
 
-        botonDetenerBusqueda.setOnClickListener(new View.OnClickListener() {
+        EbotonDetenerBusqueda.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "La búsqueda se detendrá", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "La conexión se ha detenido", Toast.LENGTH_SHORT).show();
                 stopService(new Intent(Mis_Dispositivos.this, ServicioEscuchaBeacons.class));
-                sinsenal.setVisibility(View.VISIBLE);
-                mediasenal.setVisibility(View.INVISIBLE);
-                buenaSenal.setVisibility(View.INVISIBLE);
-                malaSenal.setVisibility(View.INVISIBLE);
+                SbotonBusqueda.setVisibility(View.VISIBLE);
+                SmensajeNoConectado.setVisibility(View.VISIBLE);
+                RbotonConectando.setVisibility(View.INVISIBLE);
+                EbotonDetenerBusqueda.setVisibility(View.INVISIBLE);
+                EmensajeSiConectado.setVisibility(View.INVISIBLE);
+                EmensajeDistancia.setVisibility(View.INVISIBLE);
             }
         });
 
@@ -626,10 +638,9 @@ public class Mis_Dispositivos extends AppCompatActivity {
                         Mis_Dispositivos.getInstance().lanzarNotificacionYaNoReciboBeacons();
                         notificacionMostrada = true;
                     }
-                    sinsenal.setVisibility(View.VISIBLE);
-                    buenaSenal.setVisibility(View.INVISIBLE);
-                    mediasenal.setVisibility(View.INVISIBLE);
-                    malaSenal.setVisibility(View.INVISIBLE);
+                    SbotonBusqueda.setVisibility(View.VISIBLE);
+                    EbotonDetenerBusqueda.setVisibility(View.INVISIBLE);
+                    RbotonConectando.setVisibility(View.INVISIBLE);
                 }
                 handler.postDelayed(this, delay);
             }
