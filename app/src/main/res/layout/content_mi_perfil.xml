@@ -324,6 +324,16 @@
                     app:layout_constraintTop_toBottomOf="@+id/tusdispositivos"
                     tools:listitem="@layout/list_item" />
 
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/EspacioFinal"
+                    android:layout_width="0dp"
+                    android:layout_height="90dp"
+                    android:visibility="invisible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/my_recycler_view">
+                </com.google.android.material.card.MaterialCardView>
+
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
