@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <TextView
@@ -26,19 +26,20 @@
 
             <EditText
                 android:id="@+id/nombresensor"
-                android:layout_width="300dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:background="@drawable/fondo_input"
                 android:layout_marginTop="15dp"
-                android:fontFamily="@font/varela_round"
-                android:text="Nombre del dispositivo"
+                android:background="@drawable/fondo_input"
                 android:editable="false"
-                android:textColor="#5B5C5C"
+                android:fontFamily="@font/varela_round"
                 android:minHeight="48dp"
                 android:padding="10dp"
                 android:paddingStart="8dp"
                 android:paddingEnd="50dp"
+                android:text="Nombre del dispositivo"
+                android:textColor="#5B5C5C"
                 android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/NombreDelDispositivo"
                 app:layout_constraintTop_toBottomOf="@+id/NombreDelDispositivo" />
 

@@ -97,12 +97,11 @@
 
                 <EditText
                     android:id="@+id/perfilnombre"
-                    android:layout_width="300dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:background="@drawable/fondo_input"
                     android:editable="true"
-                    android:textColor="#5B5C5C"
                     android:ems="10"
                     android:enabled="false"
                     android:fontFamily="@font/varela_round"
@@ -112,7 +111,9 @@
                     android:paddingStart="8dp"
                     android:paddingEnd="50dp"
                     android:text="Nombre"
+                    android:textColor="#5B5C5C"
                     android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/textView14"
                     app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
@@ -133,7 +134,7 @@
 
                 <EditText
                     android:id="@+id/perfilcontrasena"
-                    android:layout_width="300dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:background="@drawable/fondo_input"
@@ -146,17 +147,17 @@
                     android:paddingStart="8dp"
                     android:paddingEnd="50dp"
                     android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/textView16"
                     app:layout_constraintTop_toBottomOf="@+id/textView16" />
 
                 <EditText
                     android:id="@+id/perfilcorreo"
-                    android:layout_width="300dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:background="@drawable/fondo_input"
                     android:editable="true"
-                    android:textColor="#5B5C5C"
                     android:enabled="false"
                     android:fontFamily="@font/varela_round"
                     android:minHeight="48dp"
@@ -164,7 +165,9 @@
                     android:paddingStart="8dp"
                     android:paddingEnd="50dp"
                     android:text="Correo"
+                    android:textColor="#5B5C5C"
                     android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/perfilnombre"
                     app:layout_constraintTop_toBottomOf="@+id/textView15" />
 
@@ -232,7 +235,7 @@
 
                 <EditText
                     android:id="@+id/editConfirmp"
-                    android:layout_width="300dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:background="@drawable/fondo_input"
                     android:ems="10"
@@ -250,7 +253,7 @@
 
                 <EditText
                     android:id="@+id/editOldContra"
-                    android:layout_width="300dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/fondo_input"
@@ -314,7 +317,7 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/my_recycler_view"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:visibility="visible"
