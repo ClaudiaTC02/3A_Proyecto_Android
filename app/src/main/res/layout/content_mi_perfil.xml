@@ -51,7 +51,7 @@
             style="@style/MyCardViewI"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="48dp"
             app:cardBackgroundColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -61,14 +61,14 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:paddingBottom="50dp"
+                android:paddingBottom="55dp"
                 android:layout_height="match_parent">
 
                 <TextView
                     android:id="@+id/textView13"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="23dp"
+                    android:layout_marginTop="12dp"
                     android:fontFamily="@font/varela_round"
                     android:text="Datos Personales"
                     android:textColor="#59a8a8"
@@ -200,7 +200,7 @@
                     android:id="@+id/btnActualizarP"
                     android:layout_width="120dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="55dp"
+                    android:layout_marginTop="60dp"
                     android:fontFamily="@font/varela_round"
                     android:text="@string/actualizar"
                     android:textAllCaps="false"
@@ -232,7 +232,7 @@
 
                 <EditText
                     android:id="@+id/editConfirmp"
-                    android:layout_width="250dp"
+                    android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:background="@drawable/fondo_input"
                     android:ems="10"
@@ -273,7 +273,7 @@
                     android:layout_height="42dp"
                     android:layout_marginTop="5dp"
                     android:fontFamily="@font/varela_round"
-                    android:text="Comprobar"
+                    android:text="Comprobar contraseña"
                     android:textAllCaps="false"
                     android:textSize="12sp"
                     android:textStyle="bold"
@@ -302,26 +302,29 @@
 
                 <ImageView
                     android:id="@+id/btnEditar"
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:layout_marginBottom="22dp"
                     android:clickable="true"
-                    android:src="@drawable/ic_editar"
+                    android:src="@drawable/editar_user"
                     app:layout_constraintBottom_toBottomOf="@+id/textView13"
                     app:layout_constraintStart_toEndOf="@+id/textView13"
                     app:tint="#59a8a8" />
 
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/my_recycler_view"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:visibility="visible"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:cardElevation="0dp"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintStart_toStartOf="@+id/textView16"
                     app:layout_constraintTop_toBottomOf="@+id/tusdispositivos"
                     tools:listitem="@layout/list_item" />
+
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>

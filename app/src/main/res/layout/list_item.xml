@@ -1,24 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="8dp"
+    app:cardElevation="0dp"
     android:padding="8dp"
-    android:layout_margin="5dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <TextView
-            android:layout_width="match_parent"
-            android:text="Nombre del dispositivo"
-            android:id="@+id/nombresensor"
-            android:textStyle="bold"
-            android:fontFamily="@font/varela_round"
-            android:textColor="#59a8a8"
-            android:textSize="15dp"
-            android:layout_height="wrap_content"/>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/NombreDelDispositivo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/varela_round"
+                android:text="Nombre del dispositivo "
+                android:textColor="#59a8a8"
+                android:textSize="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/nombresensor"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/fondo_input"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/varela_round"
+                android:text="Nombre del dispositivo"
+                android:editable="false"
+                android:textColor="#5B5C5C"
+                android:minHeight="48dp"
+                android:padding="10dp"
+                android:paddingStart="8dp"
+                android:paddingEnd="50dp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/NombreDelDispositivo"
+                app:layout_constraintTop_toBottomOf="@+id/NombreDelDispositivo" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>
