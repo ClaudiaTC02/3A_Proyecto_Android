@@ -6,6 +6,7 @@ import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.isEnabled;
 import static androidx.test.espresso.matcher.ViewMatchers.supportsInputMethods;
 import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
@@ -13,6 +14,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.rule.ActivityTestRule;
+
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -39,7 +41,7 @@ public class TestCambioActividades {
         onView(withId(R.id.botonIniciarSesion)).perform(click());
         //Escribimos un correo válido
         onView(withId(R.id.correo)).perform(click()).check(matches(supportsInputMethods()));
-        onView(withId(R.id.correo)).perform(typeText("prueba@prueba.com"));
+        onView(withId(R.id.correo)).perform(typeText("roberto@roberto.com"));
         closeSoftKeyboard();
         //Escribimos una contraseña válida
         onView(withId(R.id.contrasenya)).perform(click()).check(matches(supportsInputMethods()));
@@ -47,16 +49,16 @@ public class TestCambioActividades {
         closeSoftKeyboard();
         //Hacemos click en el botón de registro
         onView(withId(R.id.botonIniciarSesion)).perform(click());
-        //Comprobamos que se muestra la actividad de mis dispositivos
+        //Verificamos que se muestra la actividad de mis dispositivos
+        //check(matches(isDisplayed())) es un ViewAssertion que comprueba que la vista está visible
         onView(withId(R.id.content_mis_dispositivos)).check(matches(isDisplayed()));
-        onView(withContentDescription("Abrir menú")).perform(click());
-        onView(withId(R.id.nav_Mapa)).perform(click());
+
+        //Verificamos que se muestra la actividad de Mi Perfil
+        onView(withId(R.id.Mi_Perfil)).perform(click());
         onView(isDisplayed());
-        onView(withContentDescription("Abrir menú")).perform(click());
-        onView(withId(R.id.nav_Mis_Dispositivos)).perform(click());
+        onView(withId(R.id.fab)).perform(click());
         onView(isDisplayed());
-        onView(withContentDescription("Abrir menú")).perform(click());
-        onView(withId(R.id.nav_Mi_Perfil)).perform(click());
+        onView(withId(R.id.Inicio)).perform(click());
         onView(isDisplayed());
         onView(withContentDescription("Más opciones")).perform(click());
         onView(withText("Cerrar sesión")).perform(click());
@@ -65,4 +67,4 @@ public class TestCambioActividades {
     }
 
 
-}
+    }

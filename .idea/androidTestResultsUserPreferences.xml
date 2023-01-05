@@ -17,6 +17,19 @@
             </AndroidTestResultsTableState>
           </value>
         </entry>
+        <entry key="-1602998514">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="Duration" value="90" />
+                  <entry key="Pixel_4_API_30" value="120" />
+                  <entry key="Tests" value="360" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
         <entry key="-1305710918">
           <value>
             <AndroidTestResultsTableState>
@@ -53,6 +66,9 @@
                   <entry key="Duration" value="90" />
                   <entry key="FUNDU19C06014461" value="120" />
                   <entry key="HUAWEI&#10; MAR-LX1B" value="120" />
+                  <entry key="HXY" value="120" />
+                  <entry key="HXY&#10; MP03" value="120" />
+                  <entry key="MP035G8128002685" value="120" />
                   <entry key="Pixel_4_API_30" value="120" />
                   <entry key="S5PRO20200004603" value="120" />
                   <entry key="Tests" value="360" />
@@ -68,6 +84,7 @@
               <option name="preferredColumnWidths">
                 <map>
                   <entry key="Duration" value="90" />
+                  <entry key="Pixel_4_API_30" value="120" />
                   <entry key="S5PRO20200004603" value="120" />
                   <entry key="Tests" value="360" />
                   <entry key="UMIDIGI&#10; S5 Pro" value="120" />
@@ -99,6 +116,19 @@
                   <entry key="S5PRO20200004603" value="120" />
                   <entry key="Tests" value="360" />
                   <entry key="UMIDIGI&#10; S5 Pro" value="120" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
+        <entry key="-681978506">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="Duration" value="90" />
+                  <entry key="Pixel_4_API_30" value="120" />
+                  <entry key="Tests" value="360" />
                 </map>
               </option>
             </AndroidTestResultsTableState>
@@ -180,9 +210,12 @@
               <option name="preferredColumnWidths">
                 <map>
                   <entry key="Duration" value="90" />
+                  <entry key="HXY&#10; MP03" value="120" />
+                  <entry key="Pixel_4_API_30" value="120" />
                   <entry key="S5PRO20200004603" value="120" />
                   <entry key="Tests" value="360" />
                   <entry key="UMIDIGI&#10; S5 Pro" value="120" />
+                  <entry key="adb-MP035G8128002685-BCy0NF._adb-tls-connect._tcp" value="120" />
                 </map>
               </option>
             </AndroidTestResultsTableState>

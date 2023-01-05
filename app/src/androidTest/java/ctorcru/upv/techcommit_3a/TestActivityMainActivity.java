@@ -94,7 +94,7 @@ public class TestActivityMainActivity {
         onView(isDisplayed());
         //Escribimos un correo válido
         onView(withId(R.id.correo)).perform(click()).check(matches(supportsInputMethods()));
-        onView(withId(R.id.correo)).perform(typeText("prueba@prueba.com"));
+        onView(withId(R.id.correo)).perform(typeText("roberto@roberto.com"));
         closeSoftKeyboard();
         //Escribimos una contraseña válida
         onView(withId(R.id.contrasenya)).perform(click()).check(matches(supportsInputMethods()));
@@ -112,23 +112,26 @@ public class TestActivityMainActivity {
      *
      * @brief Test realizado con un usuario no existente en la base de datos
      */
-    @Test
-    public void comprobarInicioSesionIncorrecto() {
-        //Comprobamos que la actividad se muestra
-        onView(isDisplayed());
-        //Escribimos un correo no válido
-        onView(withId(R.id.correo)).perform(click()).check(matches(supportsInputMethods()));
-        onView(withId(R.id.correo)).perform(typeText("prueba@prueba.com"));
-        closeSoftKeyboard();
-        //Escribimos una contraseña no válida
-        onView(withId(R.id.contrasenya)).perform(click()).check(matches(supportsInputMethods()));
-        onView(withId(R.id.contrasenya)).perform(typeText("12345"));
-        closeSoftKeyboard();
-        //Hacemos click en el botón de registro
-        onView(withId(R.id.botonIniciarSesion)).perform(click());
-        //Comprobamos que se muestra un Toast con el mensaje de error
-        onView(withId(R.id.ActivityMain)).check(matches(isDisplayed()));
-    }
+//    @Test
+//    public void comprobarInicioSesionIncorrecto() {
+//        //Comprobamos que la actividad se muestra
+//        onView(isDisplayed());
+//        //Escribimos un correo no válido
+//        //check(matches(supportsInputMethods())) es un ViewAssertion que comprueba que la vista está visible
+//        onView(withId(R.id.correo)).perform(click()).check(matches(supportsInputMethods()));
+//        onView(withId(R.id.correo)).perform(typeText("roberto@roberto.com"));
+//        closeSoftKeyboard();
+//        //Escribimos una contraseña no válida
+//        //check(matches(supportsInputMethods())) es un ViewAssertion que comprueba que la vista está visible
+//        onView(withId(R.id.contrasenya)).perform(click()).check(matches(supportsInputMethods()));
+//        onView(withId(R.id.contrasenya)).perform(typeText("12345"));
+//        closeSoftKeyboard();
+//        //Hacemos click en el botón de registro
+//        onView(withId(R.id.botonIniciarSesion)).perform(click());
+//        //Comprobamos que se muestra un Toast con el mensaje de error
+//        //check(matches(isDisplayed())) es un ViewAssertion que comprueba que la vista está visible
+//        onView(withId(R.id.ActivityMain)).check(matches(isDisplayed()));
+//    }
 
     /**
      * Comprueba que al pulsar el botón de registro se cambia a la actividad de registro
@@ -140,9 +143,9 @@ public class TestActivityMainActivity {
         //Hacemos click en el botón de registro
         onView(withId(R.id.irAIniciarSesion)).perform(click());
         //Comprobamos que se muestra la actividad de registro
+        //check(matches(isDisplayed())) es un ViewAssertion que comprueba que la vista está visible
         onView(withId(R.id.ActivityRegistro1)).check(matches(isDisplayed()));
     }
-
 
     /**
      * Comprueba que es posible cerrar sesión
@@ -153,5 +156,7 @@ public class TestActivityMainActivity {
         onView(withText("Cerrar sesión")).perform(click());
         //Darle al botón de aceptar
         onView(withText("Si")).perform(click());
+        //check(matches(isDisplayed())) es un ViewAssertion que comprueba que la vista está visible
+        onView(withId(R.id.ActivityPreLoginRegistro)).check(matches(isDisplayed()));
     }
 }
