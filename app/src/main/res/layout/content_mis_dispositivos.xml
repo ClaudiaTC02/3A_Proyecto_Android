@@ -127,14 +127,53 @@
                                                     android:layout_height="match_parent">
 
                                                         <ImageView
+                                                            android:id="@+id/info_icon2"
+                                                            android:layout_width="25dp"
+                                                            android:layout_height="25dp"
+                                                            android:layout_marginTop="8dp"
+                                                            android:clickable="true"
+                                                            android:layout_marginEnd="8dp"
+                                                            android:src="@drawable/ic_informacion"
+                                                            app:layout_constraintEnd_toEndOf="parent"
+                                                            app:layout_constraintTop_toTopOf="parent"
+                                                            android:focusable="true" />
+
+                                                        <ImageView
                                                             android:id="@+id/vientoicon"
                                                             android:layout_width="85dp"
                                                             android:layout_height="85dp"
-                                                            android:src="@drawable/calidadaire"
+                                                            android:src="@drawable/humedad"
                                                             android:layout_marginTop="20dp"
                                                             app:layout_constraintEnd_toEndOf="parent"
                                                             app:layout_constraintStart_toStartOf="parent"
                                                             app:layout_constraintTop_toTopOf="parent" />
+
+                                                        <TextView
+                                                            android:id="@+id/textView6"
+                                                            android:layout_width="wrap_content"
+                                                            android:layout_height="wrap_content"
+                                                            android:paddingStart="15dp"
+                                                            android:paddingEnd="15dp"
+                                                            android:paddingTop="15dp"
+                                                            android:paddingBottom="5dp"
+                                                            android:text="Humedad en tu ubicación:"
+                                                            android:textAlignment="center"
+                                                            android:textStyle="bold"
+                                                            android:textSize="18sp"
+                                                            app:layout_constraintEnd_toEndOf="parent"
+                                                            app:layout_constraintStart_toStartOf="parent"
+                                                            app:layout_constraintTop_toBottomOf="@+id/vientoicon" />
+
+                                                        <TextView
+                                                            android:id="@+id/humidity_text_view"
+                                                            android:layout_width="wrap_content"
+                                                            android:layout_height="wrap_content"
+                                                            android:textSize="25sp"
+                                                            android:textStyle="bold"
+                                                            app:layout_constraintEnd_toEndOf="@+id/textView6"
+                                                            app:layout_constraintStart_toStartOf="@+id/textView6"
+                                                            app:layout_constraintTop_toBottomOf="@id/textView6" />
+
 
                                                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -180,7 +219,6 @@
                                                             android:layout_marginTop="5dp"
                                                             android:textSize="25sp"
                                                             android:textStyle="bold"
-                                                            android:textColor="@color/white"
                                                             app:layout_constraintEnd_toEndOf="@+id/weather_icon"
                                                             app:layout_constraintStart_toStartOf="@+id/weather_icon"
                                                             app:layout_constraintTop_toBottomOf="@+id/weather_icon" />
@@ -391,20 +429,6 @@
 
                                         </com.google.android.material.card.MaterialCardView>
 
-                                        <com.google.android.material.card.MaterialCardView
-                                            android:id="@+id/CardviewDis"
-                                            style="@style/WidgetsInicio"
-                                            android:layout_width="0dp"
-                                            android:layout_height="80dp"
-                                            android:layout_marginTop="18dp"
-                                            app:cardBackgroundColor="#2A484A4A"
-                                            app:cardElevation="0dp"
-                                            app:layout_constraintEnd_toEndOf="@+id/CardviewOzono"
-                                            app:layout_constraintStart_toStartOf="@+id/CardviewSi"
-                                            app:layout_constraintTop_toBottomOf="@+id/CardviewOzono">
-
-                                        </com.google.android.material.card.MaterialCardView>
-
 
                                         <com.google.android.material.card.MaterialCardView
                                             android:id="@+id/EspacioFinal"
@@ -414,7 +438,7 @@
                                             android:visibility="invisible"
                                             app:layout_constraintEnd_toEndOf="@+id/CardviewOzono"
                                             app:layout_constraintStart_toStartOf="@+id/CardviewSi"
-                                            app:layout_constraintTop_toBottomOf="@+id/CardviewDis">
+                                            app:layout_constraintTop_toBottomOf="@+id/CardviewSi">
 
                                         </com.google.android.material.card.MaterialCardView>
 

@@ -22,6 +22,7 @@ import ctorcru.upv.techcommit_3a.R;
 public class DatosClimaOWM {
     //----------------------------------
     // Declaración de variables
+    private static double humidity;
     private static final String API_KEY = "72e488c4c13161409855ff863821db0b";
     private static final String API_URL = "https://api.openweathermap.org/data/2.5/weather?lat=%s&lon=%s&units=metric&appid=%s";
     //----------------------------------
@@ -35,7 +36,7 @@ public class DatosClimaOWM {
      * @param weatherIconImageView
      */
     // -----------------------------------------------------------------------------------------
-    public static void getWeather(double latitude, double longitude, TextView temperatureTextView, ImageView weatherIconImageView) {
+    public static void getWeather(double latitude, double longitude, TextView temperatureTextView, TextView humidityTextView, ImageView weatherIconImageView) {
         // Crear la URL de la API con la latitud y longitud proporcionadas
         String url = String.format(API_URL, latitude, longitude, API_KEY);
 
@@ -61,9 +62,14 @@ public class DatosClimaOWM {
             String temperatureString = Integer.toString(temperatureInt);
             temperatureTextView.setText(temperatureString + "°C");
 
+            //Obtener la humedad del objeto JSON y almacenarla en la variable humidity
+            humidity = jsonObject.getJSONObject("main").getDouble("humidity");
+
+            //Establecer el texto de la vista de texto con la humedad
+            humidityTextView.setText(humidity + "%");
+
             // Obtener la condición meteorológica del objeto JSON
             String weatherCondition = jsonObject.getJSONArray("weather").getJSONObject(0).getString("main");
-
             int weatherIconId = 0;
             // Obtener la hora actual
             int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);

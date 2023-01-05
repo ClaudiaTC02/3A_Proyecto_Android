@@ -89,9 +89,9 @@ public class Mis_Dispositivos extends AppCompatActivity {
     FloatingActionButton fab;
     BottomNavigationView bottomNavigationView;
     // TextView donde se mostrará la temperatura
-    TextView temperatureTextView;
+    TextView temperatureTextView,humiditytextview;
     // ImageView donde se mostrará la imagen del tiempo
-    ImageView weatherIconImageView,infoicono;
+    ImageView weatherIconImageView,infoicono,infoicono2;
     // -------------------------------------------------------------------
 
 
@@ -141,12 +141,14 @@ public class Mis_Dispositivos extends AppCompatActivity {
         EmensajeSiConectado = findViewById(R.id.EmensajeSiConectado);
         EmensajeDistancia = findViewById(R.id.EmensajeDistancia);
         temperatureTextView = findViewById(R.id.temperature_text_view);
+        humiditytextview = findViewById(R.id.humidity_text_view);
         weatherIconImageView = findViewById(R.id.weather_icon);
         nombreUsuario = findViewById(R.id.txtNombreh);
         mediasenal = findViewById(R.id.mediaconexion);
         buenaSenal = findViewById(R.id.totalconexion);
         malaSenal = findViewById(R.id.pocaconexion);
         infoicono = findViewById(R.id.info_icon);
+        infoicono2 = findViewById(R.id.info_icon2);
         datosUsuario= getIntent().getStringExtra("infoUsuario");
         String userpref= preferencias.getString("allinfoUser","");
         //-----------------------------------------------
@@ -210,12 +212,12 @@ public class Mis_Dispositivos extends AppCompatActivity {
             }
         });
 
-        infoicono.setOnClickListener(new View.OnClickListener() {
+        View.OnClickListener myOnClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //Abrir un popup con la información de donde se obtiene la temperatura
                 AlertDialog.Builder builder = new AlertDialog.Builder(Mis_Dispositivos.this);
-                builder.setTitle("Información de la temperatura");
+                builder.setTitle("Información");
                 builder.setMessage("La información mostrada ha sido proporcionada por OpenWeatherMap.");
                 builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                     @Override
@@ -225,7 +227,10 @@ public class Mis_Dispositivos extends AppCompatActivity {
                 });
                 builder.show();
             }
-        });
+        };
+        infoicono.setOnClickListener(myOnClickListener);
+        infoicono2.setOnClickListener(myOnClickListener);
+
 
         EbotonDetenerBusqueda.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -704,7 +709,7 @@ public class Mis_Dispositivos extends AppCompatActivity {
         DatosClimaOWM datosClimaOWM = new DatosClimaOWM();
 
 // Obtener la información meteorológica y mostrarla en la interfaz de usuario
-        datosClimaOWM.getWeather(latitude, longitude, temperatureTextView, weatherIconImageView);
+        datosClimaOWM.getWeather(latitude, longitude, temperatureTextView,humiditytextview, weatherIconImageView);
     }
 
     private static final int REQUEST_LOCATION_PERMISSION = 1;
