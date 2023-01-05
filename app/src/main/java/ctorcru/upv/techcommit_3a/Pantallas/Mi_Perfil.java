@@ -231,7 +231,7 @@ public class Mi_Perfil extends AppCompatActivity  {
         //Asociamos el texview y le agregamos el span bajo él
         TextView txtTitulo = (TextView)findViewById(R.id.textView13);
         TextView textInfoDIspositivo = (TextView)findViewById(R.id.tusdispositivos);
-        SpannableString content = new SpannableString("Información de Usuario");
+        SpannableString content = new SpannableString("Datos Personales");
         content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
         txtTitulo.setText(content);
         textInfoDIspositivo.setPaintFlags(textInfoDIspositivo.getPaintFlags() |   android.graphics.Paint.UNDERLINE_TEXT_FLAG);

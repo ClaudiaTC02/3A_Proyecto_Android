@@ -35,31 +35,15 @@
             android:id="@+id/textView12"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginBottom="11dp"
             android:fontFamily="@font/varela_round"
-            android:text="Identificador de usuario"
+            android:text="Mi Perfil"
             android:textColor="@color/white"
             android:textSize="25dp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/textView11"
-            app:layout_constraintStart_toStartOf="parent">
-        </TextView>
-
-        <TextView
-            android:id="@+id/textView11"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="25dp"
-            android:fontFamily="@font/varela_round"
-            android:text="Información"
-            android:textColor="@color/white"
-            android:textSize="20dp"
-            app:layout_constraintBottom_toTopOf="@+id/materialCardView2"
-            app:layout_constraintEnd_toEndOf="@+id/textView12"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/textView12">
-
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
         </TextView>
 
         <com.google.android.material.card.MaterialCardView
@@ -67,7 +51,7 @@
             style="@style/MyCardViewI"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="120dp"
+            android:layout_marginTop="50dp"
             app:cardBackgroundColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -86,7 +70,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="23dp"
                     android:fontFamily="@font/varela_round"
-                    android:text="Información del Usuario"
+                    android:text="Datos Personales"
                     android:textColor="#59a8a8"
                     android:textSize="25dp"
                     android:textStyle="bold"
@@ -101,11 +85,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
+                    android:layout_marginStart="5dp"
                     android:fontFamily="@font/varela_round"
                     android:text="Nombre de usuario"
                     android:textColor="#59a8a8"
-                    android:textSize="20dp"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    android:textSize="20sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView13">
 
@@ -113,7 +97,7 @@
 
                 <EditText
                     android:id="@+id/perfilnombre"
-                    android:layout_width="250dp"
+                    android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:background="@drawable/fondo_input"
@@ -129,7 +113,6 @@
                     android:paddingEnd="50dp"
                     android:text="Nombre"
                     android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="@+id/textView14"
                     app:layout_constraintStart_toStartOf="@+id/textView14"
                     app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
@@ -141,9 +124,8 @@
                     android:fontFamily="@font/varela_round"
                     android:text="Correo electrónico"
                     android:textColor="#59a8a8"
-                    android:textSize="20dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-
+                    android:textSize="20sp"
+                    android:layout_marginStart="5dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/perfilnombre">
 
@@ -151,7 +133,7 @@
 
                 <EditText
                     android:id="@+id/perfilcontrasena"
-                    android:layout_width="250dp"
+                    android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:background="@drawable/fondo_input"
@@ -164,13 +146,12 @@
                     android:paddingStart="8dp"
                     android:paddingEnd="50dp"
                     android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/textView16"
                     app:layout_constraintTop_toBottomOf="@+id/textView16" />
 
                 <EditText
                     android:id="@+id/perfilcorreo"
-                    android:layout_width="250dp"
+                    android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:background="@drawable/fondo_input"
@@ -206,10 +187,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/varela_round"
-                    android:text="Contraseña/Cambiar contraseña"
+                    android:text="Contraseña"
                     android:textColor="#59a8a8"
+                    android:layout_marginStart="5dp"
                     android:textSize="20dp"
-                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/perfiladmin">
 
@@ -269,7 +250,7 @@
 
                 <EditText
                     android:id="@+id/editOldContra"
-                    android:layout_width="250dp"
+                    android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/fondo_input"
@@ -290,16 +271,16 @@
                     android:id="@+id/btnComprov"
                     android:layout_width="wrap_content"
                     android:layout_height="42dp"
+                    android:layout_marginTop="5dp"
                     android:fontFamily="@font/varela_round"
                     android:text="Comprobar"
                     android:textAllCaps="false"
                     android:textSize="12sp"
-                    android:layout_marginTop="5dp"
                     android:textStyle="bold"
                     android:visibility="invisible"
                     app:cornerRadius="10dp"
-                    app:layout_constraintEnd_toEndOf="@+id/editOldContra"
-                    app:layout_constraintStart_toStartOf="@+id/editOldContra"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/editOldContra" />
 
 
@@ -318,14 +299,15 @@
                     app:layout_constraintTop_toBottomOf="@+id/perfilcontrasena">
 
                 </TextView>
+
                 <ImageView
                     android:id="@+id/btnEditar"
                     android:layout_width="22dp"
                     android:layout_height="22dp"
+                    android:layout_marginBottom="22dp"
                     android:clickable="true"
                     android:src="@drawable/ic_editar"
-                    app:layout_constraintBottom_toTopOf="@+id/textView13"
-                    app:layout_constraintEnd_toEndOf="@+id/textView13"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView13"
                     app:layout_constraintStart_toEndOf="@+id/textView13"
                     app:tint="#59a8a8" />
 
