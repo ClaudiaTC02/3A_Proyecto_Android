@@ -91,7 +91,7 @@ public class Mis_Dispositivos extends AppCompatActivity {
     // TextView donde se mostrará la temperatura
     TextView temperatureTextView,humiditytextview;
     // ImageView donde se mostrará la imagen del tiempo
-    ImageView weatherIconImageView,infoicono,infoicono2;
+    ImageView weatherIconImageView,infoicono,infoicono2,infoicono3;
     // -------------------------------------------------------------------
 
 
@@ -149,6 +149,7 @@ public class Mis_Dispositivos extends AppCompatActivity {
         malaSenal = findViewById(R.id.pocaconexion);
         infoicono = findViewById(R.id.info_icon);
         infoicono2 = findViewById(R.id.info_icon2);
+        infoicono3 = findViewById(R.id.info_icon3);
         datosUsuario= getIntent().getStringExtra("infoUsuario");
         String userpref= preferencias.getString("allinfoUser","");
         //-----------------------------------------------
@@ -230,6 +231,23 @@ public class Mis_Dispositivos extends AppCompatActivity {
         };
         infoicono.setOnClickListener(myOnClickListener);
         infoicono2.setOnClickListener(myOnClickListener);
+
+        infoicono3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Abrir un popup con la información de donde se obtiene la temperatura
+                AlertDialog.Builder builder = new AlertDialog.Builder(Mis_Dispositivos.this);
+                builder.setTitle("Patata");
+                builder.setMessage("Patata");
+                builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                builder.show();
+            }
+        });
 
 
         EbotonDetenerBusqueda.setOnClickListener(new View.OnClickListener() {
