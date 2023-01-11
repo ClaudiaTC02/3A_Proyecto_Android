@@ -10,6 +10,7 @@ import android.bluetooth.le.ScanFilter;
 import android.bluetooth.le.ScanResult;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Handler;
@@ -20,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
@@ -60,6 +62,10 @@ public class ServicioEscuchaBeacons extends Service {
     public String nombreDispositivo;
     public Double latitud;
     public Double longitud;
+
+    ImageView ImagenMuyBuenAire, ImagenAireNormal, ImagenCuidadoAire;
+    TextView TextoMuyBuenAire, TextoAireNormal, TextoCuidadoAire, TextoInformacionAire;
+    CardView CardviewCaraOzono;
 
     
     public int getCounterValue() {
@@ -121,6 +127,16 @@ public class ServicioEscuchaBeacons extends Service {
         SbotonConectar = Mis_Dispositivos.getInstance().findViewById(R.id.SbotonBusqueda);
         RbotonConectando = Mis_Dispositivos.getInstance().findViewById(R.id.RbotonConectando);
         EmensajeDistancia = Mis_Dispositivos.getInstance().findViewById(R.id.EmensajeDistancia);
+
+        ImagenMuyBuenAire = Mis_Dispositivos.getInstance().findViewById(R.id.hombreContento);
+        ImagenAireNormal = Mis_Dispositivos.getInstance().findViewById(R.id.hombreFeliz);
+        ImagenCuidadoAire = Mis_Dispositivos.getInstance().findViewById(R.id.imagenConMascarilla);
+        TextoMuyBuenAire = Mis_Dispositivos.getInstance().findViewById(R.id.conTranquilidad);
+        TextoAireNormal = Mis_Dispositivos.getInstance().findViewById(R.id.MedioMdio);
+        TextoCuidadoAire = Mis_Dispositivos.getInstance().findViewById(R.id.CuidadoAire);
+        TextoInformacionAire = Mis_Dispositivos.getInstance().findViewById(R.id.InfoRelacionAire);
+        CardviewCaraOzono = Mis_Dispositivos.getInstance().findViewById(R.id.CardviewCaraOzono);
+
 
         //Se obtiene la información del dispositivo BTLE
         BluetoothDevice bluetoothDevice = resultado.getDevice();
@@ -230,9 +246,48 @@ public class ServicioEscuchaBeacons extends Service {
                 mediaConexion.setVisibility(View.INVISIBLE);
                 pocaConexion.setVisibility(View.INVISIBLE);
             }
+
+//minorValorReal > 1.8
+            //0.0 < minorValorReal && minorValorReal < 1
+            //1.0 < minorValorReal && minorValorReal < 1.8
             // Comprobar si el límite es excedido
             if(minorValorReal > 1.8){
+                CardviewCaraOzono.setCardBackgroundColor(Color.parseColor("#72F44336"));
                 Mis_Dispositivos.getInstance().lanzarNotificacionMaximoExcedido();
+                TextoInformacionAire.setVisibility(View.INVISIBLE);
+                TextoCuidadoAire.setVisibility(View.VISIBLE);
+                ImagenCuidadoAire.setVisibility(View.VISIBLE);
+
+                TextoAireNormal.setVisibility(View.INVISIBLE);
+                ImagenAireNormal.setVisibility(View.INVISIBLE);
+
+                TextoMuyBuenAire.setVisibility(View.INVISIBLE);
+                ImagenMuyBuenAire.setVisibility(View.INVISIBLE);
+            }
+            else if (0.0 < minorValorReal && minorValorReal < 1){
+                CardviewCaraOzono.setCardBackgroundColor(Color.parseColor("#5295D529"));
+                TextoInformacionAire.setVisibility(View.INVISIBLE);
+                TextoMuyBuenAire.setVisibility(View.VISIBLE);
+                ImagenMuyBuenAire.setVisibility(View.VISIBLE);
+
+                TextoCuidadoAire.setVisibility(View.INVISIBLE);
+                ImagenCuidadoAire.setVisibility(View.INVISIBLE);
+
+                TextoAireNormal.setVisibility(View.INVISIBLE);
+                ImagenAireNormal.setVisibility(View.INVISIBLE);
+
+            }
+            else if (1.0 < minorValorReal && minorValorReal < 1.8){
+                CardviewCaraOzono.setCardBackgroundColor(Color.parseColor("#6DFEDC46"));
+                TextoInformacionAire.setVisibility(View.INVISIBLE);
+                TextoAireNormal.setVisibility(View.VISIBLE);
+                ImagenAireNormal.setVisibility(View.VISIBLE);
+
+                TextoMuyBuenAire.setVisibility(View.INVISIBLE);
+                ImagenMuyBuenAire.setVisibility(View.INVISIBLE);
+
+                TextoCuidadoAire.setVisibility(View.INVISIBLE);
+                ImagenCuidadoAire.setVisibility(View.INVISIBLE);
             }
         }
 

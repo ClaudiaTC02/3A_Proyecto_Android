@@ -12,6 +12,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
@@ -33,6 +34,7 @@ import com.google.android.material.navigation.NavigationView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
@@ -92,6 +94,10 @@ public class Mis_Dispositivos extends AppCompatActivity {
     TextView temperatureTextView,humiditytextview;
     // ImageView donde se mostrará la imagen del tiempo
     ImageView weatherIconImageView,infoicono,infoicono2,infoicono3;
+
+    ImageView ImagenMuyBuenAire, ImagenAireNormal, ImagenCuidadoAire;
+    TextView TextoMuyBuenAire, TextoAireNormal, TextoCuidadoAire, TextoInformacionAire;
+    CardView CardviewCaraOzono;
     // -------------------------------------------------------------------
 
 
@@ -152,6 +158,16 @@ public class Mis_Dispositivos extends AppCompatActivity {
         infoicono3 = findViewById(R.id.info_icon3);
         datosUsuario= getIntent().getStringExtra("infoUsuario");
         String userpref= preferencias.getString("allinfoUser","");
+
+
+        ImagenMuyBuenAire = findViewById(R.id.hombreContento);
+        ImagenAireNormal = findViewById(R.id.hombreFeliz);
+        ImagenCuidadoAire = findViewById(R.id.imagenConMascarilla);
+        TextoMuyBuenAire = findViewById(R.id.conTranquilidad);
+        TextoAireNormal = findViewById(R.id.MedioMdio);
+        TextoCuidadoAire = findViewById(R.id.CuidadoAire);
+        TextoInformacionAire = findViewById(R.id.InfoRelacionAire);
+        CardviewCaraOzono = findViewById(R.id.CardviewCaraOzono);
         //-----------------------------------------------
 
         //-----------------------------------------------
@@ -255,15 +271,15 @@ public class Mis_Dispositivos extends AppCompatActivity {
             public void onClick(View view) {
                 Toast.makeText(getApplicationContext(), "La conexión se ha detenido", Toast.LENGTH_SHORT).show();
                 stopService(new Intent(Mis_Dispositivos.this, ServicioEscuchaBeacons.class));
+                buenaSenal.setVisibility(View.INVISIBLE);
+                malaSenal.setVisibility(View.INVISIBLE);
+                mediasenal.setVisibility(View.INVISIBLE);
                 SbotonBusqueda.setVisibility(View.VISIBLE);
                 SmensajeNoConectado.setVisibility(View.VISIBLE);
                 RbotonConectando.setVisibility(View.INVISIBLE);
                 EbotonDetenerBusqueda.setVisibility(View.INVISIBLE);
                 EmensajeSiConectado.setVisibility(View.INVISIBLE);
                 EmensajeDistancia.setVisibility(View.INVISIBLE);
-                buenaSenal.setVisibility(View.INVISIBLE);
-                malaSenal.setVisibility(View.INVISIBLE);
-                mediasenal.setVisibility(View.INVISIBLE);
             }
         });
 
@@ -664,15 +680,23 @@ public class Mis_Dispositivos extends AppCompatActivity {
                         Mis_Dispositivos.getInstance().lanzarNotificacionYaNoReciboBeacons();
                         notificacionMostrada = true;
                     }
+                    mediasenal.setVisibility(View.INVISIBLE);
+                    buenaSenal.setVisibility(View.INVISIBLE);
+                    malaSenal.setVisibility(View.INVISIBLE);
                     SbotonBusqueda.setVisibility(View.VISIBLE);
                     EbotonDetenerBusqueda.setVisibility(View.INVISIBLE);
                     RbotonConectando.setVisibility(View.INVISIBLE);
                     EmensajeDistancia.setVisibility(View.INVISIBLE);
                     EmensajeSiConectado.setVisibility(View.INVISIBLE);
                     SmensajeNoConectado.setVisibility(View.VISIBLE);
-                    mediasenal.setVisibility(View.INVISIBLE);
-                    buenaSenal.setVisibility(View.INVISIBLE);
-                    malaSenal.setVisibility(View.INVISIBLE);
+                    TextoInformacionAire.setVisibility(View.VISIBLE);
+                    TextoAireNormal.setVisibility(View.INVISIBLE);
+                    TextoCuidadoAire.setVisibility(View.INVISIBLE);
+                    TextoMuyBuenAire.setVisibility(View.INVISIBLE);
+                    ImagenAireNormal.setVisibility(View.INVISIBLE);
+                    ImagenCuidadoAire.setVisibility(View.INVISIBLE);
+                    ImagenMuyBuenAire.setVisibility(View.INVISIBLE);
+                    CardviewCaraOzono.setCardBackgroundColor(Color.parseColor("#2A4A4A48"));
                 }
                 handler.postDelayed(this, delay);
             }

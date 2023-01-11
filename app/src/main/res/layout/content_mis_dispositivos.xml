@@ -116,8 +116,8 @@
                                             android:layout_marginTop="18dp"
                                             app:cardBackgroundColor="#6DFEDC46"
                                             app:cardElevation="0dp"
-                                            app:layout_constraintBottom_toBottomOf="@+id/CardviewOzono"
-                                            app:layout_constraintEnd_toStartOf="@+id/CardviewOzono"
+                                            app:layout_constraintBottom_toBottomOf="@+id/CardviewCaraOzono"
+                                            app:layout_constraintEnd_toStartOf="@+id/CardviewCaraOzono"
                                             app:layout_constraintHorizontal_bias="0.5"
                                             app:layout_constraintStart_toStartOf="parent"
                                             app:layout_constraintTop_toBottomOf="@+id/CardviewGrados">
@@ -143,7 +143,7 @@
                                                             android:layout_width="85dp"
                                                             android:layout_height="85dp"
                                                             android:src="@drawable/humedad"
-                                                            android:layout_marginTop="20dp"
+                                                            android:layout_marginTop="30dp"
                                                             app:layout_constraintEnd_toEndOf="parent"
                                                             app:layout_constraintStart_toStartOf="parent"
                                                             app:layout_constraintTop_toTopOf="parent" />
@@ -156,7 +156,7 @@
                                                             android:paddingEnd="15dp"
                                                             android:paddingTop="15dp"
                                                             android:paddingBottom="5dp"
-                                                            android:text="Humedad en tu ubicación:"
+                                                            android:text="La humedad actual en tu ubicación:"
                                                             android:textAlignment="center"
                                                             android:textStyle="bold"
                                                             android:textSize="18sp"
@@ -180,17 +180,132 @@
                                         </com.google.android.material.card.MaterialCardView>
 
                                         <com.google.android.material.card.MaterialCardView
-                                            android:id="@+id/CardviewOzono"
+                                            android:id="@+id/CardviewCaraOzono"
                                             style="@style/WidgetsInicio"
                                             android:layout_width="150dp"
-                                            android:layout_height="120dp"
+                                            android:layout_height="170dp"
                                             android:layout_marginTop="18dp"
-                                            app:cardBackgroundColor="#2A484A4A"
+                                            app:cardBackgroundColor="#2A4A4A48"
                                             app:layout_constraintEnd_toEndOf="parent"
                                             app:cardElevation="0dp"
                                             app:layout_constraintHorizontal_bias="0.5"
                                             app:layout_constraintStart_toEndOf="@+id/CardviewSi"
                                             app:layout_constraintTop_toBottomOf="@+id/CardviewAire">
+
+                                                <androidx.constraintlayout.widget.ConstraintLayout
+                                                    android:layout_width="match_parent"
+                                                    android:layout_height="match_parent"
+                                                        >
+
+                                                        <ImageView
+                                                            android:id="@+id/hombreContento"
+                                                            android:layout_width="90dp"
+                                                            android:layout_height="90dp"
+                                                            android:layout_marginTop="15dp"
+                                                            android:visibility="invisible"
+                                                            android:src="@drawable/contento"
+                                                            app:layout_constraintEnd_toEndOf="parent"
+                                                            app:layout_constraintStart_toStartOf="parent"
+                                                            app:layout_constraintTop_toTopOf="parent" />
+
+                                                        <ImageView
+                                                            android:id="@+id/hombreFeliz"
+                                                            android:layout_width="90dp"
+                                                            android:layout_height="90dp"
+                                                            android:src="@drawable/feliz"
+                                                            android:visibility="invisible"
+                                                            android:layout_marginTop="15dp"
+                                                            app:layout_constraintEnd_toEndOf="parent"
+                                                            app:layout_constraintStart_toStartOf="parent"
+                                                            app:layout_constraintTop_toTopOf="parent" />
+
+                                                        <ImageView
+                                                            android:id="@+id/imagenConMascarilla"
+                                                            android:layout_width="90dp"
+                                                            android:layout_height="90dp"
+                                                            android:visibility="invisible"
+                                                            android:src="@drawable/mascarillahombre"
+                                                            android:layout_marginTop="15dp"
+                                                            app:layout_constraintEnd_toEndOf="parent"
+                                                            app:layout_constraintStart_toStartOf="parent"
+                                                            app:layout_constraintTop_toTopOf="parent"
+                                                            />
+
+                                                        <TextView
+                                                            android:id="@+id/conTranquilidad"
+                                                            android:layout_width="match_parent"
+                                                            android:layout_height="wrap_content"
+                                                            android:paddingStart="15dp"
+                                                            android:paddingEnd="15dp"
+                                                            android:paddingTop="5dp"
+                                                            android:paddingBottom="5dp"
+                                                            android:textStyle="bold"
+                                                            android:textAlignment="center"
+                                                            android:visibility="invisible"
+                                                            android:textSize="18sp"
+                                                            android:text="Respira con tranquilidad"
+                                                            app:layout_constraintEnd_toEndOf="parent"
+                                                            app:layout_constraintStart_toStartOf="parent"
+                                                            app:layout_constraintTop_toBottomOf="@+id/hombreContento">
+                                                        </TextView>
+
+
+                                                        <TextView
+                                                            android:id="@+id/MedioMdio"
+                                                            android:layout_width="match_parent"
+                                                            android:layout_height="wrap_content"
+                                                            android:paddingStart="15dp"
+                                                            android:paddingEnd="15dp"
+                                                            android:paddingTop="5dp"
+                                                            android:paddingBottom="5dp"
+                                                            android:textStyle="bold"
+                                                            android:visibility="invisible"
+                                                            android:textAlignment="center"
+                                                            android:textSize="18sp"
+                                                            android:text="Modera las salidas"
+                                                            app:layout_constraintEnd_toEndOf="parent"
+                                                            app:layout_constraintStart_toStartOf="parent"
+                                                            app:layout_constraintTop_toBottomOf="@+id/hombreContento">
+                                                        </TextView>
+
+                                                        <TextView
+                                                            android:id="@+id/CuidadoAire"
+                                                            android:layout_width="match_parent"
+                                                            android:layout_height="wrap_content"
+                                                            android:paddingStart="15dp"
+                                                            android:paddingEnd="15dp"
+                                                            android:paddingTop="5dp"
+                                                            android:paddingBottom="5dp"
+                                                            android:textStyle="bold"
+                                                            android:textAlignment="center"
+                                                            android:textSize="18sp"
+                                                            android:visibility="invisible"
+                                                            android:text="El aire es peligroso"
+                                                            app:layout_constraintEnd_toEndOf="parent"
+                                                            app:layout_constraintStart_toStartOf="parent"
+                                                            app:layout_constraintTop_toBottomOf="@+id/hombreContento">
+                                                        </TextView>
+
+                                                        <TextView
+                                                            android:id="@+id/InfoRelacionAire"
+                                                            android:layout_width="match_parent"
+                                                            android:layout_height="wrap_content"
+                                                            android:paddingStart="10dp"
+                                                            android:paddingTop="5dp"
+                                                            android:paddingEnd="10dp"
+                                                            android:paddingBottom="5dp"
+                                                            android:text="Aquí se mostrará información relacionada con los datos obtenidos por tu dispositivo."
+                                                            android:textAlignment="center"
+                                                            android:textSize="15sp"
+                                                            android:textStyle="bold"
+                                                            app:layout_constraintBottom_toBottomOf="parent"
+                                                            app:layout_constraintEnd_toEndOf="parent"
+                                                            app:layout_constraintStart_toStartOf="parent"
+                                                            app:layout_constraintTop_toTopOf="parent">
+                                                        </TextView>
+                                                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
                                         </com.google.android.material.card.MaterialCardView>
 
@@ -448,7 +563,7 @@
                                             android:layout_height="250dp"
                                             android:layout_marginTop="18dp"
                                             android:visibility="invisible"
-                                            app:layout_constraintEnd_toEndOf="@+id/CardviewOzono"
+                                            app:layout_constraintEnd_toEndOf="@+id/CardviewCaraOzono"
                                             app:layout_constraintStart_toStartOf="@+id/CardviewSi"
                                             app:layout_constraintTop_toBottomOf="@+id/CardviewSi">
 
