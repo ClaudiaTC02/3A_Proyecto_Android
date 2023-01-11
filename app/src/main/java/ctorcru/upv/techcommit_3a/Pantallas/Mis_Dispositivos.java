@@ -49,6 +49,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import ctorcru.upv.techcommit_3a.Logica.Logica;
 import ctorcru.upv.techcommit_3a.Modelo.DatosClimaOWM;
 import ctorcru.upv.techcommit_3a.Modelo.Usuario;
 import ctorcru.upv.techcommit_3a.R;
@@ -77,6 +78,7 @@ public class Mis_Dispositivos extends AppCompatActivity {
     private TextView SmensajeNoConectado;
     private TextView EmensajeSiConectado;
     private TextView EmensajeDistancia;
+    private TextView mediaMedidas;
     private Button botonCerrarSesion;
     private static Mis_Dispositivos myContext;
     public TextView EbotonDetenerBusqueda;
@@ -151,6 +153,7 @@ public class Mis_Dispositivos extends AppCompatActivity {
         weatherIconImageView = findViewById(R.id.weather_icon);
         nombreUsuario = findViewById(R.id.txtNombreh);
         mediasenal = findViewById(R.id.mediaconexion);
+        mediaMedidas = findViewById(R.id.mediaMedidas);
         buenaSenal = findViewById(R.id.totalconexion);
         malaSenal = findViewById(R.id.pocaconexion);
         infoicono = findViewById(R.id.info_icon);
@@ -253,8 +256,11 @@ public class Mis_Dispositivos extends AppCompatActivity {
             public void onClick(View view) {
                 //Abrir un popup con la información de donde se obtiene la temperatura
                 AlertDialog.Builder builder = new AlertDialog.Builder(Mis_Dispositivos.this);
-                builder.setTitle("Patata");
-                builder.setMessage("Patata");
+                builder.setTitle("Información Ozono");
+                builder.setMessage("Según fuentes oficiales de toda España como 'agroambient.gva.es', 'larioja.org', 'granada.org'... Entre otros, se marcan los siguientes límites de ozono: " +
+                        "\n\r\n Nivel de ozono normal: 0.06 - 0.1 ppm " +
+                        "\n\r\n Nivel de ozono Moderado: 0.09 - 0.1 ppm " +
+                        "\n\r\n Nivel de ozono alto: 0.24 ppm");
                 builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -320,6 +326,7 @@ public class Mis_Dispositivos extends AppCompatActivity {
             servicioEscuchaBeacons.inicializarBlueTooth();
         }
         //-----------------------------------------------
+        new Logica().obtenerMediaMedidas(dtosdef.getCorreo());
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -441,7 +448,27 @@ public class Mis_Dispositivos extends AppCompatActivity {
         startActivity(i);
     }
     // ---------------------------------------------------------------------------------------------
-
+    // ---------------------------------------------------------------------------------------------
+    public void imprimirMedia(String media){
+        if(media != "*"){
+            if(Double.parseDouble(media) >= 0.2){
+                // horrible
+                mediaMedidas.setText(media + " ppm");
+                mediaMedidas.setTextColor(Color.RED);
+            } else if(Double.parseDouble(media) >= 0 && Double.parseDouble(media) < 0.09){
+                // nais
+                mediaMedidas.setText(media + " ppm");
+                mediaMedidas.setTextColor(Color.GREEN);
+            } else if(Double.parseDouble(media) >= 0.09 && Double.parseDouble(media) < 0.2){
+                // medio
+                mediaMedidas.setText(media + " ppm");
+                mediaMedidas.setTextColor(Color.YELLOW);
+            }
+        } else{
+            mediaMedidas.setText("-");
+        }
+    }
+    // ---------------------------------------------------------------------------------------------
     //getInstance
     public Mis_Dispositivos() {
         myContext =  this;

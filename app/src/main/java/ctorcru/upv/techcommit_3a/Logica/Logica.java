@@ -22,7 +22,7 @@ import ctorcru.upv.techcommit_3a.Pantallas.Pagina_Registro;
 // -----------------------------------------------------------------------------------------
 public class Logica {
     private static final String ETIQUETA_LOG = "Logica_REST";
-    private static final String restEndpoint = "http://192.168.68.102:8080";
+    private static final String restEndpoint = "http://192.168.85.93:8080";
 
     // ---------------------------------------------------------------------------------------------
     /**
@@ -200,6 +200,28 @@ public class Logica {
                     public void callback(int codigo, String cuerpo) {
                         Log.d ("PRUEBA",medicion.toJSON());
                         Log.d ("PRUEBA","codigo respuesta: " + codigo + " <-> \n" + cuerpo);
+                    }
+                });
+    }
+    /**
+     * @brief Este método se encarga de obtener la media de las mediciones del usuario durante el dia
+     * @param  correo
+     * Diseño: String correo --> obtenerMediaMedidas() --> Double media
+     **/
+    public void obtenerMediaMedidas(String correo){
+        PeticionarioREST elPeticionarioREST = new PeticionarioREST();
+        String Endpoint1 = new String(restEndpoint+"/obtenerMediaMedidas?id_usuario="+correo).replaceAll(" ","%20");//creamos el endpoint pasandole el correo
+        elPeticionarioREST.hacerPeticionREST("GET", Endpoint1,
+                null,
+                new PeticionarioREST.RespuestaREST () {
+                    @Override
+                    public void callback(int codigo, String cuerpo) {
+                        Log.d(ETIQUETA_LOG, "codigo respuesta: " + codigo + " <-> \n" + cuerpo);
+                        Mis_Dispositivos.getInstance().imprimirMedia("*");
+                        if (codigo == 200 && !cuerpo.isEmpty()) {
+                            Log.d(ETIQUETA_LOG, "obtener media "+ cuerpo );
+                            Mis_Dispositivos.getInstance().imprimirMedia(cuerpo);
+                        }
                     }
                 });
     }
