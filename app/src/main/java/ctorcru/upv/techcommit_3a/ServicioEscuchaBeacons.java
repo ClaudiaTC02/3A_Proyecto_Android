@@ -251,7 +251,7 @@ public class ServicioEscuchaBeacons extends Service {
             //0.0 < minorValorReal && minorValorReal < 1
             //1.0 < minorValorReal && minorValorReal < 1.8
             // Comprobar si el límite es excedido
-            if(minorValorReal > 1.8){
+            if(minorValorReal > 0.24){
                 CardviewCaraOzono.setCardBackgroundColor(Color.parseColor("#72F44336"));
                 Mis_Dispositivos.getInstance().lanzarNotificacionMaximoExcedido();
                 TextoInformacionAire.setVisibility(View.INVISIBLE);
@@ -264,7 +264,7 @@ public class ServicioEscuchaBeacons extends Service {
                 TextoMuyBuenAire.setVisibility(View.INVISIBLE);
                 ImagenMuyBuenAire.setVisibility(View.INVISIBLE);
             }
-            else if (0.0 < minorValorReal && minorValorReal < 1){
+            else if (0.06 < minorValorReal && minorValorReal < 0.1){
                 CardviewCaraOzono.setCardBackgroundColor(Color.parseColor("#5295D529"));
                 TextoInformacionAire.setVisibility(View.INVISIBLE);
                 TextoMuyBuenAire.setVisibility(View.VISIBLE);
@@ -277,7 +277,7 @@ public class ServicioEscuchaBeacons extends Service {
                 ImagenAireNormal.setVisibility(View.INVISIBLE);
 
             }
-            else if (1.0 < minorValorReal && minorValorReal < 1.8){
+            else if (0.09 < minorValorReal && minorValorReal < 0.1){
                 CardviewCaraOzono.setCardBackgroundColor(Color.parseColor("#6DFEDC46"));
                 TextoInformacionAire.setVisibility(View.INVISIBLE);
                 TextoAireNormal.setVisibility(View.VISIBLE);

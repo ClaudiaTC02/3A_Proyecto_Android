@@ -45,6 +45,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import org.json.JSONException;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -95,7 +97,7 @@ public class Mis_Dispositivos extends AppCompatActivity {
     // TextView donde se mostrará la temperatura
     TextView temperatureTextView,humiditytextview;
     // ImageView donde se mostrará la imagen del tiempo
-    ImageView weatherIconImageView,infoicono,infoicono2,infoicono3;
+    ImageView weatherIconImageView,infoicono,infoicono2,infoicono3,infoicono4;
 
     ImageView ImagenMuyBuenAire, ImagenAireNormal, ImagenCuidadoAire;
     TextView TextoMuyBuenAire, TextoAireNormal, TextoCuidadoAire, TextoInformacionAire;
@@ -159,6 +161,7 @@ public class Mis_Dispositivos extends AppCompatActivity {
         infoicono = findViewById(R.id.info_icon);
         infoicono2 = findViewById(R.id.info_icon2);
         infoicono3 = findViewById(R.id.info_icon3);
+        infoicono4 = findViewById(R.id.info_icon4);
         datosUsuario= getIntent().getStringExtra("infoUsuario");
         String userpref= preferencias.getString("allinfoUser","");
 
@@ -251,7 +254,8 @@ public class Mis_Dispositivos extends AppCompatActivity {
         infoicono.setOnClickListener(myOnClickListener);
         infoicono2.setOnClickListener(myOnClickListener);
 
-        infoicono3.setOnClickListener(new View.OnClickListener() {
+
+        View.OnClickListener myOnClickListener2 = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //Abrir un popup con la información de donde se obtiene la temperatura
@@ -269,7 +273,9 @@ public class Mis_Dispositivos extends AppCompatActivity {
                 });
                 builder.show();
             }
-        });
+        };
+        infoicono3.setOnClickListener(myOnClickListener2);
+        infoicono4.setOnClickListener(myOnClickListener2);
 
 
         EbotonDetenerBusqueda.setOnClickListener(new View.OnClickListener() {
@@ -451,9 +457,13 @@ public class Mis_Dispositivos extends AppCompatActivity {
     // ---------------------------------------------------------------------------------------------
     public void imprimirMedia(String media){
         if(media != "*"){
+            //Redondear media a 2 decimales
+            double mediaRedondeada = Math.round(Double.parseDouble(media) * 1000.0) / 1000.0;
+            String mediaRedondeadaString = String.valueOf(mediaRedondeada);
+
             if(Double.parseDouble(media) >= 0.2){
                 // horrible
-                mediaMedidas.setText(media + " ppm");
+                mediaMedidas.setText(mediaRedondeadaString + " ppm");
                 mediaMedidas.setTextColor(Color.RED);
             } else if(Double.parseDouble(media) >= 0 && Double.parseDouble(media) < 0.09){
                 // nais
