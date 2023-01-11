@@ -667,6 +667,12 @@ public class Mis_Dispositivos extends AppCompatActivity {
                     SbotonBusqueda.setVisibility(View.VISIBLE);
                     EbotonDetenerBusqueda.setVisibility(View.INVISIBLE);
                     RbotonConectando.setVisibility(View.INVISIBLE);
+                    EmensajeDistancia.setVisibility(View.INVISIBLE);
+                    EmensajeSiConectado.setVisibility(View.INVISIBLE);
+                    SmensajeNoConectado.setVisibility(View.VISIBLE);
+                    mediasenal.setVisibility(View.INVISIBLE);
+                    buenaSenal.setVisibility(View.INVISIBLE);
+                    malaSenal.setVisibility(View.INVISIBLE);
                 }
                 handler.postDelayed(this, delay);
             }
