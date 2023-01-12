@@ -10,7 +10,10 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
+import android.webkit.WebViewClient;
 import android.widget.ImageView;
+import android.webkit.WebView;
+
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -59,6 +62,13 @@ public class Vista_Mapa extends AppCompatActivity  {
         setContentView(R.layout.activity_vista_mapa);
         ServicioEscuchaBeacons servicioEscuchaBeacons = new ServicioEscuchaBeacons();
         //-----------------------------------------------
+        WebView webView = (WebView) findViewById(R.id.webView);
+        webView.loadUrl("http://192.168.137.1/GTI_3A_Backend/src/ux/mapas.html");
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.setWebViewClient(new WebViewClient());
+
+
+
         //Declaración de variables para el BottomNavigationView
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setBackground(null);
