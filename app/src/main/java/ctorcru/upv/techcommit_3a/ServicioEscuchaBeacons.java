@@ -53,6 +53,7 @@ public class ServicioEscuchaBeacons extends Service {
     public static String UUID;
     public static Integer minor;
     boolean notificacionMostrada = false;
+    boolean notificacionMostrada2 = false;
     public static String nombre;
     public static Date fechaHora;
     public int contador = 0;
@@ -253,7 +254,11 @@ public class ServicioEscuchaBeacons extends Service {
             // Comprobar si el límite es excedido
             if(minorValorReal > 0.24){
                 CardviewCaraOzono.setCardBackgroundColor(Color.parseColor("#72F44336"));
-                Mis_Dispositivos.getInstance().lanzarNotificacionMaximoExcedido();
+                if (!notificacionMostrada2) {
+                    Mis_Dispositivos.getInstance().lanzarNotificacionMaximoExcedido();
+                    notificacionMostrada2 = true;
+                }
+
                 TextoInformacionAire.setVisibility(View.INVISIBLE);
                 TextoCuidadoAire.setVisibility(View.VISIBLE);
                 ImagenCuidadoAire.setVisibility(View.VISIBLE);
