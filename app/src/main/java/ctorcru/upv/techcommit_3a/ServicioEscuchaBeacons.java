@@ -63,6 +63,7 @@ public class ServicioEscuchaBeacons extends Service {
     public String nombreDispositivo;
     public Double latitud;
     public Double longitud;
+    public Integer contadorSubida=0;
 
     ImageView ImagenMuyBuenAire, ImagenAireNormal, ImagenCuidadoAire;
     TextView TextoMuyBuenAire, TextoAireNormal, TextoCuidadoAire, TextoInformacionAire;
@@ -128,7 +129,6 @@ public class ServicioEscuchaBeacons extends Service {
         SbotonConectar = Mis_Dispositivos.getInstance().findViewById(R.id.SbotonBusqueda);
         RbotonConectando = Mis_Dispositivos.getInstance().findViewById(R.id.RbotonConectando);
         EmensajeDistancia = Mis_Dispositivos.getInstance().findViewById(R.id.EmensajeDistancia);
-
         ImagenMuyBuenAire = Mis_Dispositivos.getInstance().findViewById(R.id.hombreContento);
         ImagenAireNormal = Mis_Dispositivos.getInstance().findViewById(R.id.hombreFeliz);
         ImagenCuidadoAire = Mis_Dispositivos.getInstance().findViewById(R.id.imagenConMascarilla);
@@ -215,7 +215,12 @@ public class ServicioEscuchaBeacons extends Service {
 
             Medicion medicion = new Medicion(minorValorReal.toString(),latitud.toString(),longitud.toString(),nombreDispositivo);
             Log.d("medidaParaBD",medicion.toJSON());
-            new Logica().insertarMedida(medicion);
+
+
+            if(contadorSubida >= 100){
+                new Logica().insertarMedida(medicion);
+                contadorSubida = 0;
+            }
             int rssis = rssi;
             Log.d(ETIQUETA_LOG, "rssi Roberto= " + rssis);
             if (rssis >= -84) {
@@ -238,7 +243,7 @@ public class ServicioEscuchaBeacons extends Service {
                 buenaConexion.setVisibility(View.INVISIBLE);
                 mediaConexion.setVisibility(View.INVISIBLE);
                 pocaConexion.setVisibility(View.VISIBLE);
-                Mis_Dispositivos.getInstance().lanzarNotificacionAltaDistanciaSensor();
+                //Mis_Dispositivos.getInstance().lanzarNotificacionAltaDistanciaSensor();
             }
             else {
                 Log.d("distancia", "Sin señal");
@@ -252,49 +257,17 @@ public class ServicioEscuchaBeacons extends Service {
             //0.0 < minorValorReal && minorValorReal < 1
             //1.0 < minorValorReal && minorValorReal < 1.8
             // Comprobar si el límite es excedido
-            if(minorValorReal > 0.24){
-                CardviewCaraOzono.setCardBackgroundColor(Color.parseColor("#72F44336"));
+            if(minorValorReal > 0.4){
+
                 if (!notificacionMostrada2) {
                     Mis_Dispositivos.getInstance().lanzarNotificacionMaximoExcedido();
                     notificacionMostrada2 = true;
                 }
-
-                TextoInformacionAire.setVisibility(View.INVISIBLE);
-                TextoCuidadoAire.setVisibility(View.VISIBLE);
-                ImagenCuidadoAire.setVisibility(View.VISIBLE);
-
-                TextoAireNormal.setVisibility(View.INVISIBLE);
-                ImagenAireNormal.setVisibility(View.INVISIBLE);
-
-                TextoMuyBuenAire.setVisibility(View.INVISIBLE);
-                ImagenMuyBuenAire.setVisibility(View.INVISIBLE);
             }
-            else if (0.06 < minorValorReal && minorValorReal < 0.1){
-                CardviewCaraOzono.setCardBackgroundColor(Color.parseColor("#5295D529"));
-                TextoInformacionAire.setVisibility(View.INVISIBLE);
-                TextoMuyBuenAire.setVisibility(View.VISIBLE);
-                ImagenMuyBuenAire.setVisibility(View.VISIBLE);
 
-                TextoCuidadoAire.setVisibility(View.INVISIBLE);
-                ImagenCuidadoAire.setVisibility(View.INVISIBLE);
-
-                TextoAireNormal.setVisibility(View.INVISIBLE);
-                ImagenAireNormal.setVisibility(View.INVISIBLE);
-
-            }
-            else if (0.09 < minorValorReal && minorValorReal < 0.1){
-                CardviewCaraOzono.setCardBackgroundColor(Color.parseColor("#6DFEDC46"));
-                TextoInformacionAire.setVisibility(View.INVISIBLE);
-                TextoAireNormal.setVisibility(View.VISIBLE);
-                ImagenAireNormal.setVisibility(View.VISIBLE);
-
-                TextoMuyBuenAire.setVisibility(View.INVISIBLE);
-                ImagenMuyBuenAire.setVisibility(View.INVISIBLE);
-
-                TextoCuidadoAire.setVisibility(View.INVISIBLE);
-                ImagenCuidadoAire.setVisibility(View.INVISIBLE);
-            }
+            contadorSubida++;
         }
+
 
         Log.d(ETIQUETA_LOG, "Hola buenas" + contador);
         Log.d(ETIQUETA_LOG, "Hola buenasX" + contadorX);
@@ -460,3 +433,5 @@ public class ServicioEscuchaBeacons extends Service {
 
 
 }
+
+

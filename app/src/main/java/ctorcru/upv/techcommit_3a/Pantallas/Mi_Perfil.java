@@ -4,13 +4,18 @@ package ctorcru.upv.techcommit_3a.Pantallas;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.Outline;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.IBinder;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
 import android.util.Log;
@@ -68,6 +73,7 @@ public class Mi_Perfil extends AppCompatActivity  {
     // DECLARACIONES DE VARIABLES
     // -------------------------------------------------------------------
     //Declaración de variables de la pantalla
+    boolean notificacionMostrada = false;
     private EditText nombrePerfil,correoPerfil;
     private EditText contrasenaPerfil,oldcontrasena;
     private EditText confirmarcontrasena;
@@ -153,6 +159,7 @@ public class Mi_Perfil extends AppCompatActivity  {
         //Llamada al método onCreate de la clase padre
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mi_perfil);
+
         enable=0;
         comprov=0;
         //-----------------------------------------------
@@ -510,7 +517,7 @@ public class Mi_Perfil extends AppCompatActivity  {
     //-----------------------------------------------
     @Override
     public void onBackPressed() {
-        //No hacemos nada
+        finish();
     }
     //-----------------------------------------------
 
@@ -693,5 +700,6 @@ public class Mi_Perfil extends AppCompatActivity  {
         alertOpciones.show();
     }
     //-----------------------------------------------
+
 
 }

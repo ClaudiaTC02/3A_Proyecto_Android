@@ -125,7 +125,7 @@ public class Vista_Mapa extends AppCompatActivity  {
 
     @Override
     public void onBackPressed() {
-        //No hace nada
+        finish();
     }
     // ---------------------------------------------------------------------------------------------
 

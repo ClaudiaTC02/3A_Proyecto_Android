@@ -7,9 +7,11 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.bluetooth.BluetoothAdapter;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -18,6 +20,7 @@ import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.IBinder;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.Menu;
@@ -75,12 +78,12 @@ public class Mis_Dispositivos extends AppCompatActivity {
     private  Usuario dtosdef= new Usuario();
     private SharedPreferences preferencias;
     private TextView nombreUsuario;
-    private TextView SbotonBusqueda;
-    private TextView RbotonConectando;
-    private TextView SmensajeNoConectado;
-    private TextView EmensajeSiConectado;
-    private TextView EmensajeDistancia;
-    private TextView mediaMedidas;
+    public TextView SbotonBusqueda;
+    public TextView RbotonConectando;
+    public TextView SmensajeNoConectado;
+    public TextView EmensajeSiConectado;
+    public TextView EmensajeDistancia;
+    public TextView mediaMedidas;
     private Button botonCerrarSesion;
     private static Mis_Dispositivos myContext;
     public TextView EbotonDetenerBusqueda;
@@ -101,7 +104,9 @@ public class Mis_Dispositivos extends AppCompatActivity {
 
     ImageView ImagenMuyBuenAire, ImagenAireNormal, ImagenCuidadoAire;
     TextView TextoMuyBuenAire, TextoAireNormal, TextoCuidadoAire, TextoInformacionAire;
-    CardView CardviewCaraOzono;
+    CardView CardviewCaraOzono, CardviewAire;
+    private ServicioEscuchaBeacons mService;
+    private boolean mBound = false;
     // -------------------------------------------------------------------
 
 
@@ -174,6 +179,7 @@ public class Mis_Dispositivos extends AppCompatActivity {
         TextoCuidadoAire = findViewById(R.id.CuidadoAire);
         TextoInformacionAire = findViewById(R.id.InfoRelacionAire);
         CardviewCaraOzono = findViewById(R.id.CardviewCaraOzono);
+        CardviewAire = findViewById(R.id.CardviewAire);
         //-----------------------------------------------
 
         //-----------------------------------------------
@@ -184,6 +190,7 @@ public class Mis_Dispositivos extends AppCompatActivity {
         bottomNavigationView.setSelectedItemId(R.id.Inicio);
         fab = findViewById(R.id.fab);
         requestLocationPermission();
+
 
         try {
             dtosdef= infoUsuario.JsonToString(userpref);
@@ -221,17 +228,7 @@ public class Mis_Dispositivos extends AppCompatActivity {
         SbotonBusqueda.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                notificacionMostrada = false;
-                Toast.makeText(getApplicationContext(), "La conexión va a comenzar.", Toast.LENGTH_SHORT).show();
-                Intent i = new Intent(Mis_Dispositivos.this, ServicioEscuchaBeacons.class);
-                cambiarvalor();
-                SbotonBusqueda.setVisibility(View.INVISIBLE);
-                RbotonConectando.setVisibility(View.VISIBLE);
-                comprobacion();
-                String nombreSensor = preferencias.getString("CodigoDispositivo","");
-
-                i.putExtra("nombreSensor", nombreSensor);
-                    startService(i);
+                IniciarBusqueda();
             }
         });
 
@@ -282,7 +279,6 @@ public class Mis_Dispositivos extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getApplicationContext(), "La conexión se ha detenido", Toast.LENGTH_SHORT).show();
-                stopService(new Intent(Mis_Dispositivos.this, ServicioEscuchaBeacons.class));
                 buenaSenal.setVisibility(View.INVISIBLE);
                 malaSenal.setVisibility(View.INVISIBLE);
                 mediasenal.setVisibility(View.INVISIBLE);
@@ -292,8 +288,11 @@ public class Mis_Dispositivos extends AppCompatActivity {
                 EbotonDetenerBusqueda.setVisibility(View.INVISIBLE);
                 EmensajeSiConectado.setVisibility(View.INVISIBLE);
                 EmensajeDistancia.setVisibility(View.INVISIBLE);
+                stopService(new Intent(Mis_Dispositivos.this, ServicioEscuchaBeacons.class));
             }
         });
+
+
 
 //        botonMaximoExcedido.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -342,7 +341,7 @@ public class Mis_Dispositivos extends AppCompatActivity {
     // ---------------------------------------------------------------------------------------------
     @Override
     public void onBackPressed() {
-        //No hacemos nada
+        finish();
     }
     // ---------------------------------------------------------------------------------------------
     @Override
@@ -368,7 +367,6 @@ public class Mis_Dispositivos extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-
         try {
             cargarDatos();
         } catch (JSONException e) {
@@ -464,15 +462,39 @@ public class Mis_Dispositivos extends AppCompatActivity {
             if(Double.parseDouble(media) >= 0.2){
                 // horrible
                 mediaMedidas.setText(mediaRedondeadaString + " ppm");
-                mediaMedidas.setTextColor(Color.RED);
+                CardviewCaraOzono.setCardBackgroundColor(Color.parseColor("#72F44336"));
+                CardviewAire.setCardBackgroundColor(Color.parseColor("#72F44336"));
+                TextoInformacionAire.setVisibility(View.INVISIBLE);
+                TextoAireNormal.setVisibility(View.INVISIBLE);
+                TextoCuidadoAire.setVisibility(View.VISIBLE);
+                TextoMuyBuenAire.setVisibility(View.INVISIBLE);
+                ImagenAireNormal.setVisibility(View.INVISIBLE);
+                ImagenCuidadoAire.setVisibility(View.VISIBLE);
+                ImagenMuyBuenAire.setVisibility(View.INVISIBLE);
             } else if(Double.parseDouble(media) >= 0 && Double.parseDouble(media) < 0.09){
                 // nais
-                mediaMedidas.setText(media + " ppm");
-                mediaMedidas.setTextColor(Color.GREEN);
+                mediaMedidas.setText(mediaRedondeadaString + " ppm");
+                CardviewCaraOzono.setCardBackgroundColor(Color.parseColor("#5295D529"));
+                CardviewAire.setCardBackgroundColor(Color.parseColor("#5295D529"));
+                TextoInformacionAire.setVisibility(View.INVISIBLE);
+                TextoAireNormal.setVisibility(View.INVISIBLE);
+                TextoCuidadoAire.setVisibility(View.INVISIBLE);
+                TextoMuyBuenAire.setVisibility(View.VISIBLE);
+                ImagenAireNormal.setVisibility(View.INVISIBLE);
+                ImagenCuidadoAire.setVisibility(View.INVISIBLE);
+                ImagenMuyBuenAire.setVisibility(View.VISIBLE);
             } else if(Double.parseDouble(media) >= 0.09 && Double.parseDouble(media) < 0.2){
                 // medio
-                mediaMedidas.setText(media + " ppm");
-                mediaMedidas.setTextColor(Color.YELLOW);
+                mediaMedidas.setText(mediaRedondeadaString + " ppm");
+                CardviewCaraOzono.setCardBackgroundColor(Color.parseColor("#6DFEDC46"));
+                CardviewAire.setCardBackgroundColor(Color.parseColor("#6DFEDC46"));
+                TextoInformacionAire.setVisibility(View.INVISIBLE);
+                TextoAireNormal.setVisibility(View.VISIBLE);
+                TextoCuidadoAire.setVisibility(View.INVISIBLE);
+                TextoMuyBuenAire.setVisibility(View.INVISIBLE);
+                ImagenAireNormal.setVisibility(View.VISIBLE);
+                ImagenCuidadoAire.setVisibility(View.INVISIBLE);
+                ImagenMuyBuenAire.setVisibility(View.INVISIBLE);
             }
         } else{
             mediaMedidas.setText("-");
@@ -615,14 +637,14 @@ public class Mis_Dispositivos extends AppCompatActivity {
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, ii, PendingIntent.FLAG_IMMUTABLE);
 
         NotificationCompat.BigTextStyle bigText = new NotificationCompat.BigTextStyle();
-        bigText.bigText("Has dejado de recibir información de tu dispositivo.");
+        bigText.bigText("El dispositivo se ha desconectado.");
         bigText.setBigContentTitle("Aviso");
         bigText.setSummaryText("Conexión con el dispositivo");
 
         mBuilder.setContentIntent(pendingIntent);
         mBuilder.setSmallIcon(R.drawable.ic_sensor);
         mBuilder.setContentTitle("Aviso");
-        mBuilder.setContentText("Has dejado de recibir información de tu dispositivo.");
+        mBuilder.setContentText("El dispositivo se ha desconectado.");
         mBuilder.setPriority(Notification.PRIORITY_MIN);
         mBuilder.setStyle(bigText);
 
@@ -726,13 +748,6 @@ public class Mis_Dispositivos extends AppCompatActivity {
                     EmensajeDistancia.setVisibility(View.INVISIBLE);
                     EmensajeSiConectado.setVisibility(View.INVISIBLE);
                     SmensajeNoConectado.setVisibility(View.VISIBLE);
-                    TextoInformacionAire.setVisibility(View.VISIBLE);
-                    TextoAireNormal.setVisibility(View.INVISIBLE);
-                    TextoCuidadoAire.setVisibility(View.INVISIBLE);
-                    TextoMuyBuenAire.setVisibility(View.INVISIBLE);
-                    ImagenAireNormal.setVisibility(View.INVISIBLE);
-                    ImagenCuidadoAire.setVisibility(View.INVISIBLE);
-                    ImagenMuyBuenAire.setVisibility(View.INVISIBLE);
                     CardviewCaraOzono.setCardBackgroundColor(Color.parseColor("#2A4A4A48"));
                 }
                 handler.postDelayed(this, delay);
@@ -814,5 +829,19 @@ public class Mis_Dispositivos extends AppCompatActivity {
             getDeviceLocation();
         }
     }
+
+    public void IniciarBusqueda(){
+        notificacionMostrada = false;
+        Toast.makeText(getApplicationContext(), "La conexión va a comenzar.", Toast.LENGTH_SHORT).show();
+        Intent i = new Intent(Mis_Dispositivos.this, ServicioEscuchaBeacons.class);
+        cambiarvalor();
+        SbotonBusqueda.setVisibility(View.INVISIBLE);
+        RbotonConectando.setVisibility(View.VISIBLE);
+        comprobacion();
+        String nombreSensor = preferencias.getString("CodigoDispositivo","");
+        i.putExtra("nombreSensor", nombreSensor);
+        startService(i);
+    }
+
 
 }
