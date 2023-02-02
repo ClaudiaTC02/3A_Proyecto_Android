@@ -21,6 +21,48 @@
             android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent" />
 
+        <Button
+            android:id="@+id/btnInfo"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="Información acerca de los contaminantes"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textSize="13dp"
+            android:textAllCaps="false"
+            android:visibility="gone"
+            android:layout_margin="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/webView" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:layout_marginTop="80dp"
+            android:layout_marginStart="10dp"
+            app:cardBackgroundColor="#fff"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="5dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/infobocadillo"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:background="@drawable/ic_informacion"
+                    android:contentDescription="@string/app_name"
+                    android:padding="10dp"
+                    android:scaleType="centerInside"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

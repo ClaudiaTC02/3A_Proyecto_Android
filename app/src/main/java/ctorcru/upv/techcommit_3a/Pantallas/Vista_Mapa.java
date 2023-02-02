@@ -1,18 +1,24 @@
 package ctorcru.upv.techcommit_3a.Pantallas;
 
 import android.Manifest;
+import android.app.DownloadManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 import android.webkit.WebViewClient;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.webkit.WebView;
+import android.widget.Toast;
 
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -52,6 +58,8 @@ public class Vista_Mapa extends AppCompatActivity  {
     private AlertDialog.Builder cerrarSesioon;
     FloatingActionButton fab;
     BottomNavigationView bottomNavigationView;
+    Button btnInfo;
+    ImageButton infobocadillo;
 
     // -------------------------------------------------------------------
     //MÉTODO ONCREATE
@@ -75,6 +83,8 @@ public class Vista_Mapa extends AppCompatActivity  {
         bottomNavigationView.setSelectedItemId(R.id.vacio);
         bottomNavigationView.getMenu().getItem(1).setEnabled(false);
         fab = findViewById(R.id.fab);
+        btnInfo = findViewById(R.id.btnInfo);
+        infobocadillo = findViewById(R.id.infobocadillo);
         //-----------------------------------------------
 
         //-----------------------------------------------
@@ -116,6 +126,36 @@ public class Vista_Mapa extends AppCompatActivity  {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.BLUETOOTH, Manifest.permission.BLUETOOTH_ADMIN, Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.BLUETOOTH_SCAN,Manifest.permission.BLUETOOTH_ADVERTISE,Manifest.permission.BLUETOOTH_CONNECT}, 0);
             servicioEscuchaBeacons.inicializarBlueTooth();
         }
+
+        btnInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DownloadManager downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+                Uri uri = Uri.parse("https://download1519.mediafire.com/j0zcoejbnngg/1bknn8djkpx8a7u/documento.pdf");
+                DownloadManager.Request request = new DownloadManager.Request(uri);
+                request.setTitle("Información de los contaminantes");
+                request.setDescription("Descargando archivo PDF...");
+                request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+                downloadManager.enqueue(request);
+                Toast.makeText(Vista_Mapa.this, "Ha comenzado la descarga del archivo de información.", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        infobocadillo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DownloadManager downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+                Uri uri = Uri.parse("https://download1519.mediafire.com/j0zcoejbnngg/1bknn8djkpx8a7u/documento.pdf");
+                DownloadManager.Request request = new DownloadManager.Request(uri);
+                request.setTitle("Información de los contaminantes");
+                request.setDescription("Descargando archivo PDF...");
+                request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+                downloadManager.enqueue(request);
+                Toast.makeText(Vista_Mapa.this, "Se va a descargar el archivo de información sobre los contaminantes.", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
     }
     // ---------------------------------------------------------------------------------------------
     /**
@@ -185,4 +225,5 @@ public class Vista_Mapa extends AppCompatActivity  {
         startActivity(i);
     }
     // ---------------------------------------------------------------------------------------------
+
 }
