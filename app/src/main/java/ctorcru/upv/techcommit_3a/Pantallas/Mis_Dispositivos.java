@@ -331,7 +331,12 @@ public class Mis_Dispositivos extends AppCompatActivity {
             servicioEscuchaBeacons.inicializarBlueTooth();
         }
         //-----------------------------------------------
-        new Logica().obtenerMediaMedidas(dtosdef.getCorreo());
+        try {
+            new Logica().obtenerMediaMedidas(dtosdef.getCorreo());
+        }
+        catch (Exception e){
+
+        }
     }
 
     // ---------------------------------------------------------------------------------------------
