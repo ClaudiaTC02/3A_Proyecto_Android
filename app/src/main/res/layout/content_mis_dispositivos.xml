@@ -389,17 +389,43 @@
                                                     android:layout_width="match_parent"
                                                     android:layout_height="match_parent">
 
-                                                        <ImageView
-                                                            android:id="@+id/imageView4"
+                                                        <com.google.android.material.card.MaterialCardView
                                                             android:layout_width="100dp"
                                                             android:layout_height="100dp"
-                                                            android:layout_marginStart="15dp"
-                                                            android:paddingEnd="15dp"
-                                                            android:contentDescription="Llavero"
-                                                            android:src="@drawable/llavero"
+                                                            android:layout_marginStart="13dp"
+                                                            app:cardCornerRadius="23dp"
+                                                            app:cardElevation="0dp"
+                                                            app:cardBackgroundColor="#00484A4A"
                                                             app:layout_constraintBottom_toBottomOf="parent"
                                                             app:layout_constraintStart_toStartOf="parent"
-                                                            app:layout_constraintTop_toTopOf="parent" />
+                                                            app:layout_constraintTop_toTopOf="parent">
+
+                                                                <ImageView
+                                                                    android:id="@+id/carcasa"
+                                                                    android:layout_width="100dp"
+                                                                    android:layout_height="100dp"
+                                                                    android:contentDescription="Llavero"
+                                                                    android:src="@drawable/carcasaaaaa"
+                                                                    app:layout_constraintBottom_toBottomOf="parent"
+                                                                    app:layout_constraintStart_toStartOf="parent"
+                                                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                                        </com.google.android.material.card.MaterialCardView>
+
+                                                                <ImageView
+                                                                    android:visibility="invisible"
+                                                                    android:id="@+id/imageView4"
+                                                                    android:layout_width="100dp"
+                                                                    android:layout_height="100dp"
+                                                                    android:layout_marginStart="15dp"
+                                                                    android:contentDescription="Llavero"
+                                                                    android:src="@drawable/carcasa"
+                                                                    app:layout_constraintBottom_toBottomOf="parent"
+                                                                    app:layout_constraintStart_toStartOf="parent"
+                                                                    app:layout_constraintTop_toTopOf="parent" />
+
+
+
 
                                                         <TextView
                                                             android:id="@+id/SmensajeNoConectado"
