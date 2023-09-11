@@ -203,4 +203,35 @@ public class Logica {
                     }
                 });
     }
+    /**
+     * @brief Este método se encarga de obtener la media de las mediciones del usuario durante el dia
+     * @param  correo
+     * Diseño: String correo --> obtenerMediaMedidas() --> Double media
+     **/
+    public void obtenerMediaMedidas(String correo){
+        try {
+            PeticionarioREST elPeticionarioREST = new PeticionarioREST();
+            String Endpoint1 = new String(restEndpoint + "/obtenerMediaMedidas?id_usuario=" + correo).replaceAll(" ", "%20");//creamos el endpoint pasandole el correo
+            elPeticionarioREST.hacerPeticionREST("GET", Endpoint1,
+                    null,
+                    new PeticionarioREST.RespuestaREST() {
+                        @Override
+                        public void callback(int codigo, String cuerpo) {
+                            try {
+                                Log.d(ETIQUETA_LOG, "codigo respuesta: " + codigo + " <-> \n" + cuerpo);
+                                Mis_Dispositivos.getInstance().imprimirMedia("*");
+                                if (codigo == 200 && !cuerpo.isEmpty()) {
+                                    Log.d(ETIQUETA_LOG, "obtener media " + cuerpo);
+                                    Mis_Dispositivos.getInstance().imprimirMedia(cuerpo);
+                                }
+                            } catch (Exception e) {
+                                Log.d(ETIQUETA_LOG, "error al obtener la media");
+                            }
+                        }
+                    });
+        }
+        catch (Exception e){
+            Log.d(ETIQUETA_LOG, "error al obtener la media");
+        }
+    }
 }

@@ -62,11 +62,13 @@ public class DatosClimaOWM {
             String temperatureString = Integer.toString(temperatureInt);
             temperatureTextView.setText(temperatureString + "°C");
 
-            //Obtener la humedad del objeto JSON y almacenarla en la variable humidity
+            //Obtener la humedad del objeto JSON y almacenarla en la variable humidityInt
             humidity = jsonObject.getJSONObject("main").getDouble("humidity");
+            double humidityDouble = Double.parseDouble(String.valueOf(humidity));
+            int humidityInt = (int) Math.round(humidityDouble);
 
             //Establecer el texto de la vista de texto con la humedad
-            humidityTextView.setText(humidity + "%");
+            humidityTextView.setText(humidityInt + "%");
 
             // Obtener la condición meteorológica del objeto JSON
             String weatherCondition = jsonObject.getJSONArray("weather").getJSONObject(0).getString("main");

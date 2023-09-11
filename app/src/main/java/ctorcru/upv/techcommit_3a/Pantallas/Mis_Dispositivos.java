@@ -7,16 +7,20 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.bluetooth.BluetoothAdapter;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.IBinder;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.Menu;
@@ -33,6 +37,7 @@ import com.google.android.material.navigation.NavigationView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
@@ -43,10 +48,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import org.json.JSONException;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import ctorcru.upv.techcommit_3a.Logica.Logica;
 import ctorcru.upv.techcommit_3a.Modelo.DatosClimaOWM;
 import ctorcru.upv.techcommit_3a.Modelo.Usuario;
 import ctorcru.upv.techcommit_3a.R;
@@ -70,11 +78,12 @@ public class Mis_Dispositivos extends AppCompatActivity {
     private  Usuario dtosdef= new Usuario();
     private SharedPreferences preferencias;
     private TextView nombreUsuario;
-    private TextView SbotonBusqueda;
-    private TextView RbotonConectando;
-    private TextView SmensajeNoConectado;
-    private TextView EmensajeSiConectado;
-    private TextView EmensajeDistancia;
+    public TextView SbotonBusqueda;
+    public TextView RbotonConectando;
+    public TextView SmensajeNoConectado;
+    public TextView EmensajeSiConectado;
+    public TextView EmensajeDistancia;
+    public TextView mediaMedidas;
     private Button botonCerrarSesion;
     private static Mis_Dispositivos myContext;
     public TextView EbotonDetenerBusqueda;
@@ -91,7 +100,13 @@ public class Mis_Dispositivos extends AppCompatActivity {
     // TextView donde se mostrará la temperatura
     TextView temperatureTextView,humiditytextview;
     // ImageView donde se mostrará la imagen del tiempo
-    ImageView weatherIconImageView,infoicono,infoicono2;
+    ImageView weatherIconImageView,infoicono,infoicono2,infoicono3,infoicono4;
+
+    ImageView ImagenMuyBuenAire, ImagenAireNormal, ImagenCuidadoAire;
+    TextView TextoMuyBuenAire, TextoAireNormal, TextoCuidadoAire, TextoInformacionAire;
+    CardView CardviewCaraOzono, CardviewAire;
+    private ServicioEscuchaBeacons mService;
+    private boolean mBound = false;
     // -------------------------------------------------------------------
 
 
@@ -145,12 +160,26 @@ public class Mis_Dispositivos extends AppCompatActivity {
         weatherIconImageView = findViewById(R.id.weather_icon);
         nombreUsuario = findViewById(R.id.txtNombreh);
         mediasenal = findViewById(R.id.mediaconexion);
+        mediaMedidas = findViewById(R.id.mediaMedidas);
         buenaSenal = findViewById(R.id.totalconexion);
         malaSenal = findViewById(R.id.pocaconexion);
         infoicono = findViewById(R.id.info_icon);
         infoicono2 = findViewById(R.id.info_icon2);
+        infoicono3 = findViewById(R.id.info_icon3);
+        infoicono4 = findViewById(R.id.info_icon4);
         datosUsuario= getIntent().getStringExtra("infoUsuario");
         String userpref= preferencias.getString("allinfoUser","");
+
+
+        ImagenMuyBuenAire = findViewById(R.id.hombreContento);
+        ImagenAireNormal = findViewById(R.id.hombreFeliz);
+        ImagenCuidadoAire = findViewById(R.id.imagenConMascarilla);
+        TextoMuyBuenAire = findViewById(R.id.conTranquilidad);
+        TextoAireNormal = findViewById(R.id.MedioMdio);
+        TextoCuidadoAire = findViewById(R.id.CuidadoAire);
+        TextoInformacionAire = findViewById(R.id.InfoRelacionAire);
+        CardviewCaraOzono = findViewById(R.id.CardviewCaraOzono);
+        CardviewAire = findViewById(R.id.CardviewAire);
         //-----------------------------------------------
 
         //-----------------------------------------------
@@ -161,6 +190,7 @@ public class Mis_Dispositivos extends AppCompatActivity {
         bottomNavigationView.setSelectedItemId(R.id.Inicio);
         fab = findViewById(R.id.fab);
         requestLocationPermission();
+
 
         try {
             dtosdef= infoUsuario.JsonToString(userpref);
@@ -198,17 +228,7 @@ public class Mis_Dispositivos extends AppCompatActivity {
         SbotonBusqueda.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                notificacionMostrada = false;
-                Toast.makeText(getApplicationContext(), "La conexión va a comenzar.", Toast.LENGTH_SHORT).show();
-                Intent i = new Intent(Mis_Dispositivos.this, ServicioEscuchaBeacons.class);
-                cambiarvalor();
-                SbotonBusqueda.setVisibility(View.INVISIBLE);
-                RbotonConectando.setVisibility(View.VISIBLE);
-                comprobacion();
-                String nombreSensor = preferencias.getString("CodigoDispositivo","");
-
-                i.putExtra("nombreSensor", nombreSensor);
-                    startService(i);
+                IniciarBusqueda();
             }
         });
 
@@ -232,19 +252,47 @@ public class Mis_Dispositivos extends AppCompatActivity {
         infoicono2.setOnClickListener(myOnClickListener);
 
 
+        View.OnClickListener myOnClickListener2 = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Abrir un popup con la información de donde se obtiene la temperatura
+                AlertDialog.Builder builder = new AlertDialog.Builder(Mis_Dispositivos.this);
+                builder.setTitle("Información Ozono");
+                builder.setMessage("Según fuentes oficiales de toda España como 'agroambient.gva.es', 'larioja.org', 'granada.org'... Entre otros, se marcan los siguientes límites de ozono: " +
+                        "\n\r\n Nivel de ozono normal: 0.06 - 0.1 ppm " +
+                        "\n\r\n Nivel de ozono Moderado: 0.09 - 0.1 ppm " +
+                        "\n\r\n Nivel de ozono alto: 0.24 ppm");
+                builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                builder.show();
+            }
+        };
+        infoicono3.setOnClickListener(myOnClickListener2);
+        infoicono4.setOnClickListener(myOnClickListener2);
+
+
         EbotonDetenerBusqueda.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getApplicationContext(), "La conexión se ha detenido", Toast.LENGTH_SHORT).show();
-                stopService(new Intent(Mis_Dispositivos.this, ServicioEscuchaBeacons.class));
+                buenaSenal.setVisibility(View.INVISIBLE);
+                malaSenal.setVisibility(View.INVISIBLE);
+                mediasenal.setVisibility(View.INVISIBLE);
                 SbotonBusqueda.setVisibility(View.VISIBLE);
                 SmensajeNoConectado.setVisibility(View.VISIBLE);
                 RbotonConectando.setVisibility(View.INVISIBLE);
                 EbotonDetenerBusqueda.setVisibility(View.INVISIBLE);
                 EmensajeSiConectado.setVisibility(View.INVISIBLE);
                 EmensajeDistancia.setVisibility(View.INVISIBLE);
+                stopService(new Intent(Mis_Dispositivos.this, ServicioEscuchaBeacons.class));
             }
         });
+
+
 
 //        botonMaximoExcedido.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -283,6 +331,12 @@ public class Mis_Dispositivos extends AppCompatActivity {
             servicioEscuchaBeacons.inicializarBlueTooth();
         }
         //-----------------------------------------------
+        try {
+            new Logica().obtenerMediaMedidas(dtosdef.getCorreo());
+        }
+        catch (Exception e){
+
+        }
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -292,7 +346,7 @@ public class Mis_Dispositivos extends AppCompatActivity {
     // ---------------------------------------------------------------------------------------------
     @Override
     public void onBackPressed() {
-        //No hacemos nada
+        finish();
     }
     // ---------------------------------------------------------------------------------------------
     @Override
@@ -318,7 +372,6 @@ public class Mis_Dispositivos extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-
         try {
             cargarDatos();
         } catch (JSONException e) {
@@ -404,7 +457,55 @@ public class Mis_Dispositivos extends AppCompatActivity {
         startActivity(i);
     }
     // ---------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
+    public void imprimirMedia(String media){
+        if(media != "*"){
+            //Redondear media a 2 decimales
+            double mediaRedondeada = Math.round(Double.parseDouble(media) * 1000.0) / 1000.0;
+            String mediaRedondeadaString = String.valueOf(mediaRedondeada);
 
+            if(Double.parseDouble(media) >= 0.2){
+                // horrible
+                mediaMedidas.setText(mediaRedondeadaString + " ppm");
+                CardviewCaraOzono.setCardBackgroundColor(Color.parseColor("#72F44336"));
+                CardviewAire.setCardBackgroundColor(Color.parseColor("#72F44336"));
+                TextoInformacionAire.setVisibility(View.INVISIBLE);
+                TextoAireNormal.setVisibility(View.INVISIBLE);
+                TextoCuidadoAire.setVisibility(View.VISIBLE);
+                TextoMuyBuenAire.setVisibility(View.INVISIBLE);
+                ImagenAireNormal.setVisibility(View.INVISIBLE);
+                ImagenCuidadoAire.setVisibility(View.VISIBLE);
+                ImagenMuyBuenAire.setVisibility(View.INVISIBLE);
+            } else if(Double.parseDouble(media) >= 0 && Double.parseDouble(media) < 0.09){
+                // nais
+                mediaMedidas.setText(mediaRedondeadaString + " ppm");
+                CardviewCaraOzono.setCardBackgroundColor(Color.parseColor("#5295D529"));
+                CardviewAire.setCardBackgroundColor(Color.parseColor("#5295D529"));
+                TextoInformacionAire.setVisibility(View.INVISIBLE);
+                TextoAireNormal.setVisibility(View.INVISIBLE);
+                TextoCuidadoAire.setVisibility(View.INVISIBLE);
+                TextoMuyBuenAire.setVisibility(View.VISIBLE);
+                ImagenAireNormal.setVisibility(View.INVISIBLE);
+                ImagenCuidadoAire.setVisibility(View.INVISIBLE);
+                ImagenMuyBuenAire.setVisibility(View.VISIBLE);
+            } else if(Double.parseDouble(media) >= 0.09 && Double.parseDouble(media) < 0.2){
+                // medio
+                mediaMedidas.setText(mediaRedondeadaString + " ppm");
+                CardviewCaraOzono.setCardBackgroundColor(Color.parseColor("#6DFEDC46"));
+                CardviewAire.setCardBackgroundColor(Color.parseColor("#6DFEDC46"));
+                TextoInformacionAire.setVisibility(View.INVISIBLE);
+                TextoAireNormal.setVisibility(View.VISIBLE);
+                TextoCuidadoAire.setVisibility(View.INVISIBLE);
+                TextoMuyBuenAire.setVisibility(View.INVISIBLE);
+                ImagenAireNormal.setVisibility(View.VISIBLE);
+                ImagenCuidadoAire.setVisibility(View.INVISIBLE);
+                ImagenMuyBuenAire.setVisibility(View.INVISIBLE);
+            }
+        } else{
+            mediaMedidas.setText("-");
+        }
+    }
+    // ---------------------------------------------------------------------------------------------
     //getInstance
     public Mis_Dispositivos() {
         myContext =  this;
@@ -541,14 +642,14 @@ public class Mis_Dispositivos extends AppCompatActivity {
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, ii, PendingIntent.FLAG_IMMUTABLE);
 
         NotificationCompat.BigTextStyle bigText = new NotificationCompat.BigTextStyle();
-        bigText.bigText("Has dejado de recibir información de tu dispositivo.");
+        bigText.bigText("El dispositivo se ha desconectado.");
         bigText.setBigContentTitle("Aviso");
         bigText.setSummaryText("Conexión con el dispositivo");
 
         mBuilder.setContentIntent(pendingIntent);
         mBuilder.setSmallIcon(R.drawable.ic_sensor);
         mBuilder.setContentTitle("Aviso");
-        mBuilder.setContentText("Has dejado de recibir información de tu dispositivo.");
+        mBuilder.setContentText("El dispositivo se ha desconectado.");
         mBuilder.setPriority(Notification.PRIORITY_MIN);
         mBuilder.setStyle(bigText);
 
@@ -643,9 +744,16 @@ public class Mis_Dispositivos extends AppCompatActivity {
                         Mis_Dispositivos.getInstance().lanzarNotificacionYaNoReciboBeacons();
                         notificacionMostrada = true;
                     }
+                    mediasenal.setVisibility(View.INVISIBLE);
+                    buenaSenal.setVisibility(View.INVISIBLE);
+                    malaSenal.setVisibility(View.INVISIBLE);
                     SbotonBusqueda.setVisibility(View.VISIBLE);
                     EbotonDetenerBusqueda.setVisibility(View.INVISIBLE);
                     RbotonConectando.setVisibility(View.INVISIBLE);
+                    EmensajeDistancia.setVisibility(View.INVISIBLE);
+                    EmensajeSiConectado.setVisibility(View.INVISIBLE);
+                    SmensajeNoConectado.setVisibility(View.VISIBLE);
+                    CardviewCaraOzono.setCardBackgroundColor(Color.parseColor("#2A4A4A48"));
                 }
                 handler.postDelayed(this, delay);
             }
@@ -726,5 +834,19 @@ public class Mis_Dispositivos extends AppCompatActivity {
             getDeviceLocation();
         }
     }
+
+    public void IniciarBusqueda(){
+        notificacionMostrada = false;
+        Toast.makeText(getApplicationContext(), "La conexión va a comenzar.", Toast.LENGTH_SHORT).show();
+        Intent i = new Intent(Mis_Dispositivos.this, ServicioEscuchaBeacons.class);
+        cambiarvalor();
+        SbotonBusqueda.setVisibility(View.INVISIBLE);
+        RbotonConectando.setVisibility(View.VISIBLE);
+        comprobacion();
+        String nombreSensor = preferencias.getString("CodigoDispositivo","");
+        i.putExtra("nombreSensor", nombreSensor);
+        startService(i);
+    }
+
 
 }
